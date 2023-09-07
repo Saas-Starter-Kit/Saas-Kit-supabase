@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../../public/static/fonts/Roboto-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
