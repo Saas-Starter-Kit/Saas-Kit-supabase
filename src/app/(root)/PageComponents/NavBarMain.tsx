@@ -1,5 +1,5 @@
 import NavItem from '@/components/NavItem';
-import config from '@/lib/config/appDefaults';
+import config from '@/lib/config/AppDefaults';
 
 const NavBarMain = () => {
   return (

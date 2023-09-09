@@ -6,9 +6,9 @@ import { cache } from 'react';
 
 //import type { Database } from '@/lib/database.types'
 
-const supabaseServerClient = cache(() => {
+const SupabaseServerClient = cache(() => {
   const cookieStore = cookies();
   return createServerComponentClient({ cookies: () => cookieStore });
 });
 
-export default supabaseServerClient;
+export default SupabaseServerClient;
