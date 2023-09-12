@@ -1,35 +1,14 @@
-'use client';
+import PricingDisplay from './_PageComponents/PricingDisplay';
+import { SupabaseUser } from '@/lib/API/supabase/user';
 
-import axios from 'axios';
-import configuration from '@/lib/config/AppDefaults';
-import { useRouter } from 'next/navigation';
-import PricingDisplay from './PageSections/PricingDisplay';
-import supabase from '@/lib/config/supabase/SupabaseClientComp';
-
-export default function Login() {
-  const { domain } = configuration;
-  const router = useRouter();
-
-  //const {
-  //  data: { user }
-  //} = await supabase.auth.getUser();
-
-  const handleSubscription = async (price) => {
-    const res: any = await axios
-      .post('/api/stripe', {
-        price,
-        domain
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    router.push(res.data.session.url);
-  };
+export default async function Subscription() {
+  const {
+    data: { user }
+  } = await SupabaseUser();
 
   return (
-    <div>
-      <PricingDisplay handleSubscription={handleSubscription} />
+    <div className="">
+      <PricingDisplay user={user} />
     </div>
   );
 }

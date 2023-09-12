@@ -1,35 +1,26 @@
 'use client';
 
-import supabase from '@/lib/config/supabase/SupabaseClientComp';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { SupabaseSignIn, SupabaseSignUp, SupabaseSignOut } from '@/lib/API/supabase/auth';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleSignUp = async () => {
-    await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`
-      }
-    });
+  const handleSignUp = () => {
+    SupabaseSignUp(email, password);
     router.push('/protected');
   };
 
   const handleSignIn = async () => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
+    SupabaseSignIn(email, password);
     router.push('/protected');
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    SupabaseSignOut();
     router.push('/');
   };
 

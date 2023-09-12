@@ -1,10 +1,9 @@
-import supabase from '@/lib/config/supabase/SupabaseServer';
 import { revalidatePath } from 'next/cache';
-
+import { GetAllTodos } from '@/lib/API/Requests/todos/Server';
 export const dynamic = 'force-dynamic';
 
 export default async function ListTodos() {
-  const res = await supabase().from('todos').select();
+  const res = await GetAllTodos();
   revalidatePath('/');
 
   return (

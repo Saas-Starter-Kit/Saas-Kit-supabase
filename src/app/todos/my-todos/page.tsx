@@ -1,17 +1,17 @@
-import supabase from '@/lib/config/supabase/SupabaseServer';
 import { revalidatePath } from 'next/cache';
 import ButtonRow from './PageSections/ButtonRow';
+import { SupabaseUser } from '@/lib/API/supabase/user';
+import { GetTodoByUserId } from '@/lib/API/Requests/todos/Server';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ListTodos() {
   const {
     data: { user }
-  } = await supabase().auth.getUser();
+  } = await SupabaseUser();
 
   const user_id = user?.id;
-
-  const res = await supabase().from('todos').select().eq('user_id', user_id);
+  const res = await GetTodoByUserId(user_id);
 
   revalidatePath('/');
 

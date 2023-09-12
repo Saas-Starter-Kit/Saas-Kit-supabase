@@ -1,9 +1,8 @@
-import supabase from '@/lib/config/supabase/SupabaseServer';
+import { SupabaseSession } from '@/lib/API/supabase/user';
 import { redirect } from 'next/navigation';
 
 const Protected = async () => {
-  const { data } = await supabase().auth.getSession();
-
+  const { data } = await SupabaseSession();
   if (!data?.session) {
     redirect('/');
   }

@@ -1,19 +1,18 @@
 'use client';
 
-import supabase from '@/lib/config/supabase/SupabaseClientComp';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+
+import { UpdateTodo, DeleteTodo } from '@/lib/API/Requests/todos/Browser';
 
 export default function ButtonRow({ todo_id, todo_title }) {
   const [title, setTitle] = useState(todo_title);
 
   const handleUpdate = async () => {
-    await supabase.from('todos').update({ title }).eq('id', todo_id);
+    UpdateTodo(todo_id, title);
   };
 
   const handleDelete = async () => {
-    const res = await supabase.from('todos').delete().eq('id', todo_id);
-    console.log(res);
+    DeleteTodo(todo_id);
   };
 
   return (

@@ -1,6 +1,6 @@
-import { cookies } from 'next/headers';
-import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
 import { revalidatePath } from 'next/cache';
+import { SupabaseUser } from '@/lib/API/supabase/user';
+import { CreateTodo } from '@/lib/API/Requests/todos/ServerActions';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,16 +10,15 @@ export default async function NewTodo() {
 
     const title = formData.get('title');
     const description = formData.get('description');
-    const supabase = createServerActionClient({ cookies });
 
     const {
       data: { user }
-    } = await supabase.auth.getUser();
+    } = await SupabaseUser();
 
     const user_id = user?.id;
     const user_email = user?.email;
 
-    await supabase.from('todos').insert({ title, description, user_id, user_email });
+    await CreateTodo(title, description, user_id, user_email);
 
     revalidatePath('/');
   };

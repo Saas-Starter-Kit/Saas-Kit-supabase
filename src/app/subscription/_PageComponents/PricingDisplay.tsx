@@ -1,8 +1,18 @@
 'use client';
-import configuration from '@/lib/config/AppDefaults';
 
-const PricingDisplay = ({ handleSubscription }) => {
+import configuration from '@/lib/config/AppDefaults';
+import { useRouter } from 'next/navigation';
+import { CreateStripeCheckoutSession } from '@/lib/API/Requests/stripe/stripe';
+
+const PricingDisplay = ({ user }) => {
   const { subscriptionPlans } = configuration;
+  const router = useRouter();
+  const { id, email } = user;
+
+  const handleSubscription = async (price) => {
+    const res = await CreateStripeCheckoutSession(price, id, email);
+    router.push(res.data.session.url);
+  };
 
   return (
     <div className=" flex flex-col p-6">
