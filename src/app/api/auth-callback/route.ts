@@ -1,4 +1,4 @@
-import supabase from '@/lib/config/supabase/SupabaseRouteHandler';
+import { GetSession } from '@/lib/API/supabase/authRoute';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     //const supabase = createRouteHandlerClient<Database>({ cookies });
-    await supabase.auth.exchangeCodeForSession(code);
+    await GetSession(code);
   }
 
   // URL to redirect to after sign in process completes
