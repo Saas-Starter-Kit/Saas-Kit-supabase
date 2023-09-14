@@ -1,5 +1,14 @@
-'use client';
+import ManageSubscription from './_PageComponents/manageSubscription';
+import { SupabaseUser } from '@/lib/API/Services/supabase/user';
 
-export default function Profile() {
-  return <div className=" flex flex-col p-6">Profile</div>;
+export default async function Profile() {
+  const {
+    data: { user }
+  } = await SupabaseUser();
+
+  return (
+    <div className="">
+      <ManageSubscription user={user} />
+    </div>
+  );
 }

@@ -9,7 +9,8 @@
     "lint": "next lint",
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
-    "test": "jest"
+    "test": "jest",
+    "stripe:listen": "stripe listen --forward-to http://localhost:3000/api/stripe/webhook"
   },
   "dependencies": {
     "@stripe/stripe-js": "^2.1.2",
@@ -24,12 +25,13 @@
     "client-only": "^0.0.1",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "micro": "^10.0.1",
     "next": "13.4.19",
     "postcss": "8.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "server-only": "^0.0.1",
-    "stripe": "^13.5.0",
+    "stripe": "^13.4.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2"
   },

@@ -1,4 +1,4 @@
-import { SupabaseSession } from '@/lib/API/supabase/user';
+import { SupabaseSession } from '@/lib/API/Services/supabase/user';
 import { redirect } from 'next/navigation';
 
 const Protected = async () => {

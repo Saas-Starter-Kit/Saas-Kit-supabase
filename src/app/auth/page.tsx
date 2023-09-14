@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { SupabaseSignIn, SupabaseSignUp, SupabaseSignOut } from '@/lib/API/supabase/auth';
+import { SupabaseSignIn, SupabaseSignUp, SupabaseSignOut } from '@/lib/API/Services/supabase/auth';
 
 export default function Login() {
   const [email, setEmail] = useState('');

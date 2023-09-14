@@ -1,4 +1,3 @@
-import 'client-only';
 import axios from 'axios';
 
 export const CreateStripeCheckoutSession = async (price, id, email) => {

@@ -2,7 +2,7 @@
 
 import configuration from '@/lib/config/AppDefaults';
 import { useRouter } from 'next/navigation';
-import { CreateStripeCheckoutSession } from '@/lib/API/Requests/stripe/stripe';
+import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
 
 const PricingDisplay = ({ user }) => {
   const { subscriptionPlans } = configuration;

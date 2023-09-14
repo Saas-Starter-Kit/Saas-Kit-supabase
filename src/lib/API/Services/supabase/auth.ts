@@ -1,4 +1,4 @@
-import { SupabaseBrowser as supabase } from '@/lib/config/supabase/SupabaseBrowser';
+import { SupabaseBrowser as supabase } from '@/lib/API/Services/init/supabase/SupabaseBrowser';
 
 export const SupabaseSignUp = async (email, password) => {
   const res = await supabase.auth.signUp({

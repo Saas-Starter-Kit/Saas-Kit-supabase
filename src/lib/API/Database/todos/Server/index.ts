@@ -1,4 +1,4 @@
-import { SupabaseServerClient as supabase } from '@/lib/config/supabase/SupabaseServer';
+import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase/SupabaseServer';
 
 export const GetAllTodos = async () => {
   const res = await supabase().from('todos').select();

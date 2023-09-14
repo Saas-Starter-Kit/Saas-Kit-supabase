@@ -1,4 +1,4 @@
-import { SupabaseBrowser as supabase } from '@/lib/config/supabase/SupabaseBrowser';
+import { SupabaseBrowser as supabase } from '@/lib/API/Services/init/supabase/SupabaseBrowser';
 
 export const UpdateTodo = async (todo_id, title) => {
   const res = await supabase.from('todos').update({ title }).eq('id', todo_id);
