@@ -9,10 +9,33 @@ const configuration = {
     { title: 'profile', link: '/profile' },
     { title: 'pricing', link: '/subscription' }
   ],
+
   domain: process.env.NEXT_PUBLIC_DOMAIN,
   subscriptionPlans: {
-    basic: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC,
-    premium: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM
+    yearly: {
+      premium: {
+        price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_YEARLY,
+        price: '200.00',
+        product: 'Premium Plan'
+      },
+      basic: {
+        price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC_YEARLY,
+        price: '100.00',
+        product: 'Basic Plan'
+      }
+    },
+    monthly: {
+      premium: {
+        price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY,
+        price: '20.00',
+        product: 'Premium Plan'
+      },
+      basic: {
+        price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC_MONTHLY,
+        price: '10.00',
+        product: 'Basic Plan'
+      }
+    }
   }
 };
 

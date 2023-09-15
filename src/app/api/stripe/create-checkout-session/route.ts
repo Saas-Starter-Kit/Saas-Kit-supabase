@@ -5,6 +5,7 @@ import createCheckoutSession from '@/lib/API/Services/stripe/checkout/create-ses
 export async function POST(request) {
   const { price, customer_email, user_id } = await request.json();
   const origin = request.nextUrl.origin;
+  //console.log(price);
 
   //check to see if user already has subscription
   const session = await createCheckoutSession(price, customer_email, user_id, origin);

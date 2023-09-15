@@ -1,11 +1,16 @@
 'use client';
 
+import { useState } from 'react';
 import configuration from '@/lib/config/AppDefaults';
 import { useRouter } from 'next/navigation';
 import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
 
 const PricingDisplay = ({ user }) => {
-  const { subscriptionPlans } = configuration;
+  const [timeInterval, setTimeInterval] = useState('Monthly');
+  const {
+    subscriptionPlans: { yearly, monthly }
+  } = configuration;
+
   const router = useRouter();
   const { id, email } = user;
 
@@ -14,20 +19,58 @@ const PricingDisplay = ({ user }) => {
     router.push(res.data.session.url);
   };
 
+  const intervalSwitch = timeInterval === 'Monthly' ? 'Yearly' : 'Monthly';
+
+  const changeTimeInterval = () => {
+    setTimeInterval(intervalSwitch);
+  };
+
+  const Plan = ({ product, price, price_id }) => {
+    return (
+      <div>
+        <div>{product}</div>
+        <div>{price} </div>
+        <button className="border-4 m-5" onClick={() => handleSubscription(price_id)}>
+          Purchase {product}
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div className=" flex flex-col p-6">
-      <div>Premium Plan</div>
-      <button
-        className="border-4 m-5"
-        onClick={() => handleSubscription(subscriptionPlans.premium)}
-      >
-        Purchase Premium Subscription
+      <div>Viewing {timeInterval} Billing</div>
+      <button className="border-4 m-5" onClick={changeTimeInterval}>
+        Switch to {intervalSwitch}
       </button>
-
-      <div>Basic Plan</div>
-      <button className="border-4 m-5" onClick={() => handleSubscription(subscriptionPlans.basic)}>
-        Purchase Basic Subscription
-      </button>
+      {timeInterval === 'Monthly' && (
+        <div>
+          <Plan
+            product={monthly.basic.product}
+            price={monthly.basic.price}
+            price_id={monthly.basic.price_id}
+          />
+          <Plan
+            product={monthly.premium.product}
+            price={monthly.premium.price}
+            price_id={monthly.premium.price_id}
+          />
+        </div>
+      )}
+      {timeInterval === 'Yearly' && (
+        <div>
+          <Plan
+            product={yearly.basic.product}
+            price={yearly.basic.price}
+            price_id={yearly.basic.price_id}
+          />
+          <Plan
+            product={yearly.premium.product}
+            price={yearly.premium.price}
+            price_id={yearly.premium.price_id}
+          />
+        </div>
+      )}
     </div>
   );
 };
