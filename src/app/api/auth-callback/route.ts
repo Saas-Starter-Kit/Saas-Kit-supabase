@@ -1,4 +1,4 @@
-import { GetSession } from '@/lib/API/supabase/authRoute';
+import { GetSession } from '@/lib/API/Services/supabase/authRoute';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
