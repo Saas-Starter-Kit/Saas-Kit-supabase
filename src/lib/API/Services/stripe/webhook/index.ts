@@ -3,8 +3,6 @@ import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supaba
 import { toDateTime } from '@/lib/utils/helpers';
 import stripe from '@/lib/API/Services/init/stripeServer';
 import Stripe from 'stripe';
-import { headers } from 'next/headers';
-import { NextResponse } from 'next/server';
 
 const subscriptionStatusActive = { trailing: 'trailing', active: 'active' };
 const subscriptionStatusVoid = {
@@ -23,49 +21,74 @@ export const WebhookEventHandler = async (event) => {
   // Handle the event
   switch (event.type) {
     case WebhookEvents.checkout_session_completed:
-      //save to db: customer_id, subscription_id, price_id, status, next_billng date,
+      const session = event.data.object as Stripe.Checkout.Session;
+      const user_db_id = session.metadata.user_id;
 
-      const checkoutSession = event.data.object as Stripe.Checkout.Session;
-      console.log(event);
+      const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+      const stripe_customer_id = subscription.customer as string;
 
-      // get subs from stripe api
-      // update subs table in db with sub id, price, etc.
-      // update user in db with customer_id and subs_id
+      const dataSub = {
+        id: subscription.id,
+        price_id: subscription.items.data[0].price.id,
+        status: subscription.status,
+        created_at: new Date(Date.now() * 1000),
+        period_starts_at: new Date(subscription.current_period_start * 1000),
+        period_ends_at: new Date(subscription.current_period_end * 1000)
+      };
 
-      //lookup up plan type basic, premium by price id. Save to db.
+      await supabase().from('subscriptions').insert(dataSub);
+
+      const dataUser = {
+        stripe_customer_id,
+        subscription_id: subscription.id
+      };
+
+      await supabase().from('profiles').update(dataUser).eq('id', user_db_id);
       break;
     case WebhookEvents.subscription_updated:
-      // update subscription handler
-      // compare previous attribs object and then update own db with it.
+      // need to test more against live webhook
+      // or create live actions and retrieve with stripe api
+      // wat does previous_attributes look like for price update
 
-      // catch updates: start trail, start active, cancel, unpaid, past_due, incomplete_expired.
-      // new billing period starts.
+      const subscriptionUpdate = event.data.object;
 
-      const subscription = event.data.object as Stripe.Subscription;
-      console.log(event.data.object.plan);
+      const UpdatedCols = Object.keys(event.data.previous_attributes);
+
+      const validColumns = [
+        'price_id',
+        'status',
+        'created_at',
+        'period_starts_at',
+        'period_ends_at'
+      ];
+
+      const validUpdatedCols = UpdatedCols.filter((element) => validColumns.includes(element));
+
+      let dataUpdate = {};
+      validUpdatedCols.map((item) => {
+        dataUpdate[item] = subscriptionUpdate[item];
+      });
+
+      let status;
+      if (UpdatedCols.includes('status')) {
+        const validStatus = [
+          ...Object.keys(subscriptionStatusActive),
+          ...Object.keys(subscriptionStatusVoid)
+        ];
+
+        if (validStatus.includes(subscriptionUpdate.status)) {
+          status = subscriptionUpdate.status;
+        }
+      }
+      if (status) dataUpdate['status'] = status;
+
+      if (Object.keys(dataUpdate).length !== 0) {
+        await supabase().from('subscriptions').update(dataUpdate).eq('id', subscriptionUpdate.id);
+      }
 
       break;
     default:
       // Unexpected event type
       console.log(`Unhandled event type ${event.type}.`);
   }
-};
-
-const createSubscription = async (user_id, stripe_customer_id) => {
-  //  const { data, error } = await supabase
-  //    .from('profile')
-  //    .select('stripe_customer_id')
-  //    .eq('id', uuid)
-  //    .single();
-  // call after active subscription event
-  // Update user table with stripe_customer_id
-  // Update Subscription Status of user in DB.
-};
-
-const UpdateUserSubscription = () => {};
-
-const DeleteUserSubscription = () => {};
-
-const isUserSubscriptionValid = () => {
-  //comapre anchor billdate to current date to adjust subscription status as needed
 };

@@ -5,7 +5,7 @@ import Stripe from 'stripe';
 /* 
  Webhook triggers can also be used with stripe CLI. Copy and paste into terminal
 
- stripe.exe trigger checkout.session.completed --add checkout_session:metadata.user_id=user_039ufdsuhg} --add checkout_session:mode=subscription
+ stripe.exe trigger checkout.session.completed --add checkout_session:metadata.user_id=user_039ufdsuhg
 
  stripe.exe trigger customer.subscription.updated
 
