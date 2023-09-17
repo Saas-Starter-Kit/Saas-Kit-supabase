@@ -1,14 +1,12 @@
 import '../styles/globals.css';
-import NavBarMain from './(root)/_PageComponents/NavBarMain';
+import NavBarMain from '../components/NavBarMain';
+import { InterFont } from '@/styles/fonts';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={`${InterFont.variable}`}>
       <body>
-        <main className="flex min-h-screen flex-col items-center p-24">
-          <NavBarMain />
-          <div>{children}</div>
-        </main>
+        <div>{children}</div>
       </body>
     </html>
   );
