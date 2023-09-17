@@ -1,5 +1,5 @@
 import { revalidatePath } from 'next/cache';
-import { GetAllTodos } from '@/lib/API/Requests/todos/Server';
+import { GetAllTodos } from '@/lib/API/Database/todos/Server';
 export const dynamic = 'force-dynamic';
 
 export default async function ListTodos() {

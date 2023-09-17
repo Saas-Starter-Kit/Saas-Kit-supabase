@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { UpdateTodo, DeleteTodo } from '@/lib/API/Requests/todos/Browser';
+import { UpdateTodo, DeleteTodo } from '@/lib/API/Database/todos/Browser';
 
 export default function ButtonRow({ todo_id, todo_title }) {
   const [title, setTitle] = useState(todo_title);
