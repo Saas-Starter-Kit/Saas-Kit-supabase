@@ -1,6 +1,5 @@
 import 'server-only';
 import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supabase/SupabaseRouteHandler';
-import { toDateTime } from '@/lib/utils/helpers';
 import stripe from '@/lib/API/Services/init/stripeServer';
 import Stripe from 'stripe';
 
@@ -18,6 +17,7 @@ const WebhookEvents = {
 };
 
 export const WebhookEventHandler = async (event) => {
+  console.log(event);
   // Handle the event
   switch (event.type) {
     case WebhookEvents.checkout_session_completed:
@@ -36,14 +36,15 @@ export const WebhookEventHandler = async (event) => {
         period_ends_at: new Date(subscription.current_period_end * 1000)
       };
 
-      await supabase().from('subscriptions').insert(dataSub);
+      const res2 = await supabase().from('subscriptions').insert(dataSub);
 
       const dataUser = {
         stripe_customer_id,
         subscription_id: subscription.id
       };
 
-      await supabase().from('profiles').update(dataUser).eq('id', user_db_id);
+      const res = await supabase().from('profiles').update(dataUser).eq('id', user_db_id);
+      console.log(res, res2, user_db_id);
       break;
     case WebhookEvents.subscription_updated:
       // need to test more against live webhook

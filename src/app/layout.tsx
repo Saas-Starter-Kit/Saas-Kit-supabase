@@ -1,12 +1,12 @@
 import '../styles/globals.css';
-import NavBarMain from '../components/NavBarMain';
 import { InterFont } from '@/styles/fonts';
+import { ThemeProvider } from '@/styles/ThemeProvider';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${InterFont.variable}`}>
       <body>
-        <div>{children}</div>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
