@@ -1,6 +1,6 @@
 import { revalidatePath } from 'next/cache';
-import { SupabaseUser } from '@/lib/API/supabase/user';
-import { CreateTodo } from '@/lib/API/Requests/todos/ServerActions';
+import { SupabaseUser } from '@/lib/API/Services/supabase/user';
+import { CreateTodo } from '@/lib/API/Database/todos/ServerActions';
 
 export const dynamic = 'force-dynamic';
 
