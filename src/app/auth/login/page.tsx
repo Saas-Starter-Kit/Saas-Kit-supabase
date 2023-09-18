@@ -1,9 +1,9 @@
-import AuthForm from './_PageComponents/AuthForm';
+import LoginForm from './_PageComponents/LoginForm';
 
 export default function Login() {
   return (
-    <div className=" flex flex-col p-6">
-      <AuthForm />
+    <div className="w-1/4">
+      <LoginForm />
     </div>
   );
 }
