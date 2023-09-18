@@ -1,15 +1,12 @@
 import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
-import stripe from '@/lib/API/Services/init/stripeServer';
+import createPortalSession from '@/lib/API/Services/stripe/billing-portal/create-portal-session';
 
 export async function POST(request) {
   const { customer } = await request.json();
   const origin = request.nextUrl.origin;
 
-  const portalSession = await stripe.billingPortal.sessions.create({
-    customer,
-    return_url: `${origin}/protected`
-  });
+  const portalSession = await createPortalSession(customer, origin);
 
   return NextResponse.json({ portalSession });
 }

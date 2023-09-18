@@ -1,5 +1,11 @@
 const configuration = {
-  domain: process.env.NEXT_PUBLIC_DOMAIN,
+  routes: [
+    { title: 'create-todo', link: '/todos/create-todo' },
+    { title: 'list-todos', link: '/todos/list-todos' },
+    { title: 'my-todos', link: '/todos/my-todos' },
+    { title: 'profile', link: '/profile' },
+    { title: 'pricing', link: '/dashboard/subscription/pricing' }
+  ],
   subscriptionPlans: {
     yearly: {
       premium: {

@@ -2,6 +2,7 @@ import 'server-only';
 import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supabase/SupabaseRouteHandler';
 import stripe from '@/lib/API/Services/init/stripeServer';
 import Stripe from 'stripe';
+import { toDateTime } from '@/lib/utils/helpers';
 
 const subscriptionStatusActive = { trailing: 'trailing', active: 'active' };
 const subscriptionStatusVoid = {
@@ -24,27 +25,29 @@ export const WebhookEventHandler = async (event) => {
       const session = event.data.object as Stripe.Checkout.Session;
       const user_db_id = session.metadata.user_id;
 
-      const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+      const subscription = await stripe.subscriptions
+        .retrieve(session.subscription as string)
+        .catch((err) => console.log(err));
       const stripe_customer_id = subscription.customer as string;
 
       const dataSub = {
         id: subscription.id,
         price_id: subscription.items.data[0].price.id,
         status: subscription.status,
-        created_at: new Date(Date.now() * 1000),
+        created_at: new Date(Date.now()),
         period_starts_at: new Date(subscription.current_period_start * 1000),
         period_ends_at: new Date(subscription.current_period_end * 1000)
       };
 
-      const res2 = await supabase().from('subscriptions').insert(dataSub);
+      await supabase().from('subscriptions').insert(dataSub);
 
       const dataUser = {
         stripe_customer_id,
         subscription_id: subscription.id
       };
 
-      const res = await supabase().from('profiles').update(dataUser).eq('id', user_db_id);
-      console.log(res, res2, user_db_id);
+      await supabase().from('profiles').update(dataUser).eq('id', user_db_id);
+
       break;
     case WebhookEvents.subscription_updated:
       // need to test more against live webhook

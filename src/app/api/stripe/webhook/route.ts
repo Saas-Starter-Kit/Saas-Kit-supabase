@@ -7,7 +7,7 @@ import { WebhookEventHandler } from '@/lib/API/Services/stripe/webhook';
 export async function POST(req: Request) {
   const body = await req.text();
   const sig = headers().get('Stripe-Signature');
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET_NGROK;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   console.log(webhookSecret);
 
   console.log(req);

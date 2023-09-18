@@ -11,8 +11,8 @@ const createCheckoutSession = async (price, customer_email, user_id, origin) => 
         }
       ],
       mode: 'subscription',
-      success_url: `${origin}/subscription/success`,
-      cancel_url: `${origin}/subscription/cancel`,
+      success_url: `${origin}/dashboard`,
+      cancel_url: `${origin}/auth/cancel`,
       metadata: {
         user_id
       },

@@ -2,26 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { SupabaseSignIn, SupabaseSignUp, SupabaseSignOut } from '@/lib/API/Services/supabase/auth';
+import { SupabaseSignIn } from '@/lib/API/Services/supabase/auth';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleSignUp = () => {
-    SupabaseSignUp(email, password);
-    router.push('/protected');
-  };
-
   const handleSignIn = async () => {
     SupabaseSignIn(email, password);
-    router.push('/protected');
-  };
-
-  const handleSignOut = async () => {
-    SupabaseSignOut();
-    router.push('/');
+    router.push('/dashboard');
   };
 
   return (
@@ -39,14 +29,8 @@ export default function Login() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
-      <button className="border-4 m-5" onClick={handleSignUp}>
-        Sign up
-      </button>
       <button className="border-4 m-5" onClick={handleSignIn}>
         Sign in
-      </button>
-      <button className="border-4 m-5" onClick={handleSignOut}>
-        Sign out
       </button>
     </div>
   );

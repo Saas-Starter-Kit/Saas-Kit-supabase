@@ -11,7 +11,7 @@ export default function Signup() {
 
   const handleSignUp = () => {
     SupabaseSignUp(email, password);
-    router.push('/protected');
+    router.push('/dashboard');
   };
 
   return (

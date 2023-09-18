@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import configuration from '@/lib/config/AppDefaults';
+import configuration from '@/lib/config/app';
 import { useRouter } from 'next/navigation';
 import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
 
