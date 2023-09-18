@@ -5,7 +5,8 @@ const config = {
   routes: [
     { title: 'home', link: '/' },
     { title: 'FAQ', link: '/faq' },
-    { title: 'protected', link: '/protected' }
+    { title: 'protected', link: '/protected' },
+    { title: 'dashboard', link: '/dashboard' }
   ],
   metadate: {
     title: {
@@ -19,7 +20,7 @@ const config = {
         name: ''
       }
     ],
-    creator: 'hadcn',
+    creator: '',
     themeColor: [
       { media: '(prefers-color-scheme: light)', color: 'white' },
       { media: '(prefers-color-scheme: dark)', color: 'black' }
