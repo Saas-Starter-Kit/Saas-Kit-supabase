@@ -18,8 +18,14 @@ import {
   CardTitle
 } from '@/components/ui/Card';
 import Link from 'next/link';
+import { Mail } from "lucide-react";
+import { Icons } from "@/components/Icons";
+import { Label } from "@/components/ui/Label";
+import React from 'react';
 
 export default function AuthForm() {
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof authFormSchema>>({
@@ -32,12 +38,22 @@ export default function AuthForm() {
     console.log(values);
   };
 
+  // TODO: merge onSubmit above function together
+  async function onsubmit(event: React.SyntheticEvent) {
+    event.preventDefault()
+    setIsLoading(true)
+
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+  }
+
   return (
     <div>
       <Card>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Login to your Account</CardTitle>
-          <CardDescription>Enter your email and password below to Login</CardDescription>
+          <CardDescription>Enter your email and password below to login</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -49,7 +65,7 @@ export default function AuthForm() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="email" {...field} />
+                      <Input placeholder="Email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -62,13 +78,33 @@ export default function AuthForm() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="password" {...field} />
+                      <Input placeholder="Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button className="w-full">Login</Button>
+              <Button className="w-full">
+                <Mail className="mr-2 h-4 w-4" />Login with Email
+              </Button>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">
+                    Or continue with
+                  </span>
+                </div>
+              </div>
+              <Button variant="outline" type="button" disabled={isLoading} className='w-full'>
+                {isLoading ? (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <Icons.google className="mr-2 h-4 w-4" />
+                )}{" "}
+                Login with Google
+              </Button>
             </form>
           </Form>
         </CardContent>
@@ -77,7 +113,7 @@ export default function AuthForm() {
             <div className="text-center text-sm text-gray-500">
               Not a member?{' '}
               <Link href="/auth/signup" className="leading-7 text-indigo-600 hover:text-indigo-500">
-                Start a 14 day free trial
+                Start a 14 day free trial now!
               </Link>
             </div>
             <div className="mt-4 text-xs text-indigo-600 hover:text-indigo-500">
