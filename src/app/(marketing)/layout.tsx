@@ -4,14 +4,16 @@ import { cn } from '@/lib/utils/helpers';
 import { buttonVariants } from '@/components/ui/Button';
 import NavBarMain from '../../components/NavBarMain';
 import config from '@/lib/config/marketing';
+import MainLogo from '@/components/ui/MainLogo';
 
 export default async function MarketingLayout({ children }) {
   const { routes } = config;
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="container z-40 bg-background">
-        <div className="flex h-20 items-center justify-between py-6">
+    <div className="">
+      <header>
+        <div className="flex items-center justify-between p-6">
+          <MainLogo />
           <NavBarMain items={routes} />
           <nav>
             <Link
@@ -23,7 +25,7 @@ export default async function MarketingLayout({ children }) {
           </nav>
         </div>
       </header>
-      <main className="flex-1">{children}</main>
+      <main className="flex items-center justify-center gap-x-6 mt-6">{children}</main>
     </div>
   );
 }

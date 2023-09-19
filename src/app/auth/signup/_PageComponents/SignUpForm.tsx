@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/Card';
+import Link from 'next/link';
 
 export default function AuthForm() {
   const router = useRouter();
@@ -74,6 +75,16 @@ export default function AuthForm() {
             </form>
           </Form>
         </CardContent>
+        <CardFooter>
+          <div className="flex flex-col">
+            <div className="text-center text-sm text-gray-500">
+              Already a member?{' '}
+              <Link href="/auth/login" className="leading-7 text-indigo-600 hover:text-indigo-500">
+                login here.
+              </Link>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );

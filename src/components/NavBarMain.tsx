@@ -21,7 +21,6 @@ const NavbarMain = ({ items, children }: NavbarMainProps) => {
 
   return (
     <div className="flex gap-6 md:gap-10">
-      <MainLogo />
       {items?.length ? (
         <nav className="hidden gap-6 md:flex">
           {items?.map((item, index) => (
