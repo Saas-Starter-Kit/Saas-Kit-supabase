@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils/helpers';
 import { buttonVariants } from '@/components/ui/Button';
 import NavBarMain from '../../components/NavBarMain';
 import config from '@/lib/config/app';
+import SideBar from './components/SideBar';
 
 export default async function MarketingLayout({ children }) {
   const { routes } = config;
@@ -23,7 +24,10 @@ export default async function MarketingLayout({ children }) {
           </nav>
         </div>
       </header>
-      <main className="flex-1">{children}</main>
+      <main className="flex">
+        <SideBar />
+        {children}
+      </main>
     </div>
   );
 }
