@@ -19,7 +19,6 @@ import {
   CardTitle
 } from '@/components/ui/Card';
 import Link from 'next/link';
-import { Mail } from 'lucide-react';
 import { Icons } from '@/components/Icons';
 import { Label } from '@/components/ui/Label';
 
@@ -86,7 +85,7 @@ export default function AuthForm() {
                 )}
               />
               <Button className="w-full">
-                <Mail className="mr-2 h-4 w-4" />
+                <Icons.Mail className="mr-2 h-4 w-4" />
                 Login with Email
               </Button>
               <div className="relative">
@@ -99,9 +98,9 @@ export default function AuthForm() {
               </div>
               <Button variant="outline" type="button" disabled={isLoading} className="w-full">
                 {isLoading ? (
-                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                  <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
-                  <Icons.google className="mr-2 h-4 w-4" />
+                  <Icons.Google className="mr-2 h-4 w-4" />
                 )}{' '}
                 Login with Google
               </Button>

@@ -61,9 +61,9 @@ export default function AuthForm() {
           <div className="grid gap-6">
             <Button variant="outline" type="button" disabled={isLoading} className="w-full mb-4">
               {isLoading ? (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : (
-                <Icons.google className="mr-2 h-4 w-4" />
+                <Icons.Google className="mr-2 h-4 w-4" />
               )}{' '}
               Login with Google
             </Button>
