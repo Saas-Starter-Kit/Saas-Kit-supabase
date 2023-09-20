@@ -1,9 +1,6 @@
-import config from '@/lib/config/dashboard';
 import SideBar from './_PageSections/SideBar';
 
 export default async function MarketingLayout({ children }) {
-  const { routes } = config;
-
   return (
     <main className="flex bg-slate-100">
       <SideBar />

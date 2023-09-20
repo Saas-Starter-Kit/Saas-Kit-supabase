@@ -1,8 +1,5 @@
 import Link from 'next/link';
 
-import { cn } from '@/lib/utils/helpers';
-import { PiIcon } from 'lucide-react';
-
 const SidebarNavItem = ({ item, isOpen }) => (
   <Link key={item.title} href={item.link}>
     <span className="flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground">
