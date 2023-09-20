@@ -1,4 +1,4 @@
-// place helper utiilty functions here.
+// place helper utility functions here.
 
 import { ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
