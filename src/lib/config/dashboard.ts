@@ -1,11 +1,23 @@
+import { Icons } from '@/components/Icons';
+
 const configuration = {
   routes: [
-    { title: 'create-todo', link: '/todos/create-todo' },
-    { title: 'list-todos', link: '/todos/list-todos' },
-    { title: 'my-todos', link: '/todos/my-todos' },
-    { title: 'profile', link: '/profile' },
-    { title: 'pricing', link: '/dashboard/subscription/pricing' }
+    { title: 'Overview', link: '/dashboard/main', icon: Icons.Home },
+    { title: 'Todos', link: '/todos/', icon: Icons.Laptop },
+    { title: 'settings', link: '/settings', icon: Icons.Settings }
   ],
+  subroutes: {
+    todos: {
+      create: '/create',
+      my_todos: '/my-todos',
+      list_todos: '/list-todos'
+    },
+    settings: {
+      billing: '/billing',
+      profile: '/profile',
+      subscription: '/subscription'
+    }
+  },
   subscriptionPlans: {
     yearly: {
       premium: {
