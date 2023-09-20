@@ -9,7 +9,7 @@ const ManageSubscription = ({ user }) => {
   const customer = 'cus_Ocwl7YD5fWsKxB';
 
   const handleSubscription = async () => {
-    const res = await axios.post('/api//stripe/create-portal-session', {
+    const res = await axios.post('/api/stripe/create-portal-session', {
       customer
     });
 

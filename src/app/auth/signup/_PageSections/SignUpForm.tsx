@@ -18,6 +18,7 @@ import {
   CardTitle
 } from '@/components/ui/Card';
 import Link from 'next/link';
+import config from '@/lib/config/auth';
 
 export default function AuthForm() {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function AuthForm() {
 
   const onSubmit = (values: z.infer<typeof authFormSchema>) => {
     SupabaseSignUp(values.email, values.password);
-    router.push('/dashboard');
+    router.push(config.redirects.successAuth);
     console.log(values);
   };
 

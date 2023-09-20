@@ -1,14 +1,14 @@
-import ManageSubscription from './_PageComponents/manageSubscription';
+import PricingDisplay from './_PageSections/pricingDisplay';
 import { SupabaseUser } from '@/lib/API/Services/supabase/user';
 
-export default async function Profile() {
+export default async function Subscription() {
   const {
     data: { user }
   } = await SupabaseUser();
 
   return (
     <div className="">
-      <ManageSubscription user={user} />
+      <PricingDisplay user={user} />
     </div>
   );
 }

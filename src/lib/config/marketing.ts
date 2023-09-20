@@ -4,9 +4,7 @@ import siteConfig from './site';
 const config = {
   routes: [
     { title: 'home', link: '/' },
-    { title: 'FAQ', link: '/faq' },
-    { title: 'protected', link: '/protected' },
-    { title: 'dashboard', link: '/dashboard' }
+    { title: 'FAQ', link: '/faq' }
   ],
   metadate: {
     title: {

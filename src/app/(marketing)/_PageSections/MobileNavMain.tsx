@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { MainNavItem } from '@/lib/types';
 import { cn } from '@/lib/utils/helpers';
 import { useLockBody } from '@/lib/hooks/useLockBody';
-import { Icons } from './Icons';
+import { Icons } from '../../../components/Icons';
 import siteConfig from '@/lib/config/site';
 
 interface MobileNavProps {

@@ -4,7 +4,6 @@ export const dynamic = 'force-dynamic';
 
 export default async function ListTodos() {
   const res = await GetAllTodos();
-  revalidatePath('/');
 
   return (
     <div>

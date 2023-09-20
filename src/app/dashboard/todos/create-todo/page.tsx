@@ -19,8 +19,6 @@ export default async function NewTodo() {
     const user_email = user?.email;
 
     await CreateTodo(title, description, user_id, user_email);
-
-    revalidatePath('/');
   };
 
   return (

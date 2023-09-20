@@ -1,7 +1,7 @@
 import { revalidatePath } from 'next/cache';
-import ButtonRow from './PageSections/ButtonRow';
-import { SupabaseUser } from '@/lib/API/supabase/user';
-import { GetTodoByUserId } from '@/lib/API/Requests/todos/Server';
+import ButtonRow from './_PageSections/ButtonRow';
+import { SupabaseUser } from '@/lib/API/Services/supabase/user';
+import { GetTodoByUserId } from '@/lib/API/Database/todos/Server';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,8 +12,6 @@ export default async function ListTodos() {
 
   const user_id = user?.id;
   const res = await GetTodoByUserId(user_id);
-
-  revalidatePath('/');
 
   return (
     <div>
