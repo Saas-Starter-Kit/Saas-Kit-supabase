@@ -24,9 +24,9 @@ export default async function NewTodo() {
   return (
     <div>
       <form className="flex flex-col p-6" action={addTodo}>
-        <input className="border-4 border-indigo-500 m-5" name="title" />
-        <input className="border-4 border-indigo-500 m-5" name="description" />
-        <button className="border-4 m-5" type="submit">
+        <input className="border-4 border-indigo-500" name="title" />
+        <input className="border-4 border-indigo-500 " name="description" />
+        <button className="border-4" type="submit">
           Submit
         </button>
       </form>
