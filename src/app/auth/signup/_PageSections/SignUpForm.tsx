@@ -23,6 +23,7 @@ import config from '@/lib/config/auth';
 import { Icons } from '@/components/Icons';
 
 export default function AuthForm() {
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
@@ -32,16 +33,8 @@ export default function AuthForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof authFormSchema>) => {
-    setIsLoading(true);
-
-    try {
-      await SupabaseSignUp(values.email, values.password);
+      SupabaseSignUp(values.email, values.password);
       router.push(config.redirects.successAuth);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const loginWithGoogle = async () => {
@@ -57,6 +50,10 @@ export default function AuthForm() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
     <div>
       <Card>
@@ -68,8 +65,8 @@ export default function AuthForm() {
         </CardHeader>
 
         <CardContent>
-          <div className="grid gap-6">
-            <Button variant="outline" type="button" disabled={isLoading} className="w-full mb-4" onClick={loginWithGoogle}>
+          <div className="grid gap-4 mb-4">
+            <Button variant="outline" type="button" disabled={isLoading} className="w-full" onClick={loginWithGoogle}>
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : (
@@ -108,7 +105,16 @@ export default function AuthForm() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Password" {...field} />
+                    <div className="relative">
+                      <Input type={showPassword ? 'text' : 'password'} placeholder="Password" {...field}/>
+                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 cursor-pointer">
+                          {showPassword ? (
+                            <Icons.EyeOff className="h-6 w-6" onClick={togglePasswordVisibility}/>
+                          ) : (
+                            <Icons.Eye className="h-6 w-6" onClick={togglePasswordVisibility}/>
+                          )}
+                        </div>
+                    </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

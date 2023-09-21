@@ -1,4 +1,4 @@
-import { Laptop, Home, Settings, LucideIcon, AlignLeftIcon, Mail, Command, X, LucideProps, Loader2 } from 'lucide-react';
+import { Laptop, Home, Settings, LucideIcon, AlignLeftIcon, Mail, Command, X, LucideProps, Loader2, EyeIcon, EyeOffIcon, } from 'lucide-react';
 
 export type Icon = LucideIcon;
 
@@ -11,6 +11,8 @@ export const Icons = {
   Logo: Command,
   Close: X,
   Spinner: Loader2,
+  Eye: EyeIcon,
+  EyeOff: EyeOffIcon,
   Google: ({ ...props }: LucideProps) => (
     <svg role="img" viewBox="0 0 24 24" {...props}>
       <path
