@@ -2,13 +2,19 @@ import siteConfig from '@/lib/config/site';
 import Link from 'next/link';
 import { Icons } from '@/components/Icons';
 
-const MainLogo = () => {
+export const MainLogoText = () => {
   return (
     <Link href="/" className="hidden items-center space-x-2 md:flex">
-      <Icons.Logo/>
-      <span className="hidden font-bold sm:inline-block">{siteConfig.name}</span>
+      <Icons.Logo />
+      <span className="font-bold">{siteConfig.alt_name}</span>
     </Link>
   );
 };
 
-export default MainLogo;
+export const MainLogoIcon = () => {
+  return (
+    <Link href="/" className="w-4 h-4">
+      <Icons.Logo />
+    </Link>
+  );
+};
