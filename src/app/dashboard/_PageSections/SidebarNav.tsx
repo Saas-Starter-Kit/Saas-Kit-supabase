@@ -14,7 +14,7 @@ const SidebarNavItem = ({ item, isOpen }) => (
 
 export function SideBarNav({ isOpen, routes }) {
   return (
-    <nav className={`flex flex-col items-center ${!isOpen && ''} `}>
+    <nav className="flex flex-col items-center">
       <div className="mb-4 my-4 self-center">{isOpen ? <MainLogoText /> : <MainLogoIcon />}</div>
       <div>
         {routes.map((item) => (

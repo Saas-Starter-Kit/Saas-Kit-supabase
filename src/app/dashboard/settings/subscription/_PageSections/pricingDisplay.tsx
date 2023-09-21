@@ -38,7 +38,7 @@ const PricingDisplay = ({ user }) => {
   };
 
   return (
-    <div className=" flex flex-col p-6">
+    <div className=" flex flex-col">
       <div>Viewing {timeInterval} Billing</div>
       <button className="border-4 m-5" onClick={changeTimeInterval}>
         Switch to {intervalSwitch}

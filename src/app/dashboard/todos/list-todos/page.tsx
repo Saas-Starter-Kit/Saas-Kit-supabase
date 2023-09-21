@@ -8,7 +8,7 @@ export default async function ListTodos() {
   return (
     <div>
       {res.data.map((item) => (
-        <div className="border-4 m-6">{item.title}</div>
+        <div className="border-4 ">{item.title}</div>
       ))}
     </div>
   );
