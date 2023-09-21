@@ -3,20 +3,20 @@ import { Icons } from '@/components/Icons';
 const configuration = {
   routes: [
     { title: 'Overview', link: '/dashboard/main', icon: Icons.Home },
-    { title: 'Todos', link: '/todos/', icon: Icons.Laptop },
-    { title: 'settings', link: '/settings', icon: Icons.Settings }
+    { title: 'Todos', link: '/dashboard/todos/create', icon: Icons.Laptop },
+    { title: 'settings', link: '/dashboard/settings/profile', icon: Icons.Settings }
   ],
   subroutes: {
     todos: {
-      create: '/create',
-      my_todos: '/my-todos',
+      create: '/dashboard/todos/create',
+      my_todos: '/dashboard/todos/my-todos',
       list_todos: '/list-todos'
     },
-    settings: {
-      billing: '/billing',
-      profile: '/profile',
-      subscription: '/subscription'
-    }
+    settings: [
+      { title: 'Billing', link: '/dashboard/settings/billing' },
+      { title: 'Profile', link: '/dashboard/settings/profile' },
+      { title: 'Subscription', link: '/dashboard/settings/subscription' }
+    ]
   },
   subscriptionPlans: {
     yearly: {
