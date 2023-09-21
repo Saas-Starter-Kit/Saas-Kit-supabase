@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { SupabaseSignUp } from '@/lib/API/Services/supabase/auth';
+import { SupabaseSignUp, SupabaseSignInWithGoogle } from '@/lib/API/Services/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { authFormSchema } from '@/lib/utils/validations';
@@ -31,21 +31,31 @@ export default function AuthForm() {
     resolver: zodResolver(authFormSchema)
   });
 
-  const onSubmit = (values: z.infer<typeof authFormSchema>) => {
-    SupabaseSignUp(values.email, values.password);
-    router.push(config.redirects.successAuth);
-    console.log(values);
-  };
-
-  // TODO: merge onSubmit above function together
-  async function onsubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
+  const onSubmit = async (values: z.infer<typeof authFormSchema>) => {
     setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      await SupabaseSignUp(values.email, values.password);
+      router.push(config.redirects.successAuth);
+    } catch (error) {
+      console.error(error);
+    } finally {
       setIsLoading(false);
-    }, 3000);
-  }
+    }
+  };
+
+  const loginWithGoogle = async () => {
+    setIsLoading(true);
+
+    try {
+      await SupabaseSignInWithGoogle();
+      router.push(config.redirects.successAuth);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -59,7 +69,7 @@ export default function AuthForm() {
 
         <CardContent>
           <div className="grid gap-6">
-            <Button variant="outline" type="button" disabled={isLoading} className="w-full mb-4">
+            <Button variant="outline" type="button" disabled={isLoading} className="w-full mb-4" onClick={loginWithGoogle}>
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : (
