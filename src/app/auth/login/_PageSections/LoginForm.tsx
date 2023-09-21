@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { SupabaseSignIn } from '@/lib/API/Services/supabase/auth';
+import { SupabaseSignIn, SupabaseSignInWithGoogle } from '@/lib/API/Services/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { authFormSchema } from '@/lib/utils/validations';
@@ -20,7 +20,6 @@ import {
 } from '@/components/ui/Card';
 import Link from 'next/link';
 import { Icons } from '@/components/Icons';
-import { Label } from '@/components/ui/Label';
 
 import config from '@/lib/config/auth';
 
@@ -33,20 +32,31 @@ export default function AuthForm() {
     resolver: zodResolver(authFormSchema)
   });
 
-  const onSubmit = (values: z.infer<typeof authFormSchema>) => {
-    SupabaseSignIn(values.email, values.password);
-    router.push(config.redirects.successAuth);
-  };
-
-  // TODO: merge onSubmit above function together
-  async function onsubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
+  const onSubmit = async (values: z.infer<typeof authFormSchema>) => {
     setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      await SupabaseSignIn(values.email, values.password);
+      router.push(config.redirects.successAuth);
+    } catch (error) {
+      console.error(error);
+    } finally {
       setIsLoading(false);
-    }, 3000);
-  }
+    }
+  };
+
+  const loginWithGoogle = async () => {
+    setIsLoading(true);
+
+    try {
+      await SupabaseSignInWithGoogle();
+      router.push(config.redirects.successAuth);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -96,7 +106,7 @@ export default function AuthForm() {
                   <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
                 </div>
               </div>
-              <Button variant="outline" type="button" disabled={isLoading} className="w-full">
+              <Button variant="outline" type="button" disabled={isLoading} className="w-full" onClick={loginWithGoogle}>
                 {isLoading ? (
                   <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
                 ) : (

@@ -25,3 +25,10 @@ export const SupabaseSignOut = async () => {
   const res = await supabase.auth.signOut();
   return res;
 };
+
+export const SupabaseSignInWithGoogle = async () => {
+  const res = supabase.auth.signInWithOAuth({
+    provider: 'google',
+  })
+  return res;
+  };
