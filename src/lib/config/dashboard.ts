@@ -7,11 +7,11 @@ const configuration = {
     { title: 'settings', link: '/dashboard/settings/profile', icon: Icons.Settings }
   ],
   subroutes: {
-    todos: {
-      create: '/dashboard/todos/create',
-      my_todos: '/dashboard/todos/my-todos',
-      list_todos: '/list-todos'
-    },
+    todos: [
+      { title: 'Create', link: '/dashboard/todos/create' },
+      { title: 'My Todos', link: '/dashboard/todos/my-todos' },
+      { title: 'All Todos', link: '/dashboard/todos/list-todos' }
+    ],
     settings: [
       { title: 'Billing', link: '/dashboard/settings/billing' },
       { title: 'Profile', link: '/dashboard/settings/profile' },
