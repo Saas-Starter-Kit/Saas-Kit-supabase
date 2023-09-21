@@ -1,3 +1,4 @@
+'use client';
 import { UserNav } from './UserNav';
 import TeamSwitcher from './TeamSwitcher';
 

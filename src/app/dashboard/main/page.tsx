@@ -18,5 +18,5 @@ export default function DashboardPage() {
   //  redirect('/');
   //}
 
-  return <div className="h-[2000px]">Dashbaord</div>;
+  return <div>Dashbaord</div>;
 }

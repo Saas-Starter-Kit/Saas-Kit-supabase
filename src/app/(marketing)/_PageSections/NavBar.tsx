@@ -8,7 +8,7 @@ import { MainNavItem } from '@/lib/types';
 import { cn } from '@/lib/utils/helpers';
 import { Icons } from '@/components/Icons';
 import MobileNav from './MobileNavMain';
-import MainLogo from '../../../components/ui/MainLogo';
+import { MainLogoText } from '../../../components/ui/MainLogo';
 
 interface NavbarMainProps {
   items?: MainNavItem[];
