@@ -4,7 +4,7 @@ const configuration = {
   routes: [
     { title: 'Overview', link: '/dashboard/main', icon: Icons.Home },
     { title: 'Todos', link: '/dashboard/todos/create', icon: Icons.Laptop },
-    { title: 'settings', link: '/dashboard/settings/profile', icon: Icons.Settings }
+    { title: 'Settings', link: '/dashboard/settings/profile', icon: Icons.Settings }
   ],
   subroutes: {
     todos: [
@@ -13,8 +13,8 @@ const configuration = {
       { title: 'All Todos', link: '/dashboard/todos/list-todos' }
     ],
     settings: [
-      { title: 'Billing', link: '/dashboard/settings/billing' },
       { title: 'Profile', link: '/dashboard/settings/profile' },
+      { title: 'Billing', link: '/dashboard/settings/billing' },
       { title: 'Subscription', link: '/dashboard/settings/subscription' }
     ]
   },

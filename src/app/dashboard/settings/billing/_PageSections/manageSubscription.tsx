@@ -1,12 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-//import CreateStripeCheckoutSession from '@/lib/API/Routes/stripe';
 import axios from 'axios';
 
-const ManageSubscription = ({ user }) => {
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+
+const ManageSubscription = ({ customer }) => {
   const router = useRouter();
-  const customer = 'cus_Ocwl7YD5fWsKxB';
 
   const handleSubscription = async () => {
     const res = await axios.post('/api/stripe/create-portal-session', {
@@ -17,11 +18,22 @@ const ManageSubscription = ({ user }) => {
   };
 
   return (
-    <div className="flex flex-col p-6">
-      <div>Hello {user.email}</div>
-      <button className="border-4" onClick={handleSubscription}>
-        Manage Subscription
-      </button>
+    <div className="mt-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Manage Subscription & Billing</CardTitle>
+          <CardDescription>
+            Click below to Manage Subscription and Billing, You will be redirected to the Stripe
+            Customer Portal, where you will be able to update or cancel subsciptions, update payment
+            methods and view past invoices.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button onClick={handleSubscription} className="mt-4">
+            Manage Subscription
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 };

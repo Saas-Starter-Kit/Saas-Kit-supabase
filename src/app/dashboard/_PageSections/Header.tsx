@@ -4,7 +4,7 @@ import TeamSwitcher from './TeamSwitcher';
 
 const Header = () => {
   return (
-    <div className="border-b">
+    <div className="border-b bg-white">
       <div className="flex h-16 items-center px-4">
         <TeamSwitcher />
         <div>Dashboard</div>

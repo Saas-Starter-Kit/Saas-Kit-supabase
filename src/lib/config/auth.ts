@@ -11,9 +11,10 @@ const config = {
     }
   },
   redirects: {
-    successAuth: '/dashboard/main',
-    purchaseSuccess: '/dashboard/main',
-    purchaseCancel: '/auth/cancel',
+    successLoginAuth: '/dashboard/main',
+    successSignUpAuth: 'dashboard/settings/subscription',
+    purchaseSuccess: '/dashboard/settings/billing',
+    purchaseCancel: '/dashboard/settings/subscription',
     callback: '/auth/callback'
   }
 };
