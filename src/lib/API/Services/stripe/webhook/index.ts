@@ -1,6 +1,6 @@
 import 'server-only';
 import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supabase/SupabaseRouteHandler';
-import stripe from '@/lib/API/Services/init/stripeServer';
+import stripe from '@/lib/API/Services/init/stripe';
 import Stripe from 'stripe';
 
 const subscriptionStatusActive = { trailing: 'trailing', active: 'active' };

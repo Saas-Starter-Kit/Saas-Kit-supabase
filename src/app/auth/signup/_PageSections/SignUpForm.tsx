@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { SupabaseSignUp, SupabaseSignInWithGoogle } from '@/lib/API/Services/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { authFormSchema } from '@/lib/utils/validations';
+import { authFormSchema } from '@/lib/types/validations';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/Form';
@@ -33,8 +33,8 @@ export default function AuthForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof authFormSchema>) => {
-      SupabaseSignUp(values.email, values.password);
-      router.push(config.redirects.successAuth);
+    SupabaseSignUp(values.email, values.password);
+    router.push(config.redirects.successAuth);
   };
 
   const loginWithGoogle = async () => {
@@ -66,7 +66,13 @@ export default function AuthForm() {
 
         <CardContent>
           <div className="grid gap-4 mb-4">
-            <Button variant="outline" type="button" disabled={isLoading} className="w-full" onClick={loginWithGoogle}>
+            <Button
+              variant="outline"
+              type="button"
+              disabled={isLoading}
+              className="w-full"
+              onClick={loginWithGoogle}
+            >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : (
@@ -105,16 +111,20 @@ export default function AuthForm() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                    <div className="relative">
-                      <Input type={showPassword ? 'text' : 'password'} placeholder="Password" {...field}/>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder="Password"
+                          {...field}
+                        />
                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 cursor-pointer">
                           {showPassword ? (
-                            <Icons.EyeOff className="h-6 w-6" onClick={togglePasswordVisibility}/>
+                            <Icons.EyeOff className="h-6 w-6" onClick={togglePasswordVisibility} />
                           ) : (
-                            <Icons.Eye className="h-6 w-6" onClick={togglePasswordVisibility}/>
+                            <Icons.Eye className="h-6 w-6" onClick={togglePasswordVisibility} />
                           )}
                         </div>
-                    </div>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

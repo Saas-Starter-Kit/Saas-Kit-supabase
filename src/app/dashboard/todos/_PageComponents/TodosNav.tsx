@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils/helpers';
 
 export function TodosNav({ items, ...props }) {
   return (
-    <nav className={cn('flex items-center space-x-4 lg:space-x-6')} {...props}>
+    <nav className={cn('flex items-center space-x-4 lg:space-x-6 mb-6')} {...props}>
       {items.map((item) => (
         <Link href={item.link} className="text-sm font-medium transition-colors hover:text-primary">
           {item.title}

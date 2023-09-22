@@ -1,3 +1,4 @@
+'client-only';
 import { SupabaseBrowser as supabase } from '@/lib/API/Services/init/supabase/SupabaseBrowser';
 import config from '@/lib/config/auth';
 
@@ -28,7 +29,7 @@ export const SupabaseSignOut = async () => {
 
 export const SupabaseSignInWithGoogle = async () => {
   const res = supabase.auth.signInWithOAuth({
-    provider: 'google',
-  })
+    provider: 'google'
+  });
   return res;
-  };
+};

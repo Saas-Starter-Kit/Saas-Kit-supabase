@@ -1,5 +1,5 @@
 import 'server-only';
-import stripe from '@/lib/API/Services/init/stripeServer';
+import stripe from '@/lib/API/Services/init/stripe';
 import config from '@/lib/config/auth';
 
 const createPortalSession = async (customer, origin) => {

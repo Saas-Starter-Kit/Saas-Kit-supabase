@@ -1,7 +1,6 @@
-import { revalidatePath } from 'next/cache';
-import ButtonRow from './_PageSections/ButtonRow';
 import { SupabaseUser } from '@/lib/API/Services/supabase/user';
-import { GetTodoByUserId } from '@/lib/API/Database/todos/Server';
+import { GetTodoByUserId } from '@/lib/API/Database/todos/Server/queries';
+import MyTodos from '../_PageComponents/MyTodos';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,16 +10,11 @@ export default async function ListTodos() {
   } = await SupabaseUser();
 
   const user_id = user?.id;
-  const res = await GetTodoByUserId(user_id);
+  const { data } = await GetTodoByUserId(user_id);
 
   return (
     <div>
-      {res?.data?.map((item) => (
-        <div>
-          <div className="border-4">{item.title}</div>
-          <ButtonRow todo_id={item.id} todo_title={item.title} />
-        </div>
-      ))}
+      <MyTodos todos={data} />
     </div>
   );
 }

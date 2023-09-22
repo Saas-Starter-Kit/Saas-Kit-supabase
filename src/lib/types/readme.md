@@ -1,1 +1,1 @@
-Place types here. Delete if not using.
+This directory contains types and validations for forms.

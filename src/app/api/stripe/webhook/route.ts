@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import stripe from '@/lib/API/Services/init/stripeServer';
+import stripe from '@/lib/API/Services/init/stripe';
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { WebhookEventHandler } from '@/lib/API/Services/stripe/webhook';
