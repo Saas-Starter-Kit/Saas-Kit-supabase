@@ -64,8 +64,8 @@ export default function AuthForm() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
-          <div className="grid gap-4 mb-4">
+        <CardContent className="grid gap-4">
+          <div>
             <Button
               variant="outline"
               type="button"
