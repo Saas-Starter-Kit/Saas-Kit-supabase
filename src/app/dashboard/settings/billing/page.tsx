@@ -1,4 +1,4 @@
-import ManageSubscription from './_PageSections/manageSubscription';
+import ManageSubscription from '../_PageSections/ManageSubscription';
 import { SupabaseUser } from '@/lib/API/Services/supabase/user';
 import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
 

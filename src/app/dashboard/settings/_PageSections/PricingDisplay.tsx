@@ -5,14 +5,7 @@ import configuration from '@/lib/config/dashboard';
 import { useRouter } from 'next/navigation';
 import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
 
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardDescription,
-  CardTitle,
-  CardFooter
-} from '@/components/ui/Card';
+import { Card, CardHeader, CardContent, CardTitle, CardFooter } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Icons } from '@/components/Icons';
 import { Switch } from '@/components/ui/Switch';
@@ -90,11 +83,11 @@ const PricingDisplay = ({ user, customer }) => {
       </p>
 
       <div className="flex my-8">
-          <div className="text-sm font-bold mr-2">Monthly</div>
-          <Switch onClick={changeTimeInterval} />
-          <div className="text-sm font-bold ml-3">Yearly</div>
+        <div className="text-sm font-bold mr-2">Monthly</div>
+        <Switch onClick={changeTimeInterval} />
+        <div className="text-sm font-bold ml-3">Yearly</div>
       </div>
-      
+
       {timeInterval === 'Monthly' && (
         <div className="flex justify-between">
           <PriceCard

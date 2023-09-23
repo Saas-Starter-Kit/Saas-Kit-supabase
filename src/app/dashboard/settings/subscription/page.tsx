@@ -1,4 +1,4 @@
-import PricingDisplay from './_PageSections/pricingDisplay';
+import PricingDisplay from '../_PageSections/PricingDisplay';
 import { SupabaseUser } from '@/lib/API/Services/supabase/user';
 import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
 

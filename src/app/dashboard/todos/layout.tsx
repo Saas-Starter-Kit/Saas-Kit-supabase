@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/Separator';
-import { TodosNav } from './_PageComponents/TodosNav';
-import TodosHeader from './_PageComponents/TodosHeader';
+import { TodosNav } from './_PageSections/TodosNav';
+import TodosHeader from './_PageSections/TodosHeader';
 import configuration from '@/lib/config/dashboard';
 
 interface SettingsLayoutProps {

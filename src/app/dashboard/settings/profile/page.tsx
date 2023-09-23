@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 import { cn } from '@/lib/utils/helpers';
@@ -28,39 +28,19 @@ const profileFormSchema = z.object({
     .max(30, {
       message: 'Username must not be longer than 30 characters.'
     }),
-  email: z
-    .string({
-      required_error: 'Please select an email to display.'
-    })
-    .email(),
-  bio: z.string().max(160).min(4),
-  urls: z
-    .array(
-      z.object({
-        value: z.string().url({ message: 'Please enter a valid URL.' })
-      })
-    )
-    .optional()
+  email: z.string().email()
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-  bio: 'I own a computer.',
-  urls: [{ value: 'https://shadcn.com' }, { value: 'http://twitter.com/shadcn' }]
-};
-
 export default function ProfileForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
+    defaultValues: {
+      bio: 'I own a computer.',
+      urls: [{ value: 'https://shadcn.com' }, { value: 'http://twitter.com/shadcn' }]
+    },
     mode: 'onChange'
-  });
-
-  const { fields, append } = useFieldArray({
-    name: 'urls',
-    control: form.control
   });
 
   function onSubmit(data: ProfileFormValues) {
@@ -83,7 +63,7 @@ export default function ProfileForm() {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2">
               <FormField
                 control={form.control}
                 name="username"
@@ -93,13 +73,18 @@ export default function ProfileForm() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is your public display name. It can be your real name or a pseudonym.
-                    </FormDescription>
+                    <FormDescription>This is your public display name.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+              <Button className="mt-4" type="submit">
+                Update Display Name
+              </Button>
+            </form>
+          </Form>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="mt-14">
               <FormField
                 control={form.control}
                 name="email"
@@ -109,15 +94,14 @@ export default function ProfileForm() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is the email associated your account, you will receive important
-                      transactional emails here.
-                    </FormDescription>
+                    <FormDescription>This is the email associated your account</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Update profile</Button>
+              <Button className="mt-4" type="submit">
+                Update Email
+              </Button>
             </form>
           </Form>
         </CardContent>

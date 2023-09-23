@@ -11,7 +11,10 @@ import {
   LucideProps,
   Loader2,
   EyeIcon,
-  EyeOffIcon
+  EyeOffIcon,
+  CircleDollarSign,
+  Users,
+  ScreenShare
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -26,6 +29,9 @@ export const Icons = {
   Close: X,
   Check: Check,
   Spinner: Loader2,
+  CircleDollarSign,
+  Users,
+  ScreenShare,
   Eye: EyeIcon,
   EyeOff: EyeOffIcon,
   Google: ({ ...props }: LucideProps) => (

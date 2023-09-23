@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { SupabaseSession } from '@/lib/API/Services/supabase/user';
 import { redirect } from 'next/navigation';
+import Dashboard from './_PageSections/Dashboard';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -18,5 +19,9 @@ export default function DashboardPage() {
   //  redirect('/');
   //}
 
-  return <div>Dashbaord</div>;
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 }

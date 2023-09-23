@@ -1,5 +1,5 @@
 import { GetTodoById } from '@/lib/API/Database/todos/Server/queries';
-import TodosEditForm from '../../_PageComponents/TodosEditForm';
+import TodosEditForm from '../../_PageSections/TodosEditForm';
 
 export default async function EditTodo({ params }) {
   const { data } = await GetTodoById(params.id);

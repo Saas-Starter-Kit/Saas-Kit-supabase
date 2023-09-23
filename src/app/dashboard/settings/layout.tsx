@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/Separator';
-import { SettingsNav } from './_PageComponents/SettingsNav';
-import SettingsHeader from './_PageComponents/SettingsHeader';
+import { SettingsNav } from './_PageSections/SettingsNav';
+import SettingsHeader from './_PageSections/SettingsHeader';
 import configuration from '@/lib/config/dashboard';
 
 interface SettingsLayoutProps {

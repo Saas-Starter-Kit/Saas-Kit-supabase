@@ -1,6 +1,6 @@
 import { SupabaseUser } from '@/lib/API/Services/supabase/user';
 import { GetTodoByUserId } from '@/lib/API/Database/todos/Server/queries';
-import MyTodos from '../_PageComponents/MyTodos';
+import MyTodos from '../_PageSections/MyTodos';
 
 export const dynamic = 'force-dynamic';
 

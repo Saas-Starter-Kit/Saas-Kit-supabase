@@ -7,7 +7,7 @@ export default async function DashboardLayout({ children }) {
       <SideBar />
       <div className="flex flex-col grow-[18] w-40 bg-slate-50">
         <Header />
-        <div className="ml-10 mt-6 space-y-6 ">{children}</div>
+        <div className="ml-10 mr-6 mt-6 space-y-6 ">{children}</div>
       </div>
     </main>
   );
