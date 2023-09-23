@@ -22,25 +22,29 @@ const configuration = {
     yearly: {
       premium: {
         price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_YEARLY,
-        price: '200.00',
-        product: 'Premium Yearly Plan'
+        price: '200',
+        product: 'Premium',
+        features: ['Unlimited Posts', 'Unlimited Users', 'Priority Support']
       },
       basic: {
         price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC_YEARLY,
-        price: '100.00',
-        product: 'Basic Yearly Plan'
+        price: '100',
+        product: 'Basic',
+        features: ['Unlimited Posts', '10 Users', 'Email Support']
       }
     },
     monthly: {
       premium: {
         price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY,
-        price: '20.00',
-        product: 'Premium Monthly Plan'
+        price: '20',
+        product: 'Premium',
+        features: ['Unlimited Posts', 'Unlimited Users', 'Priority Support']
       },
       basic: {
         price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC_MONTHLY,
-        price: '10.00',
-        product: 'Basic Monthly Plan'
+        price: '10',
+        product: 'Basic',
+        features: ['Unlimited Posts', '10 Users', 'Email Support']
       }
     }
   }

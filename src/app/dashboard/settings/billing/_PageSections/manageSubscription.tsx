@@ -30,7 +30,7 @@ const ManageSubscription = ({ customer }) => {
         </CardHeader>
         <CardContent>
           <Button onClick={handleSubscription} className="mt-4">
-            Manage Subscription
+            Go to Portal
           </Button>
         </CardContent>
       </Card>
