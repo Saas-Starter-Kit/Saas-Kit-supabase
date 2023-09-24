@@ -33,3 +33,20 @@ export const SupabaseSignInWithGoogle = async () => {
   });
   return res;
 };
+
+export const SupabaseUpdateEmail = async (email) => {
+  const res = await supabase.auth.updateUser({ email });
+  return res;
+};
+
+export const SupabaseUpdatePassword = async (password) => {
+  const res = await supabase.auth.updateUser({ password });
+  return res;
+};
+
+export const SupabaseResetPasswordEmail = async (email, redirectTo) => {
+  const res = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo
+  });
+  return res;
+};
