@@ -7,6 +7,7 @@ import { Card, CardHeader, CardDescription, CardContent, CardTitle } from '@/com
 import UpdateForm from './UpdateForm';
 
 import { SupabaseProfileUpdate } from '@/lib/API/Database/profile/Browser/mutations';
+import { SupabaseUpdateEmail, SupabaseUpdatePassword } from '@/lib/API/Services/supabase/auth';
 
 import {
   DisplayNameFormValues,
@@ -41,39 +42,16 @@ const UpdateProfileCard = ({ user, display_name, email }) => {
 
   const onSubmitProfile = async (data) => {
     const id = user.id;
-    const display_name = data.dis;
-
+    const display_name = data.display_name;
     await SupabaseProfileUpdate(id, display_name);
-    //toast({
-    //  title: 'You submitted the following values:',
-    //  description: (
-    //    <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //      <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //    </pre>
-    //  )
-    //});
   };
 
-  const onSubmitEmail = (data) => {
-    //toast({
-    //  title: 'You submitted the following values:',
-    //  description: (
-    //    <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //      <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //    </pre>
-    //  )
-    //});
+  const onSubmitEmail = async (data) => {
+    await SupabaseUpdateEmail(data.email);
   };
 
-  const onSubmitPassword = (data) => {
-    //toast({
-    //  title: 'You submitted the following values:',
-    //  description: (
-    //    <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //      <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //    </pre>
-    //  )
-    //});
+  const onSubmitPassword = async (data) => {
+    await SupabaseUpdatePassword(data.password);
   };
 
   return (

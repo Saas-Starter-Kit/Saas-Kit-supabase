@@ -6,7 +6,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${InterFont.variable}`}>
       <body>
-        <ThemeProvider 
+        <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem

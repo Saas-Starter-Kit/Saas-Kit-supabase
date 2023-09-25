@@ -36,7 +36,7 @@ const MyTodos = ({ todos }) => {
   return (
     <div>
       {todos.map((todo) => (
-        <TodoCard id={todo.id} title={todo.title} description={todo.description} />
+        <TodoCard key={todo.id} id={todo.id} title={todo.title} description={todo.description} />
       ))}
     </div>
   );

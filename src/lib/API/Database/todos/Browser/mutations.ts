@@ -12,5 +12,6 @@ export const DeleteTodo = async (todo_id) => {
 
 export const CreateTodo = async (title, description, user_id, user_email) => {
   const res = await supabase.from('todos').insert({ title, description, user_id, user_email });
+  console.log(res);
   return res;
 };

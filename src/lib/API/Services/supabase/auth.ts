@@ -44,7 +44,8 @@ export const SupabaseUpdatePassword = async (password) => {
   return res;
 };
 
-export const SupabaseResetPasswordEmail = async (email, redirectTo) => {
+export const SupabaseResetPasswordEmail = async (email) => {
+  const redirectTo = `${process.env.NEXT_PUBLIC_DOMAIN}/dashboard/settings/profile`;
   const res = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo
   });

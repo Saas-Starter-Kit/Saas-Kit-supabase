@@ -1,19 +1,26 @@
 import PricingDisplay from '../_PageSections/PricingDisplay';
 import { SupabaseUser } from '@/lib/API/Services/supabase/user';
 import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
+import { RetrieveSubscription } from '@/lib/API/Services/stripe';
+
+import SubscriptionExists from '../_PageSections/SubscriptionExists';
 
 export default async function Subscription() {
   const {
     data: { user }
   } = await SupabaseUser();
 
-  //if existing subscription then redirect to manage billing
-
   const { data } = await GetProfileByUserId(user.id);
+
+  let subscription;
+  if (data[0].subscription_id) {
+    subscription = await RetrieveSubscription(data[0].subscription_id);
+  }
 
   return (
     <div className="">
-      <PricingDisplay user={user} customer={data[0].stripe_customer_id} />
+      {!subscription && <PricingDisplay user={user} customer={data[0].stripe_customer_id} />}
+      {subscription && <SubscriptionExists price_id={subscription.items.data[0].price.id} />}
     </div>
   );
 }

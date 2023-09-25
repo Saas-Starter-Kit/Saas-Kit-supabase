@@ -18,36 +18,50 @@ const configuration = {
       { title: 'Subscription', link: '/dashboard/settings/subscription' }
     ]
   },
-  subscriptionPlans: {
-    yearly: {
-      premium: {
-        price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_YEARLY,
-        price: '200',
-        product: 'Premium',
-        features: ['Unlimited Posts', 'Unlimited Users', 'Priority Support']
-      },
-      basic: {
-        price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC_YEARLY,
-        price: '100',
-        product: 'Basic',
-        features: ['Unlimited Posts', '10 Users', 'Email Support']
-      }
+  products: [
+    {
+      name: 'Basic',
+      description: 'Best for hobby or individual Projects',
+      features: ['Unlimited Posts', '10 Users', 'Email Support'],
+      plans: [
+        {
+          name: 'Basic Monthly',
+          interval: 'Monthly',
+          price: '10',
+          price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC_MONTHLY,
+          isPopular: true
+        },
+        {
+          name: 'Basic Annual',
+          interval: 'Yearly',
+          price: '100',
+          price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC_YEARLY,
+          isPopular: false
+        }
+      ]
     },
-    monthly: {
-      premium: {
-        price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY,
-        price: '20',
-        product: 'Premium',
-        features: ['Unlimited Posts', 'Unlimited Users', 'Priority Support']
-      },
-      basic: {
-        price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_BASIC_MONTHLY,
-        price: '10',
-        product: 'Basic',
-        features: ['Unlimited Posts', '10 Users', 'Email Support']
-      }
+    {
+      name: 'Pro',
+      description: 'Best for Teams or organizations',
+      features: ['Unlimited Posts', 'Unlimited Users', 'Priority Support'],
+      plans: [
+        {
+          name: 'Pro Monthly',
+          interval: 'Monthly',
+          price: '20',
+          price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY,
+          isPopular: false
+        },
+        {
+          name: 'Pro Annual',
+          interval: 'Yearly',
+          price: '200',
+          price_id: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_YEARLY,
+          isPopular: false
+        }
+      ]
     }
-  }
+  ]
 };
 
 export default configuration;

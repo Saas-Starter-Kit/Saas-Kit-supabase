@@ -35,7 +35,7 @@ export default function AuthForm() {
 
   const onSubmit = async (values: z.infer<typeof authFormSchema>) => {
     SupabaseSignIn(values.email, values.password);
-    router.push(config.redirects.successAuth);
+    router.push(config.redirects.successLoginAuth);
   };
 
   const loginWithGoogle = async () => {
@@ -43,7 +43,7 @@ export default function AuthForm() {
 
     try {
       await SupabaseSignInWithGoogle();
-      router.push(config.redirects.successAuth);
+      router.push(config.redirects.successLoginAuth);
     } catch (error) {
       console.error(error);
     } finally {

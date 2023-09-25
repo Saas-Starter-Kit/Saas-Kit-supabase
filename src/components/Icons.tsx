@@ -14,7 +14,8 @@ import {
   EyeOffIcon,
   CircleDollarSign,
   Users,
-  ScreenShare
+  ScreenShare,
+  User
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -24,6 +25,7 @@ export const Icons = {
   Laptop: Laptop,
   Settings: Settings,
   Home: Home,
+  User,
   Mail: Mail,
   Logo: Command,
   Close: X,

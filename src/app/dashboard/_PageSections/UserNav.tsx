@@ -1,3 +1,5 @@
+'use client';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Button';
 import {
@@ -10,44 +12,57 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger
 } from '@/components/ui/DropdownMenu';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { SupabaseSignOut } from '@/lib/API/Services/supabase/auth';
+import { Icons } from '@/components/Icons';
 
-export function UserNav() {
+export function UserNav({ email, display_name }) {
+  const router = useRouter();
+
+  const signOut = async () => {
+    await SupabaseSignOut();
+    router.push('/');
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-            <AvatarFallback>SC</AvatarFallback>
+            <AvatarFallback>
+              <Icons.User />
+            </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
-            <p className="text-xs leading-none text-muted-foreground">m@example.com</p>
+            <p className="text-sm font-medium leading-none">{display_name}</p>
+            <p className="text-xs leading-none text-muted-foreground">{email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            Profile
+            <Link href="/dashboard/todos/my-todos"> Todos </Link>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Billing
+            <Link href="/dashboard/settings/billing"> Billing </Link>
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Settings
+            <Link href="/dashboard/settings/profile">Settings</Link>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          Log out
+          <Button variant="ghost" onClick={signOut}>
+            Log out
+          </Button>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

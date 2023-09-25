@@ -18,7 +18,7 @@ export function SideBarNav({ isOpen, routes }) {
       <div className="mb-4 my-4 self-center">{isOpen ? <MainLogoText /> : <MainLogoIcon />}</div>
       <div>
         {routes.map((item) => (
-          <SidebarNavItem item={item} isOpen={isOpen} />
+          <SidebarNavItem key={item.title} item={item} isOpen={isOpen} />
         ))}
       </div>
     </nav>

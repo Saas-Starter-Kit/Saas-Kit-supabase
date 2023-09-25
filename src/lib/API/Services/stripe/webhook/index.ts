@@ -24,6 +24,7 @@ export const WebhookEventHandler = async (event) => {
       const session = event.data.object as Stripe.Checkout.Session;
       const user_db_id = session.metadata.user_id;
 
+      //import and replace
       const subscription = await stripe.subscriptions
         .retrieve(session.subscription as string)
         .catch((err) => console.log(err));

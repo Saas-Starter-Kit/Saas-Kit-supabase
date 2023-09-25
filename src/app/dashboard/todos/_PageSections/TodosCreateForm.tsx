@@ -28,7 +28,8 @@ export default function TodosCreateForm({ user }) {
     const user_id = user?.id;
     const user_email = user?.email;
 
-    await CreateTodo(title, description, user_id, user_email);
+    const res = await CreateTodo(title, description, user_id, user_email);
+    console.log(res);
   };
 
   return (
