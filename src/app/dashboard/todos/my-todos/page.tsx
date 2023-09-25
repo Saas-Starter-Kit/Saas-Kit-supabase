@@ -5,9 +5,7 @@ import MyTodos from '../_PageSections/MyTodos';
 export const dynamic = 'force-dynamic';
 
 export default async function ListTodos() {
-  const {
-    data: { user }
-  } = await SupabaseUser();
+  const user = await SupabaseUser();
 
   const user_id = user?.id;
   const { data } = await GetTodoByUserId(user_id);

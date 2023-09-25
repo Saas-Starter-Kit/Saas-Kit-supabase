@@ -5,9 +5,7 @@ import { RetrieveSubscription } from '@/lib/API/Services/stripe';
 import SubscriptionRequired from '../_PageSections/SubscriptionRequired';
 
 export default async function Billing() {
-  const {
-    data: { user }
-  } = await SupabaseUser();
+  const user = await SupabaseUser();
 
   const { data } = await GetProfileByUserId(user.id);
 

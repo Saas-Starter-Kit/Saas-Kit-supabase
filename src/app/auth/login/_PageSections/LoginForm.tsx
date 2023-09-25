@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { SupabaseSignIn, SupabaseSignInWithGoogle } from '@/lib/API/Services/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { authFormSchema } from '@/lib/types/validations';
+import { authFormSchema, authFormValues } from '@/lib/types/validations';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/Form';
@@ -25,30 +25,40 @@ import config from '@/lib/config/auth';
 
 export default function AuthForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof authFormSchema>>({
-    resolver: zodResolver(authFormSchema)
+  const form = useForm<authFormValues>({
+    resolver: zodResolver(authFormSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
   });
 
-  const onSubmit = async (values: z.infer<typeof authFormSchema>) => {
-    SupabaseSignIn(values.email, values.password);
-    router.push(config.redirects.successLoginAuth);
-  };
+  const {
+    reset,
+    setError,
+    formState: { isSubmitting, errors }
+  } = form;
 
-  const loginWithGoogle = async () => {
-    setIsLoading(true);
+  const onSubmit = async (values: authFormValues) => {
+    const { data, error } = await SupabaseSignIn(values.email, values.password);
 
-    try {
-      await SupabaseSignInWithGoogle();
-      router.push(config.redirects.successLoginAuth);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+    //extract out
+    if (error) {
+      console.log(error);
+      setError('root', {
+        type: error.name
+      });
+      setErrorMessage(error.message);
+      reset({ email: values.email, password: '' });
+      throw new Error(error.message);
     }
+    console.log(errors);
+
+    router.push(config.redirects.toDashboard);
   };
 
   const togglePasswordVisibility = () => {
@@ -61,6 +71,7 @@ export default function AuthForm() {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Login to your Account</CardTitle>
           <CardDescription>Enter your email and password below to login</CardDescription>
+          {errors && <div className="text-sm text-red-500 pt-2">{errorMessage}</div>}
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -72,7 +83,7 @@ export default function AuthForm() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email" {...field} />
+                      <Input type="text" placeholder="Email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -91,6 +102,7 @@ export default function AuthForm() {
                           placeholder="Password"
                           {...field}
                         />
+
                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 cursor-pointer">
                           {showPassword ? (
                             <Icons.EyeOff className="h-6 w-6" onClick={togglePasswordVisibility} />
@@ -104,10 +116,17 @@ export default function AuthForm() {
                   </FormItem>
                 )}
               />
-              <Button className="w-full">
-                <Icons.Mail className="mr-2 h-4 w-4" />
-                Login with Email
-              </Button>
+              <div>
+                <div className="mb-6 text-xs text-indigo-600 hover:text-indigo-500 underline">
+                  <Link href="/auth/forgotpassword">forgot password?</Link>
+                </div>
+                <Button disabled={isSubmitting} className="w-full">
+                  {isSubmitting && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
+                  <Icons.Mail className="mr-2 h-4 w-4" />
+                  Login with Email
+                </Button>
+              </div>
+
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <span className="w-full border-t" />
@@ -116,18 +135,12 @@ export default function AuthForm() {
                   <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
                 </div>
               </div>
-              <Button
-                variant="outline"
-                type="button"
-                disabled={isLoading}
-                className="w-full"
-                onClick={loginWithGoogle}
-              >
-                {isLoading ? (
-                  <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+              <Button variant="outline" type="button" className="w-full">
+                {/*{isLoading ? (
+                 
                 ) : (
                   <Icons.Google className="mr-2 h-4 w-4" />
-                )}{' '}
+                )}{' '}*/}
                 Login with Google
               </Button>
             </form>
@@ -140,9 +153,6 @@ export default function AuthForm() {
               <Link href="/auth/signup" className="leading-7 text-indigo-600 hover:text-indigo-500">
                 Start a 14 day free trial now!
               </Link>
-            </div>
-            <div className="mt-4 text-xs text-indigo-600 hover:text-indigo-500">
-              <Link href="/auth/forgotpassword">forgot password</Link>
             </div>
           </div>
         </CardFooter>

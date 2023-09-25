@@ -5,21 +5,23 @@ import config from '@/lib/config/auth';
 export const SupabaseSignUp = async (email, password) => {
   const res = await supabase.auth.signUp({
     email,
-    password,
-    options: {
-      emailRedirectTo: `${location.origin}${config.redirects.callback}`
-    }
+    password
   });
   return res;
 };
 
 export const SupabaseSignIn = async (email, password) => {
-  const res = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
+  try {
+    const res = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
 
-  return res;
+    return res;
+  } catch (e) {
+    //send error to logger
+    console.log(e);
+  }
 };
 
 export const SupabaseSignOut = async () => {

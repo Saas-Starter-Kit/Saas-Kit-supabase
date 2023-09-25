@@ -5,7 +5,7 @@ import config from '@/lib/config/auth';
 const createPortalSession = async (customer, origin) => {
   const portalSession = await stripe.billingPortal.sessions.create({
     customer,
-    return_url: `${origin}${config.redirects.purchaseSuccess}`
+    return_url: `${origin}${config.redirects.toSubscription}`
   });
   return portalSession;
 };

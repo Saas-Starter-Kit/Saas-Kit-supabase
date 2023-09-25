@@ -11,10 +11,9 @@ const config = {
     }
   },
   redirects: {
-    successLoginAuth: '/dashboard/main',
-    successSignUpAuth: 'dashboard/settings/subscription',
-    purchaseSuccess: '/dashboard/settings/billing',
-    purchaseCancel: '/dashboard/settings/subscription',
+    toDashboard: '/dashboard/main',
+    toSubscription: '/dashboard/settings/subscription',
+    toBilling: '/dashboard/settings/billing',
     callback: '/auth/callback'
   }
 };

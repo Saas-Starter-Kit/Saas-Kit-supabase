@@ -6,9 +6,7 @@ import { RetrieveSubscription } from '@/lib/API/Services/stripe';
 import SubscriptionExists from '../_PageSections/SubscriptionExists';
 
 export default async function Subscription() {
-  const {
-    data: { user }
-  } = await SupabaseUser();
+  const user = await SupabaseUser();
 
   const { data } = await GetProfileByUserId(user.id);
 

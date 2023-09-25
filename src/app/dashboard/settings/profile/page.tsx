@@ -3,9 +3,7 @@ import { SupabaseUser } from '@/lib/API/Services/supabase/user';
 import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
 
 export default async function ProfileForm() {
-  const {
-    data: { user }
-  } = await SupabaseUser();
+  const user = await SupabaseUser();
 
   const { data } = await GetProfileByUserId(user.id);
 
