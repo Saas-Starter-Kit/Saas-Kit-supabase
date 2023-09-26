@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SupabaseSignIn, SupabaseSignInWithGoogle } from '@/lib/API/Services/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { authFormSchema, authFormValues } from '@/lib/types/validations';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
@@ -43,20 +42,33 @@ export default function AuthForm() {
     formState: { isSubmitting, errors }
   } = form;
 
-  const onSubmit = async (values: authFormValues) => {
-    const { data, error } = await SupabaseSignIn(values.email, values.password);
-
-    //extract out
+  const handleSupabaseAuthError = (error, data, email) => {
     if (error) {
-      console.log(error);
       setError('root', {
         type: error.name
       });
       setErrorMessage(error.message);
-      reset({ email: values.email, password: '' });
-      throw new Error(error.message);
+      reset({ email, password: '' });
+      return { isError: true };
     }
-    console.log(errors);
+
+    if (!data?.session || !data?.user) {
+      setError('root', {
+        type: 'Supabase Unknown Error'
+      });
+      setErrorMessage('Something Went Wrong, Please Try Again');
+      reset({ email, password: '' });
+      return { isError: true };
+    }
+
+    return { isError: false };
+  };
+
+  const onSubmit = async (values: authFormValues) => {
+    const { data, error } = await SupabaseSignIn(values.email, values.password);
+
+    const { isError } = handleSupabaseAuthError(error, data, values.email);
+    if (isError) return;
 
     router.push(config.redirects.toDashboard);
   };
@@ -126,32 +138,31 @@ export default function AuthForm() {
                   Login with Email
                 </Button>
               </div>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
-                </div>
-              </div>
-              <Button variant="outline" type="button" className="w-full">
-                {/*{isLoading ? (
-                 
-                ) : (
-                  <Icons.Google className="mr-2 h-4 w-4" />
-                )}{' '}*/}
-                Login with Google
-              </Button>
             </form>
           </Form>
+
+          <div className="space-y-8 mt-8">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+              </div>
+            </div>
+            <Button variant="outline" className="w-full">
+              <Icons.Google />
+              <span className="ml-2 font-semibold">Sign in with Google</span>
+            </Button>
+          </div>
         </CardContent>
+
         <CardFooter>
           <div className="flex flex-col">
             <div className="text-center text-sm text-gray-500">
               Not a member?{' '}
               <Link href="/auth/signup" className="leading-7 text-indigo-600 hover:text-indigo-500">
-                Start a 14 day free trial now!
+                Click here to Sign up.
               </Link>
             </div>
           </div>

@@ -1,6 +1,5 @@
 'client-only';
 import { SupabaseBrowser as supabase } from '@/lib/API/Services/init/supabase/SupabaseBrowser';
-import config from '@/lib/config/auth';
 
 export const SupabaseSignUp = async (email, password) => {
   const res = await supabase.auth.signUp({
@@ -11,17 +10,11 @@ export const SupabaseSignUp = async (email, password) => {
 };
 
 export const SupabaseSignIn = async (email, password) => {
-  try {
-    const res = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    return res;
-  } catch (e) {
-    //send error to logger
-    console.log(e);
-  }
+  const res = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+  return res;
 };
 
 export const SupabaseSignOut = async () => {
