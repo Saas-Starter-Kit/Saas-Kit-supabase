@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { SupabaseSignIn, SupabaseSignInWithGoogle } from '@/lib/API/Services/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,7 +25,6 @@ import config from '@/lib/config/auth';
 export default function AuthForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
   const router = useRouter();
 
   const form = useForm<authFormValues>({
@@ -71,6 +70,19 @@ export default function AuthForm() {
     if (isError) return;
 
     router.push(config.redirects.toDashboard);
+    //router.push('/dashboard/settings/profile');
+  };
+
+  const handleGoogleSignIn = async () => {
+    const { data, error } = await SupabaseSignInWithGoogle();
+
+    if (error) {
+      setError('root', {
+        type: error.name
+      });
+      setErrorMessage(error.message);
+      return;
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -150,7 +162,7 @@ export default function AuthForm() {
                 <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
               </div>
             </div>
-            <Button variant="outline" className="w-full">
+            <Button onClick={handleGoogleSignIn} variant="outline" className="w-full">
               <Icons.Google />
               <span className="ml-2 font-semibold">Sign in with Google</span>
             </Button>

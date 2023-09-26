@@ -1,5 +1,6 @@
 'client-only';
 import { SupabaseBrowser as supabase } from '@/lib/API/Services/init/supabase/SupabaseBrowser';
+import config from '@/lib/config/auth';
 
 export const SupabaseSignUp = async (email, password) => {
   const res = await supabase.auth.signUp({
@@ -24,7 +25,10 @@ export const SupabaseSignOut = async () => {
 
 export const SupabaseSignInWithGoogle = async () => {
   const res = supabase.auth.signInWithOAuth({
-    provider: 'google'
+    provider: 'google',
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/${config.redirects.toDashboard}`
+    }
   });
   return res;
 };

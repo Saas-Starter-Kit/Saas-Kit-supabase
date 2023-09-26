@@ -4,7 +4,8 @@ import { UserNav } from './UserNav';
 import TeamSwitcher from './TeamSwitcher';
 import { usePathname } from 'next/navigation';
 
-const Header = ({ display_name, email }) => {
+const Header = ({ display_name, email, avatar_url, error }) => {
+  console.log(email);
   const [headerText, setHeaderText] = useState('');
   const pathname = usePathname().split('/');
 
@@ -26,7 +27,7 @@ const Header = ({ display_name, email }) => {
         <TeamSwitcher />
         <div className="text-lg ml-3">{headerText}</div>
         <div className="ml-auto flex items-center space-x-4">
-          <UserNav display_name={display_name} email={email} />
+          <UserNav avatar_url={avatar_url} display_name={display_name} email={email} />
         </div>
       </div>
     </div>

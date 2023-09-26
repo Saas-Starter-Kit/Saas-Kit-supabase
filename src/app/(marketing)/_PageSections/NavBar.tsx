@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils/helpers';
 import { Icons } from '@/components/Icons';
 import MobileNav from './MobileNavMain';
 import { MainLogoText } from '../../../components/ui/MainLogo';
+import { useRouter } from 'next/navigation';
+import { Button, buttonVariants } from '@/components/ui/Button';
 
 interface NavbarMainProps {
   items?: MainNavItem[];
@@ -16,8 +18,13 @@ interface NavbarMainProps {
 }
 
 const NavbarMain = ({ items, children }: NavbarMainProps) => {
-  const segment = useSelectedLayoutSegment();
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.refresh();
+    router.push('/auth/login');
+  };
 
   return (
     <div className="flex gap-6 md:gap-10">
@@ -28,13 +35,18 @@ const NavbarMain = ({ items, children }: NavbarMainProps) => {
               key={index}
               href={item.link}
               className={cn(
-                'flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm',
-                item.link.startsWith(`/${segment}`) ? 'text-foreground' : 'text-foreground/60'
+                'flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm'
               )}
             >
               {item.title}
             </Link>
           ))}
+          <Button
+            onClick={handleClick}
+            className={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'px-4')}
+          >
+            Login
+          </Button>
         </nav>
       ) : null}
       <button

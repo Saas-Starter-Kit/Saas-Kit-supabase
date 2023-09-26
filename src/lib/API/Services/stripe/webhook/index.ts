@@ -17,7 +17,6 @@ const WebhookEvents = {
 };
 
 export const WebhookEventHandler = async (event) => {
-  console.log(event);
   // Handle the event
   switch (event.type) {
     case WebhookEvents.checkout_session_completed:

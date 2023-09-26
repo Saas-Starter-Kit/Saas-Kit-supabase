@@ -1,4 +1,5 @@
 'use client';
+//convert to server comp
 
 import * as React from 'react';
 import { Moon, Sun } from 'lucide-react';
@@ -18,6 +19,7 @@ import { buttonVariants } from '@/components/ui/Button';
 import NavBar from './_PageSections/NavBar';
 import config from '@/lib/config/marketing';
 import { MainLogoText } from '@/components/ui/MainLogo';
+import { useRouter } from 'next/navigation';
 
 export default async function MarketingLayout({ children }) {
   const { routes } = config;
@@ -29,20 +31,12 @@ export default async function MarketingLayout({ children }) {
         <div className="flex items-center justify-between p-6">
           <MainLogoText />
           <NavBar items={routes} />
-          <nav>
-            <Link
-              href="/auth/login"
-              className={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'px-4')}
-            >
-              Login
-            </Link>
-          </nav>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
-                {/*<Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>*/}
+                <span className="sr-only">Toggle theme</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

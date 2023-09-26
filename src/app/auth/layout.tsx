@@ -1,6 +1,9 @@
 import { MainLogoText } from '@/components/ui/MainLogo';
+import { revalidatePath } from 'next/cache';
 
 export default async function AuthLayout({ children }) {
+  //revalidatePath('/auth/');
+
   return (
     <div>
       <header className="flex items-center justify-center">

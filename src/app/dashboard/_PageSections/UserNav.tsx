@@ -17,11 +17,12 @@ import { useRouter } from 'next/navigation';
 import { SupabaseSignOut } from '@/lib/API/Services/supabase/auth';
 import { Icons } from '@/components/Icons';
 
-export function UserNav({ email, display_name }) {
+export function UserNav({ email, display_name, avatar_url }) {
   const router = useRouter();
 
   const signOut = async () => {
     await SupabaseSignOut();
+    router.refresh();
     router.push('/');
   };
 
@@ -30,9 +31,13 @@ export function UserNav({ email, display_name }) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarFallback>
-              <Icons.User />
-            </AvatarFallback>
+            {avatar_url ? (
+              <AvatarImage src={avatar_url} alt="Picture" />
+            ) : (
+              <AvatarFallback>
+                <Icons.User />
+              </AvatarFallback>
+            )}
           </Avatar>
         </Button>
       </DropdownMenuTrigger>

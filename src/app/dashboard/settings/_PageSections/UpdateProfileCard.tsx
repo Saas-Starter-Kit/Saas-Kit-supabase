@@ -12,8 +12,8 @@ import { SupabaseUpdateEmail, SupabaseUpdatePassword } from '@/lib/API/Services/
 import {
   DisplayNameFormValues,
   DisplayNameFormSchema,
-  UpdateEmailFormSchema,
-  UpdateEmailFormValues,
+  EmailFormSchema,
+  EmailFormValues,
   UpdatePasswordFormSchema,
   UpdatePasswordFormValues
 } from '@/lib/types/validations';
@@ -23,21 +23,21 @@ const UpdateProfileCard = ({ user, display_name, email }) => {
     resolver: zodResolver(DisplayNameFormSchema),
     defaultValues: {
       display_name
-    },
-    mode: 'onChange'
+    }
   });
 
-  const formEmail = useForm<UpdateEmailFormValues>({
-    resolver: zodResolver(UpdateEmailFormSchema),
+  const formEmail = useForm<EmailFormValues>({
+    resolver: zodResolver(EmailFormSchema),
     defaultValues: {
       email
-    },
-    mode: 'onChange'
+    }
   });
 
   const formPassword = useForm<UpdatePasswordFormValues>({
     resolver: zodResolver(UpdatePasswordFormSchema),
-    mode: 'onChange'
+    defaultValues: {
+      password: ''
+    }
   });
 
   const onSubmitProfile = async (data) => {
