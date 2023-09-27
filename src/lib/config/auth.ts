@@ -8,6 +8,9 @@ const config = {
     },
     forgotPassword: {
       link: '/auth/forgot-password'
+    },
+    magiclink: {
+      link: '/auth/magic-link'
     }
   },
   redirects: {

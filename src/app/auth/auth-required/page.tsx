@@ -1,7 +1,7 @@
 const AuthRequired = () => {
   return (
     <div>
-      <div>Please Sign in to veiw this page. </div>
+      <div>Please Sign in to view this page. </div>
       <div>Click Here to sign in</div>
     </div>
   );

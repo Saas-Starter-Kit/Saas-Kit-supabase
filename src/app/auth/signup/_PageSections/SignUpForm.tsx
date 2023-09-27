@@ -83,6 +83,8 @@ export default function AuthForm() {
       setErrorMessage(error.message);
       return;
     }
+
+    router.push(config.redirects.callback);
   };
 
   const togglePasswordVisibility = () => {
@@ -144,6 +146,7 @@ export default function AuthForm() {
               />
               <Button className="w-full">
                 {isSubmitting && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
+                <Icons.Lock className="mr-2 h-4 w-4" /> 
                 Create account
               </Button>
             </form>
