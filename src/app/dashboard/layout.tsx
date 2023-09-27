@@ -3,13 +3,14 @@ import Header from './_PageSections/Header';
 import { SupabaseSession } from '@/lib/API/Services/supabase/user';
 import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
 import { redirect } from 'next/navigation';
+import config from '@/lib/config/auth';
 
 export default async function DashboardLayout({ children }) {
   const { data, error } = await SupabaseSession();
 
   //Auth Gaurd
   if (error || !data?.session) {
-    redirect('/auth/auth-required');
+    redirect(config.redirects.requireAuth);
   }
 
   let profile;

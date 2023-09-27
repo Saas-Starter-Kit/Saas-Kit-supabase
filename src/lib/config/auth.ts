@@ -14,6 +14,7 @@ const config = {
     toDashboard: '/dashboard/main',
     toSubscription: '/dashboard/settings/subscription',
     toBilling: '/dashboard/settings/billing',
+    requireAuth: '/auth/auth-required',
     callback: '/api/auth-callback'
   }
 };
