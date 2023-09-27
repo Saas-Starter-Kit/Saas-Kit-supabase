@@ -69,8 +69,7 @@ export default function AuthForm() {
     const { isError } = handleSupabaseAuthError(error, data, values.email);
     if (isError) return;
 
-    router.push(config.redirects.toDashboard);
-    //router.push('/dashboard/settings/profile');
+    router.push(config.redirects.callback);
   };
 
   const handleGoogleSignIn = async () => {

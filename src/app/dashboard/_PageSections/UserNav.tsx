@@ -22,7 +22,6 @@ export function UserNav({ email, display_name, avatar_url }) {
 
   const signOut = async () => {
     await SupabaseSignOut();
-    router.refresh();
     router.push('/');
   };
 

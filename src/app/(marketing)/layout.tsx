@@ -19,7 +19,6 @@ import { buttonVariants } from '@/components/ui/Button';
 import NavBar from './_PageSections/NavBar';
 import config from '@/lib/config/marketing';
 import { MainLogoText } from '@/components/ui/MainLogo';
-import { useRouter } from 'next/navigation';
 
 export default async function MarketingLayout({ children }) {
   const { routes } = config;
@@ -31,6 +30,14 @@ export default async function MarketingLayout({ children }) {
         <div className="flex items-center justify-between p-6">
           <MainLogoText />
           <NavBar items={routes} />
+          <nav>
+            <Link
+              href="/auth/login"
+              className={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'px-4')}
+            >
+              Login
+            </Link>
+          </nav>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">

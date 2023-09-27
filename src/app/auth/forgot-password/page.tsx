@@ -22,7 +22,6 @@ import config from '@/lib/config/auth';
 
 export default function AuthForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 

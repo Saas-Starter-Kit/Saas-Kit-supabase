@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { UserNav } from './UserNav';
 import TeamSwitcher from './TeamSwitcher';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const Header = ({ display_name, email, avatar_url, error }) => {
-  console.log(email);
   const [headerText, setHeaderText] = useState('');
   const pathname = usePathname().split('/');
 

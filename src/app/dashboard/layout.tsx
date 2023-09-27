@@ -2,14 +2,10 @@ import SideBar from './_PageSections/SideBar';
 import Header from './_PageSections/Header';
 import { SupabaseGetUser, SupabaseSession, SupabaseUser } from '@/lib/API/Services/supabase/user';
 import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
-import { revalidatePath } from 'next/cache';
 
 export default async function DashboardLayout({ children }) {
-  //revalidatePath('/dashboard/main');
-
   const { data, error } = await SupabaseSession();
 
-  console.log(data);
   let profile;
   if (data?.session?.user) {
     profile = await GetProfileByUserId(data.session.user.id);
