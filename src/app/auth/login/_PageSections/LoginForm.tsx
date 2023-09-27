@@ -82,6 +82,8 @@ export default function AuthForm() {
       setErrorMessage(error.message);
       return;
     }
+
+    router.push(config.redirects.callback);
   };
 
   const togglePasswordVisibility = () => {
@@ -141,7 +143,7 @@ export default function AuthForm() {
               />
               <div>
                 <div className="mb-6 text-xs text-indigo-600 hover:text-indigo-500 underline">
-                  <Link href="/auth/forgotpassword">forgot password?</Link>
+                  <Link href="/auth/forgot-password">Forgot your password?</Link>
                 </div>
                 <Button disabled={isSubmitting} className="w-full">
                   {isSubmitting && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
@@ -170,10 +172,15 @@ export default function AuthForm() {
 
         <CardFooter>
           <div className="flex flex-col">
+            <div className="text-left text-sm text-gray-500">
+              <Link href="/auth/magic-link" className="leading-7 text-indigo-600 hover:text-indigo-500">
+              Email me a login link
+              </Link>
+            </div>
             <div className="text-center text-sm text-gray-500">
               Not a member?{' '}
               <Link href="/auth/signup" className="leading-7 text-indigo-600 hover:text-indigo-500">
-                Click here to Sign up.
+                Sign up now.
               </Link>
             </div>
           </div>

@@ -8,7 +8,7 @@ import config from '@/lib/config/auth';
 export default async function DashboardLayout({ children }) {
   const { data, error } = await SupabaseSession();
 
-  //Auth Gaurd
+  //Auth Guard
   if (error || !data?.session) {
     redirect(config.redirects.requireAuth);
   }

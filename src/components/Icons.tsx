@@ -15,7 +15,8 @@ import {
   CircleDollarSign,
   Users,
   ScreenShare,
-  User
+  User,
+  Lock
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -45,5 +46,6 @@ export const Icons = {
   ScreenShare,
   Eye: EyeIcon,
   EyeOff: EyeOffIcon,
+  Lock: Lock,
   Google
 };
