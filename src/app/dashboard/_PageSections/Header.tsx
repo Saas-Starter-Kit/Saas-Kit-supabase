@@ -5,7 +5,7 @@ import TeamSwitcher from './TeamSwitcher';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-const Header = ({ display_name, email, avatar_url, error }) => {
+const Header = ({ display_name, email, avatar_url }) => {
   const [headerText, setHeaderText] = useState('');
   const pathname = usePathname().split('/');
 

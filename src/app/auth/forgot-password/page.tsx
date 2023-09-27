@@ -21,6 +21,7 @@ import Link from 'next/link';
 import config from '@/lib/config/auth';
 
 export default function AuthForm() {
+  // make ssr page, extract out form to client comp.
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
