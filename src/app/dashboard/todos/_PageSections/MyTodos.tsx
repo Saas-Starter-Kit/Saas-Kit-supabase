@@ -5,10 +5,21 @@ import { UpdateTodo, DeleteTodo } from '@/lib/API/Database/todos/Browser/mutatio
 import { Button, buttonVariants } from '@/components/ui/Button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils/helpers';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const TodoCard = ({ id, title, description }) => {
+  const router = useRouter();
+
   const Delete = async () => {
-    await DeleteTodo(id);
+    const { error } = await DeleteTodo(id);
+
+    if (error) {
+      toast.error('Something Went Wrong, please try again');
+      return;
+    }
+    toast.success('Todo Deleted');
+    router.refresh();
   };
 
   return (

@@ -18,8 +18,6 @@ export const authFormSchema = z.object({
     })
 });
 
-export type authFormValues = z.infer<typeof authFormSchema>;
-
 export const todoFormSchema = z.object({
   title: z
     .string({
@@ -62,3 +60,5 @@ export const UpdatePasswordFormSchema = z.object({
 export type DisplayNameFormValues = z.infer<typeof DisplayNameFormSchema>;
 export type EmailFormValues = z.infer<typeof EmailFormSchema>;
 export type UpdatePasswordFormValues = z.infer<typeof UpdatePasswordFormSchema>;
+export type todoFormValues = z.infer<typeof todoFormSchema>;
+export type authFormValues = z.infer<typeof authFormSchema>;

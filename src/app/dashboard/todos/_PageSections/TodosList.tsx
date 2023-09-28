@@ -2,13 +2,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 const TodoCard = ({ title, description, author }) => {
   return (
-    <Card>
+    <Card className="my-4">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div>By: {author}</div>
+        <div>By: {author ? author : 'anonymous'}</div>
       </CardContent>
     </Card>
   );

@@ -1,35 +1,55 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { todoFormSchema } from '@/lib/types/validations';
+import { todoFormSchema, todoFormValues } from '@/lib/types/validations';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/Form';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-
+import { Icons } from '@/components/Icons';
 import { CreateTodo } from '@/lib/API/Database/todos/Browser/mutations';
+import { toast } from 'react-toastify';
 
-export default function TodosCreateForm({ user }) {
-  const router = useRouter();
+export default function TodosCreateForm({ user, author }) {
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const form = useForm<z.infer<typeof todoFormSchema>>({
-    resolver: zodResolver(todoFormSchema)
+  const form = useForm<todoFormValues>({
+    resolver: zodResolver(todoFormSchema),
+    defaultValues: {
+      title: '',
+      description: ''
+    }
   });
 
-  const onSubmit = async (values: z.infer<typeof todoFormSchema>) => {
+  const {
+    reset,
+    setError,
+    formState: { isSubmitting, errors }
+  } = form;
+
+  const onSubmit = async (values: todoFormValues) => {
     const title = values.title;
     const description = values.description;
 
     const user_id = user?.id;
-    const user_email = user?.email;
 
-    const res = await CreateTodo(title, description, user_id, user_email);
-    console.log(res);
+    const { error } = await CreateTodo(title, description, user_id, author);
+
+    if (error) {
+      const type = 'Todo create failed';
+      const errorMessage = 'Todo Creation failed, please try again';
+      setError('root', {
+        type
+      });
+      setErrorMessage(errorMessage);
+      return;
+    }
+
+    reset({ title: '', description: '' });
+    toast.success('Todo Submitted');
   };
 
   return (
@@ -38,6 +58,7 @@ export default function TodosCreateForm({ user }) {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">New Todo</CardTitle>
           <CardDescription>Create a Todo with Title and Description</CardDescription>
+          {errors && <div className="text-sm text-red-500 pt-2">{errorMessage}</div>}
         </CardHeader>
 
         <CardContent>
@@ -69,7 +90,9 @@ export default function TodosCreateForm({ user }) {
                   </FormItem>
                 )}
               />
-              <Button className="w-full">Submit</Button>
+              <Button disabled={isSubmitting} className="w-full">
+                {isSubmitting && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}Submit
+              </Button>
             </form>
           </Form>
         </CardContent>
