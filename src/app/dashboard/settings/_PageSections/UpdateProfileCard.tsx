@@ -43,16 +43,19 @@ const UpdateProfileCard = ({ user, display_name, email }) => {
   const onSubmitProfile = async (data) => {
     const id = user.id;
     const display_name = data.display_name;
-    await SupabaseProfileUpdate(id, display_name);
+    const { error } = await SupabaseProfileUpdate(id, display_name);
+    return error;
   };
 
   const onSubmitEmail = async (data) => {
-    await SupabaseUpdateEmail(data.email);
+    const { error } = await SupabaseUpdateEmail(data.email);
     // update stripe email
+    return error;
   };
 
   const onSubmitPassword = async (data) => {
-    await SupabaseUpdatePassword(data.password);
+    const { error } = await SupabaseUpdatePassword(data.password);
+    return error;
   };
 
   return (
