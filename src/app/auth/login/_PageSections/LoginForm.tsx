@@ -73,18 +73,16 @@ export default function AuthForm() {
   };
 
   const handleGoogleSignIn = async () => {
-    const { data, error } = await SupabaseSignInWithGoogle();
-
-    if (error) {
-      setError('root', {
-        type: error.name
-      });
-      setErrorMessage(error.message);
-      return;
-    }
+    const { error } = await SupabaseSignInWithGoogle();
+  
+      if (error) {
+        setErrorMessage(error.message);
+        return;
+      }
 
     router.push(config.redirects.callback);
   };
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);

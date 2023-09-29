@@ -25,6 +25,7 @@ import { Icons } from '@/components/Icons';
 export default function AuthForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [emailSent, setEmailSent] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -92,7 +93,15 @@ export default function AuthForm() {
   };
 
   return (
-    <div>
+      <>
+        {emailSent ? (
+          <div className="border p-4 flex justify-between items-center">
+          <p>Check your email for verification</p>
+          <Button color="ghost" size="sm" onClick={() => setEmailSent(false)}>
+            Try again
+          </Button>
+          </div>
+      ) : (
       <Card>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Create an account</CardTitle>
@@ -177,6 +186,7 @@ export default function AuthForm() {
           </div>
         </CardFooter>
       </Card>
-    </div>
+     )}  
+     </>
   );
 }

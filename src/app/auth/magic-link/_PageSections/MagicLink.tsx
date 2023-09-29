@@ -18,44 +18,28 @@ import {
   CardTitle
 } from '@/components/ui/Card';
 import { Icons } from '@/components/Icons';
+import Link from 'next/link';
 
 export default function AuthForm() {
     const [emailSent, setEmailSent] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const router = useRouter();
 
     const form = useForm<EmailFormValues>({
         resolver: zodResolver(EmailFormSchema),
     });
 
-    const handleMagicLinkLogin = async (values: EmailFormValues) => {
+    const onSubmit = async (values: EmailFormValues) => {
        
-        const { data, error } = await  SupabaseSignInWithMagicLink(values.email);
+        const { error } = await SupabaseSignInWithMagicLink(values.email);
 
-        const { isError } = handleSupabaseAuthError(error, data);
-        if (isError) return;
+        if (error) throw error;
         setEmailSent(true);
     };
 
     const {
-        reset,
-        setError,
-        formState: { isSubmitting, errors }
+        register,
+        handleSubmit,
+        formState: { isSubmitting }
       } = form;
-
-    const handleSupabaseAuthError = (error, data) => {
-    if (error) {
-      setError('root', {
-        type: error.name
-      });
-      setErrorMessage(error.message);
-      reset({ email: '' });
-      return { isError: true };
-    }
-
-    return { isError: false };
-  };
-
 
       return (
         <>
@@ -70,15 +54,14 @@ export default function AuthForm() {
             <Card>
                 <CardHeader className="space-y-1">
                 <CardTitle className="text-2xl">Email Link to Login</CardTitle>
-                    <CardDescription>
-                        Enter your email below to receive a clickable link to login.
-                    </CardDescription>
-                {errors && <div className="text-sm text-red-500 pt-2">{errorMessage}</div>}
+                  <CardDescription>
+                    Enter your email below to receive a clickable link to login.
+                  </CardDescription>
                 </CardHeader>
 
                 <CardContent className="grid gap-4">
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(handleMagicLinkLogin)} className="space-y-8">
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
                             control={form.control}
                             name="email"
@@ -86,7 +69,7 @@ export default function AuthForm() {
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input type="text" placeholder="Email" {...field} />
+                                        <Input type="text" placeholder="Email" {...register("email", { required: true })} {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -103,6 +86,15 @@ export default function AuthForm() {
                         </form>
                     </Form>
                 </CardContent>
+                <CardFooter>
+                  <div className="flex flex-col">
+                    <div className="text-left text-sm text-gray-500">
+                      <Link href="/auth/login" className="leading-7 text-indigo-600 hover:text-indigo-500">
+                      Back to login page
+                      </Link>
+                    </div>
+                  </div>
+                </CardFooter>
             </Card>  
         )}  
         </>
