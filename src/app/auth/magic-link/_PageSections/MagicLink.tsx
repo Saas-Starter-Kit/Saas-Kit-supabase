@@ -37,7 +37,6 @@ export default function AuthForm() {
 
     const {
         register,
-        handleSubmit,
         formState: { isSubmitting }
       } = form;
 

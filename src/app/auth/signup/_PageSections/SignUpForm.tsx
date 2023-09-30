@@ -43,7 +43,7 @@ export default function AuthForm() {
     formState: { isSubmitting, errors }
   } = form;
 
-  const handleSupabaseAuthError = (error, data, email) => {
+  const handleSupabaseAuthError = (error, email) => {
     if (error) {
       setError('root', {
         type: error.name
@@ -53,34 +53,31 @@ export default function AuthForm() {
       return { isError: true };
     }
 
-    if (!data?.session || !data?.user) {
-      setError('root', {
-        type: 'Supabase Unknown Error'
-      });
-      setErrorMessage('Something Went Wrong, Please Try Again');
-      reset({ email, password: '' });
-      return { isError: true };
-    }
+    // if (!data?.session || !data?.user) {
+    //   setError('root', {
+    //     type: 'Supabase Unknown Error'
+    //   });
+    //   setErrorMessage('Something Went Wrong, Please Try Again');
+    //   reset({ email, password: '' });
+    //   return { isError: true };
+    // }
 
     return { isError: false };
   };
 
   const onSubmit = async (values: authFormValues) => {
-    const { data, error } = await SupabaseSignUp(values.email, values.password);
+    const { error } = await SupabaseSignUp(values.email, values.password);
 
-    const { isError } = handleSupabaseAuthError(error, data, values.email);
+    const { isError } = handleSupabaseAuthError(error, values.email);
     if (isError) return;
 
-    router.push(config.redirects.callback);
+    setEmailSent(true);
   };
 
   const handleGoogleSignIn = async () => {
-    const { data, error } = await SupabaseSignInWithGoogle();
+    const { error } = await SupabaseSignInWithGoogle();
 
     if (error) {
-      setError('root', {
-        type: error.name
-      });
       setErrorMessage(error.message);
       return;
     }
