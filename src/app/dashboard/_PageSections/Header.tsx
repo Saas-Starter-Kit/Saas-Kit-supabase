@@ -22,7 +22,7 @@ const Header = ({ display_name, email, avatar_url }) => {
   }, [pathname]);
 
   return (
-    <div className="border-b bg-white">
+    <div className="border-b">
       <div className="flex h-16 items-center px-4">
         <TeamSwitcher />
         <div className="text-lg ml-3">{headerText}</div>

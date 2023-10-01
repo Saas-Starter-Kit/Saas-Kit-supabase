@@ -1,10 +1,7 @@
 'use client';
 //convert to server comp
 
-import * as React from 'react';
-import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -19,6 +16,7 @@ import { buttonVariants } from '@/components/ui/Button';
 import NavBar from './_PageSections/NavBar';
 import config from '@/lib/config/marketing';
 import { MainLogoText } from '@/components/ui/MainLogo';
+import { Icons } from '@/components/Icons';
 
 export default async function MarketingLayout({ children }) {
   const { routes } = config;
@@ -41,8 +39,8 @@ export default async function MarketingLayout({ children }) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
-                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <Icons.Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Icons.Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>
               </Button>
             </DropdownMenuTrigger>

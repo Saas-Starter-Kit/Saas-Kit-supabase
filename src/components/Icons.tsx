@@ -17,7 +17,9 @@ import {
   ScreenShare,
   User,
   Lock,
-  CheckCircle2
+  CheckCircle2,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -49,5 +51,7 @@ export const Icons = {
   EyeOff: EyeOffIcon,
   Lock: Lock,
   Google,
-  CheckCircle2
+  CheckCircle2,
+  Sun: Sun,
+  Moon: Moon,
 };
