@@ -10,7 +10,7 @@ export default async function Billing() {
   const { data } = await GetProfileByUserId(user.id);
 
   let subscription;
-  if (data[0].subscription_id) {
+  if (data[0]?.subscription_id) {
     subscription = await RetrieveSubscription(data[0].subscription_id);
   }
 

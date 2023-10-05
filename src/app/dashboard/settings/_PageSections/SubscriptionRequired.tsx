@@ -18,8 +18,7 @@ const SubscriptionRequired = () => {
         <CardHeader>
           <CardTitle>No Subscription Found</CardTitle>
           <CardDescription>
-            No Subscription Found. Click below to redirect to the Subscription Page to add a
-            Subscription to your account.
+            Click below to redirect to the Subscription Page to add a Subscription to your account.
           </CardDescription>
         </CardHeader>
         <CardContent>

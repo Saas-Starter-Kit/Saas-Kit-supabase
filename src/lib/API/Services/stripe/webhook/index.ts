@@ -49,8 +49,7 @@ export const WebhookEventHandler = async (event) => {
 
       break;
     case WebhookEvents.subscription_updated:
-      // need to test more against live webhook
-      // or create live actions and retrieve with stripe api
+      // refator for simplicity
       // wat does previous_attributes look like for price update
 
       const subscriptionUpdate = event.data.object;
@@ -83,6 +82,7 @@ export const WebhookEventHandler = async (event) => {
           status = subscriptionUpdate.status;
         }
       }
+
       if (status) dataUpdate['status'] = status;
 
       if (Object.keys(dataUpdate).length !== 0) {
