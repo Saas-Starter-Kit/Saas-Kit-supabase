@@ -14,7 +14,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import configuration from '@/lib/config/dashboard';
 
-const SubscriptionExists = ({ price_id }) => {
+const SubscriptionExists = ({ price_id, status, period_ends }) => {
   const { products } = configuration;
   const [currentPlan, setPlan] = useState({});
 
@@ -45,16 +45,26 @@ const SubscriptionExists = ({ price_id }) => {
         <CardHeader>
           <CardTitle>Subscription</CardTitle>
           <CardDescription>
-            Click below to go to the billing page to manage your Subscription and Billing
+            Click button below to go to the billing page to manage your Subscription and Billing
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <h2 className="text-xl">
             Current Plan: <span className="font-bold">{currentPlan?.name}</span>
           </h2>
-          <h3 className="font-bold">
-            ${currentPlan.price}/{currentPlan.interval}
-          </h3>
+          <div>
+            Status: <span className="font-bold">{status}</span>
+          </div>
+          <div>
+            Billing:{' '}
+            <span className="font-bold">
+              ${currentPlan.price}/{currentPlan.interval}
+            </span>
+          </div>
+          <div>
+            Billing Period Ends:{' '}
+            <span className="font-bold">{new Date(period_ends).toLocaleDateString()}</span>
+          </div>
         </CardContent>
         <CardFooter>
           <Button onClick={goToPortal} className="mt-4">

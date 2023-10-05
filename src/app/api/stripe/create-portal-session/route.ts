@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-export const dynamic = 'force-dynamic';
 import createPortalSession from '@/lib/API/Services/stripe/billing-portal/create-portal-session';
 
 export async function POST(request) {

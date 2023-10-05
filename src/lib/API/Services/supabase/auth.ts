@@ -25,13 +25,13 @@ export const SupabaseSignOut = async () => {
 
 export const SupabaseSignInWithGoogle = async () => {
   const res = await supabase.auth.signInWithOAuth({
-    provider: 'google',
+    provider: 'google'
   });
   return res;
 };
 
 export const SupabaseSignInWithMagicLink = async (email) => {
-  const res = await supabase.auth.signInWithOtp({ 
+  const res = await supabase.auth.signInWithOtp({
     email: `${email}`,
     options: {
       emailRedirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/${config.redirects.callback}`

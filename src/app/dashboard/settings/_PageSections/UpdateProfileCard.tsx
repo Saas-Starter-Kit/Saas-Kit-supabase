@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Card, CardHeader, CardDescription, CardContent, CardTitle } from '@/components/ui/Card';
 
 import UpdateForm from './UpdateForm';
-
+import axios from 'axios';
 import { SupabaseProfileUpdate } from '@/lib/API/Database/profile/Browser/mutations';
 import { SupabaseUpdateEmail, SupabaseUpdatePassword } from '@/lib/API/Services/supabase/auth';
 
@@ -18,7 +18,7 @@ import {
   UpdatePasswordFormValues
 } from '@/lib/types/validations';
 
-const UpdateProfileCard = ({ user, display_name, email }) => {
+const UpdateProfileCard = ({ user, display_name, email, customer }) => {
   const formDisplayName = useForm<DisplayNameFormValues>({
     resolver: zodResolver(DisplayNameFormSchema),
     defaultValues: {
@@ -48,9 +48,15 @@ const UpdateProfileCard = ({ user, display_name, email }) => {
   };
 
   const onSubmitEmail = async (data) => {
-    const { error } = await SupabaseUpdateEmail(data.email);
-    // update stripe email
-    return error;
+    const email = data.email;
+    const error = await SupabaseUpdateEmail(email);
+    if (error) console.log(error);
+
+    try {
+      await axios.post('/api/stripe/customer', { customer, email });
+    } catch (err) {
+      return { type: 'Stripe Error', message: 'Stripe Update Failed' };
+    }
   };
 
   const onSubmitPassword = async (data) => {

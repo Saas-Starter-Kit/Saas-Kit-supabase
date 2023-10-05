@@ -7,10 +7,16 @@ export default async function ProfileForm() {
 
   const { data } = await GetProfileByUserId(user.id);
   const display_name = data[0]?.display_name || '';
+  const customer = data[0]?.stripe_customer_id;
 
   return (
     <div>
-      <UpdateProfileCard user={user} email={user.email} display_name={display_name} />
+      <UpdateProfileCard
+        user={user}
+        email={user.email}
+        customer={customer}
+        display_name={display_name}
+      />
     </div>
   );
 }
