@@ -54,7 +54,16 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)']
-      }
+      },
+      animation: {
+        fadeIn: 'fadeIn 700ms ease-in-out'
+      },
+      keyframes: () => ({
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        }
+      })
     }
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')]

@@ -41,6 +41,7 @@ export const SupabaseSignInWithMagicLink = async (email) => {
 };
 
 export const SupabaseUpdateEmail = async (email) => {
+  console.log(email);
   const res = await supabase.auth.updateUser({ email });
   return res;
 };

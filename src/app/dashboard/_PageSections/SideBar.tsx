@@ -13,8 +13,8 @@ const Sidebar = () => {
   return (
     <div
       className={`${
-        !isOpen ? 'grow-[0]' : 'grow-[1] w-40'
-      } flex flex-col items-center transition-all duration-700 border-r h-screen sticky top-0 p-2`}
+        !isOpen ? 'w-16' : 'w-40'
+      } flex flex-col items-center transition-all duration-300 border-r h-screen sticky top-0 p-2`}
     >
       <SideBarNav routes={routes} isOpen={isOpen} />
       <div className="mt-auto">

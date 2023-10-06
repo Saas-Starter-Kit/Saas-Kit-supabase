@@ -16,7 +16,7 @@ const SidebarNavItem = ({ item, isOpen }) => {
           }`}
         >
           <item.icon className="h-4 w-4" />
-          {isOpen && <span className="">{item.title}</span>}
+          {isOpen && <span className="animate-fadeIn">{item.title}</span>}
         </span>
       </Link>
     </div>
@@ -26,7 +26,9 @@ const SidebarNavItem = ({ item, isOpen }) => {
 export function SideBarNav({ isOpen, routes }) {
   return (
     <nav className="flex flex-col justify-center items-center w-full">
-      <div className="mb-4 my-4 self-center">{isOpen ? <MainLogoText /> : <MainLogoIcon />}</div>
+      <div className="mb-4 my-4 self-center">
+        <MainLogoIcon />
+      </div>
       {routes.map((item) => (
         <SidebarNavItem key={item.title} item={item} isOpen={isOpen} />
       ))}
