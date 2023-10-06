@@ -49,8 +49,8 @@ const UpdateProfileCard = ({ user, display_name, email, customer }) => {
 
   const onSubmitEmail = async (data) => {
     const email = data.email;
-    const error = await SupabaseUpdateEmail(email);
-    if (error) console.log(error);
+    const { error } = await SupabaseUpdateEmail(email);
+    if (error) return error;
 
     try {
       await axios.post('/api/stripe/customer', { customer, email });
