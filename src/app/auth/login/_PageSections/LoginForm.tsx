@@ -74,22 +74,21 @@ export default function AuthForm() {
 
   const handleGoogleSignIn = async () => {
     const { error } = await SupabaseSignInWithGoogle();
-  
-      if (error) {
-        setErrorMessage(error.message);
-        return;
-      }
+
+    if (error) {
+      setErrorMessage(error.message);
+      return;
+    }
 
     router.push(config.redirects.callback);
   };
-  
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
-    <div>
+    <div className="w-96">
       <Card>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Login to your Account</CardTitle>
@@ -171,8 +170,11 @@ export default function AuthForm() {
         <CardFooter>
           <div className="flex flex-col">
             <div className="text-left text-sm text-gray-500">
-              <Link href="/auth/magic-link" className="leading-7 text-indigo-600 hover:text-indigo-500">
-              Email me a login link
+              <Link
+                href="/auth/magic-link"
+                className="leading-7 text-indigo-600 hover:text-indigo-500"
+              >
+                Email me a login link
               </Link>
             </div>
             <div className="text-center text-sm text-gray-500">

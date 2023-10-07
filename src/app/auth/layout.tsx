@@ -1,14 +1,18 @@
 import { MainLogoText } from '@/components/ui/MainLogo';
+import { Separator } from '@/components/ui/separator';
 
 export default async function AuthLayout({ children }) {
   return (
     <div>
-      <header className="flex items-center justify-center">
-        <div className="flex items-center justify-between p-6">
+      <header className="flex flex-col items-center justify-center p-6">
+        <span className="mb-4">
           <MainLogoText />
-        </div>
+        </span>
+
+        <Separator />
       </header>
-      <main className="flex items-center justify-center gap-x-6 mt-6">{children}</main>
+
+      <main className="grid justify-center items-center">{children}</main>
     </div>
   );
 }
