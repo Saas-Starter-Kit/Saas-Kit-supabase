@@ -49,6 +49,7 @@
     "nextjs-toploader": "^1.4.2",
     "postcss": "8.4.28",
     "react": "18.2.0",
+    "react-countup": "^6.4.2",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.46.1",
     "react-toastify": "^9.1.3",

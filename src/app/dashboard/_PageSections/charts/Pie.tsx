@@ -2,48 +2,27 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import React from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 
-const RADIAN = Math.PI / 180;
-const data = [
-  { name: 'A', value: 80, color: '#ff0000' },
-  { name: 'B', value: 45, color: '#00ff00' },
-  { name: 'C', value: 25, color: '#0000ff' }
+const data01 = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 }
 ];
-const cx = 150;
-const cy = 200;
-const iR = 50;
-const oR = 100;
-const value = 50;
-
-const needle = (value, data, cx, cy, iR, oR, color) => {
-  let total = 0;
-  data.forEach((v) => {
-    total += v.value;
-  });
-  const ang = 180.0 * (1 - value / total);
-  const length = (iR + 2 * oR) / 3;
-  const sin = Math.sin(-RADIAN * ang);
-  const cos = Math.cos(-RADIAN * ang);
-  const r = 5;
-  const x0 = cx + 5;
-  const y0 = cy + 5;
-  const xba = x0 + r * sin;
-  const yba = y0 - r * cos;
-  const xbb = x0 - r * sin;
-  const ybb = y0 + r * cos;
-  const xp = x0 + length * cos;
-  const yp = y0 + length * sin;
-
-  return [
-    <circle cx={x0} cy={y0} r={r} fill={color} stroke="none" />,
-    <path
-      d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`}
-      stroke="#none"
-      fill={color}
-    />
-  ];
-};
+const data02 = [
+  { name: 'A1', value: 100 },
+  { name: 'A2', value: 300 },
+  { name: 'B1', value: 100 },
+  { name: 'B2', value: 80 },
+  { name: 'B3', value: 40 },
+  { name: 'B4', value: 30 },
+  { name: 'B5', value: 50 },
+  { name: 'C1', value: 100 },
+  { name: 'C2', value: 200 },
+  { name: 'D1', value: 150 },
+  { name: 'D2', value: 50 }
+];
 
 const PieChartComp = () => {
   return (
@@ -51,24 +30,18 @@ const PieChartComp = () => {
       <CardTitle className="mb-6 text-center">Current Usage:</CardTitle>
       <CardContent>
         <ResponsiveContainer width="100%" height={400}>
-          <PieChart width={400} height={500}>
+          <PieChart width={400} height={400}>
+            <Pie data={data01} dataKey="value" cx="50%" cy="50%" outerRadius={60} fill="#8884d8" />
             <Pie
+              data={data02}
               dataKey="value"
-              startAngle={180}
-              endAngle={0}
-              data={data}
-              cx={cx}
-              cy={cy}
-              innerRadius={iR}
-              outerRadius={oR}
-              fill="#8884d8"
-              stroke="none"
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-            {needle(value, data, cx, cy, iR, oR, '#d0d000')}
+              cx="50%"
+              cy="50%"
+              innerRadius={70}
+              outerRadius={90}
+              fill="#82ca9d"
+              label
+            />
           </PieChart>
         </ResponsiveContainer>
       </CardContent>

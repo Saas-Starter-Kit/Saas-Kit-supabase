@@ -5,6 +5,7 @@ import ComposeChart from '../../_PageSections/charts/Compose';
 import BarChart from '../../_PageSections/charts/Bar';
 import PieChart from '../../_PageSections/charts/Pie';
 import { RecentSales } from '../../_PageSections/RecentSales';
+import { DocShare } from '../../_PageSections/DocShare';
 
 const Dashboard = () => {
   return (
@@ -29,10 +30,21 @@ const Dashboard = () => {
           content_secondary={'+10.1% from last month'}
         />
       </div>
-      <ComposeChart />
-      <BarChart />
-      <PieChart />
-      <RecentSales />
+      <div>
+        <ComposeChart />
+      </div>
+      <div className="grid gap-4 grid-cols-4">
+        <div className="col-span-3">
+          <BarChart />
+        </div>
+        <div className="col-span-1">
+          <PieChart />
+        </div>
+      </div>
+      <div className="grid gap-6 grid-cols-2">
+        <RecentSales />
+        <DocShare />
+      </div>
     </div>
   );
 };

@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Icons } from '@/components/Icons';
 import { SideBarNav } from './SidebarNav';
-import { MainLogoText, MainLogoIcon } from '@/components/ui/MainLogo';
 import configuration from '@/lib/config/dashboard';
 
 const Sidebar = () => {
@@ -13,7 +12,7 @@ const Sidebar = () => {
   return (
     <div
       className={`${
-        !isOpen ? 'w-16' : 'w-40'
+        !isOpen ? 'w-20' : 'w-48'
       } flex flex-col items-center transition-all duration-300 border-r h-screen sticky top-0 p-2`}
     >
       <SideBarNav routes={routes} isOpen={isOpen} />

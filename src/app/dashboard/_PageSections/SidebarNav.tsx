@@ -9,11 +9,13 @@ const SidebarNavItem = ({ item, isOpen }) => {
     <div className="my-4 w-full">
       <Link key={item.title} href={item.link}>
         <span
-          className={`flex items-center rounded-md p-4 text-sm space-x-2 font-medium ${
-            item.link !== pathname
-              ? 'hover:bg-accent hover:text-accent-foreground'
-              : 'bg-accent text-accent-foreground'
-          }`}
+          className={`flex items-center rounded-md p-4 text-sm space-x-2 font-medium
+          ${!isOpen && 'justify-center'}
+           ${
+             item.link !== pathname
+               ? 'hover:bg-accent hover:text-accent-foreground'
+               : 'bg-accent text-accent-foreground'
+           }`}
         >
           <item.icon className="h-4 w-4" />
           {isOpen && <span className="animate-fadeIn">{item.title}</span>}
