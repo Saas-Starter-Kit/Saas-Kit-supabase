@@ -16,6 +16,7 @@ import configuration from '@/lib/config/dashboard';
 
 const SubscriptionExists = ({ price_id, status, period_ends }) => {
   const { products } = configuration;
+  // handle types
   const [currentPlan, setPlan] = useState({});
 
   const basic = products[0];

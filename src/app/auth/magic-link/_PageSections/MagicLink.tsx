@@ -36,6 +36,8 @@ export default function AuthForm() {
     const { error } = await SupabaseSignInWithMagicLink(values.email);
 
     if (error) throw error;
+    // redirect to auth confirm page
+
     setEmailSent(true);
   };
 

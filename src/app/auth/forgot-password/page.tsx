@@ -9,29 +9,17 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/Form';
 import { Input } from '@/components/ui/Input';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/Card';
-import Link from 'next/link';
-import config from '@/lib/config/auth';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 
 export default function AuthForm() {
   // make ssr page, extract out form to client comp.
-  const [showPassword, setShowPassword] = useState(false);
-
-  const router = useRouter();
-
   const form = useForm<EmailFormValues>({
     resolver: zodResolver(EmailFormSchema)
   });
 
   const onSubmit = async (values: EmailFormValues) => {
     SupabaseResetPasswordEmail(values.email);
+    // redirect to confirm page
   };
 
   return (

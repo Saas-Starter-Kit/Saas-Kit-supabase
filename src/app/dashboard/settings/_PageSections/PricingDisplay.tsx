@@ -82,6 +82,7 @@ const PricingDisplay = ({ user, customer }) => {
   const { id, email } = user;
 
   const handleSubscription = async (price) => {
+    // handle types
     const res = await CreateStripeCheckoutSession(price, id, email);
     router.push(res.data.session.url);
   };

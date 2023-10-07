@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { UserNav } from './UserNav';
 import TeamSwitcher from './TeamSwitcher';
 import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+
+//props type
 
 const Header = ({ display_name, email, avatar_url }) => {
   const [headerText, setHeaderText] = useState('');

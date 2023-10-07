@@ -40,6 +40,7 @@ const UpdateProfileCard = ({ user, display_name, email, customer }) => {
     }
   });
 
+  // handle types
   const onSubmitProfile = async (data) => {
     const id = user.id;
     const display_name = data.display_name;

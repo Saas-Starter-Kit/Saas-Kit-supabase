@@ -6,7 +6,11 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import NextTopLoader from 'nextjs-toploader';
 import config from '@/lib/config/site';
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+interface LayoutProps {
+  children?: React.ReactNode;
+}
+
+const RootLayout = ({ children }: LayoutProps) => {
   return (
     <html lang="en" className={`${InterFont.variable}`}>
       <body>

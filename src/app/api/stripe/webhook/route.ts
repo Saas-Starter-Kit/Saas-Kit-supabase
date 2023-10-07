@@ -1,22 +1,37 @@
-import Stripe from 'stripe';
 import stripe from '@/lib/API/Services/init/stripe';
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { WebhookEventHandler } from '@/lib/API/Services/stripe/webhook';
+import type { NextRequest } from 'next/server';
 
-export async function POST(req: Request) {
+type StripeEvent = {
+  type: string;
+  data: {
+    object: {
+      id: string;
+      metadata: {
+        user_id: string;
+      };
+      subscription: string;
+      status: string;
+    };
+    previous_attributes: object | null;
+  };
+};
+
+export async function POST(req: NextRequest) {
   const body = await req.text();
   const sig = headers().get('Stripe-Signature');
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-  let event: Stripe.Event;
+  let event: StripeEvent;
 
   try {
     if (!sig || !webhookSecret) return;
     event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
     await WebhookEventHandler(event);
     return NextResponse.json({ received: true }, { status: 200 });
-  } catch (err: any) {
+  } catch (err) {
     return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
   }
 }

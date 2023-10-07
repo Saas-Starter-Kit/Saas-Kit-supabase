@@ -2,6 +2,7 @@ import 'server-only';
 import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supabase/SupabaseRouteHandler';
 import stripe from '@/lib/API/Services/init/stripe';
 import Stripe from 'stripe';
+import { RetrieveSubscription } from '..';
 
 const subscriptionStatusActive = { trailing: 'trailing', active: 'active' };
 const subscriptionStatusVoid = {
@@ -16,18 +17,34 @@ const WebhookEvents = {
   checkout_session_completed: 'checkout.session.completed'
 };
 
-export const WebhookEventHandler = async (event) => {
+// Imported Stripe Event object has incorrect types, set here instead
+type StripeEvent = {
+  type: string;
+  data: {
+    object: {
+      id: string;
+      metadata: {
+        user_id: string;
+      };
+      subscription: string;
+      status: string;
+    };
+    previous_attributes: object | null;
+  };
+};
+
+export const WebhookEventHandler = async (event: StripeEvent) => {
   // Handle the event
   switch (event.type) {
     case WebhookEvents.checkout_session_completed:
-      const session = event.data.object as Stripe.Checkout.Session;
+      const session = event.data.object;
+
       const user_db_id = session.metadata.user_id;
 
       //import and replace
-      const subscription = await stripe.subscriptions
-        .retrieve(session.subscription as string)
-        .catch((err) => console.log(err));
-      const stripe_customer_id = subscription.customer as string;
+      const subscription: Stripe.Subscription = await RetrieveSubscription(session.subscription);
+
+      const stripe_customer_id = subscription.customer;
 
       const dataSub = {
         id: subscription.id,
@@ -53,7 +70,6 @@ export const WebhookEventHandler = async (event) => {
       // wat does previous_attributes look like for price update
 
       const subscriptionUpdate = event.data.object;
-
       const UpdatedCols = Object.keys(event.data.previous_attributes);
 
       const validColumns = [

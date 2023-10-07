@@ -1,14 +1,14 @@
 import * as React from 'react';
 import Link from 'next/link';
 
-import { MainNavItem } from '@/lib/types';
+import { NavItem } from '@/lib/types';
 import { cn } from '@/lib/utils/helpers';
 import { useLockBody } from '@/lib/hooks/useLockBody';
 import { Icons } from '../../../components/Icons';
 import siteConfig from '@/lib/config/site';
 
 interface MobileNavProps {
-  items: MainNavItem[];
+  items: NavItem[];
   children?: React.ReactNode;
 }
 
@@ -27,9 +27,9 @@ const MobileNav = ({ items, children }: MobileNavProps) => {
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
         <nav className="grid grid-flow-row auto-rows-max text-sm">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <Link
-              key={index}
+              key={item.title}
               href={item.link}
               className={cn(
                 'flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline'

@@ -7,6 +7,7 @@ import SubscriptionRequired from '../_PageSections/SubscriptionRequired';
 export default async function Billing() {
   const user = await SupabaseUser();
 
+  // handle types
   const { data } = await GetProfileByUserId(user.id);
 
   let subscription;

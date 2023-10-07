@@ -2,29 +2,27 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
 
-import { MainNavItem } from '@/lib/types';
+import { NavItem } from '@/lib/types';
 import { cn } from '@/lib/utils/helpers';
 import { Icons } from '@/components/Icons';
 import MobileNav from './MobileNavMain';
-import { MainLogoText } from '../../../components/ui/MainLogo';
 
 interface NavbarMainProps {
-  items?: MainNavItem[];
+  items?: NavItem[];
   children?: React.ReactNode;
 }
 
 const NavbarMain = ({ items, children }: NavbarMainProps) => {
-  const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
     <div className="flex gap-6 md:gap-10">
       {items?.length ? (
         <nav className="hidden gap-6 md:flex">
-          {items?.map((item, index) => (
+          {items?.map((item) => (
             <Link
-              key={index}
+              key={item.title}
               href={item.link}
               className={cn(
                 'flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm'

@@ -10,6 +10,7 @@ const ManageSubscription = ({ customer }) => {
   const router = useRouter();
 
   const handleSubscription = async () => {
+    //handle types
     const res = await axios.post('/api/stripe/create-portal-session', {
       customer
     });
