@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { SupabaseResetPasswordEmail } from '@/lib/API/Services/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EmailFormSchema, EmailFormValues } from '@/lib/types/validations';
@@ -10,16 +8,18 @@ import { Button } from '@/components/ui/Button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/Form';
 import { Input } from '@/components/ui/Input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { useRouter } from 'next/navigation';
+import config from '@/lib/config/auth';
 
-export default function AuthForm() {
-  // make ssr page, extract out form to client comp.
+export default function ForgotPassword() {
+  const router = useRouter();
   const form = useForm<EmailFormValues>({
     resolver: zodResolver(EmailFormSchema)
   });
 
   const onSubmit = async (values: EmailFormValues) => {
-    SupabaseResetPasswordEmail(values.email);
-    // redirect to confirm page
+    await SupabaseResetPasswordEmail(values.email);
+    router.push(config.redirects.authConfirm);
   };
 
   return (

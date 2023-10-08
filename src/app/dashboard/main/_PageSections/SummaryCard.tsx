@@ -1,6 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 
-const SummaryCard = ({ card_title, icon, content_main, content_secondary }) => {
+interface SummaryCardProps {
+  card_title: string;
+  icon: React.ReactNode;
+  content_main: string;
+  content_secondary: string;
+}
+
+const SummaryCard = ({ card_title, icon, content_main, content_secondary }: SummaryCardProps) => {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

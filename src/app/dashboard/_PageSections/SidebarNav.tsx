@@ -1,8 +1,19 @@
 import Link from 'next/link';
 import { MainLogoText, MainLogoIcon } from '@/components/ui/MainLogo';
 import { usePathname } from 'next/navigation';
+import { NavItemSidebar } from '@/lib/types';
 
-const SidebarNavItem = ({ item, isOpen }) => {
+interface SideBarNavProps {
+  isOpen: boolean;
+  routes: NavItemSidebar[];
+}
+
+interface SidebarNavItemProps {
+  isOpen: boolean;
+  item: NavItemSidebar;
+}
+
+const SidebarNavItem = ({ item, isOpen }: SidebarNavItemProps) => {
   const pathname = usePathname();
 
   return (
@@ -25,7 +36,7 @@ const SidebarNavItem = ({ item, isOpen }) => {
   );
 };
 
-export function SideBarNav({ isOpen, routes }) {
+export function SideBarNav({ isOpen, routes }: SideBarNavProps) {
   return (
     <nav className="flex flex-col justify-center items-center w-full">
       <div className="mb-4 my-4 self-center">

@@ -3,12 +3,17 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils/helpers';
 import { usePathname } from 'next/navigation';
+import { NavItem } from '@/lib/types';
 
-export function SettingsNav({ items, ...props }) {
+interface SettingsNavProps {
+  items: NavItem[];
+}
+
+export function SettingsNav({ items }: SettingsNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className={cn('flex items-center lg:space-x-6 mb-8')} {...props}>
+    <nav className="flex items-center lg:space-x-6 mb-8">
       {items.map((item) => (
         <Link
           key={item.title}

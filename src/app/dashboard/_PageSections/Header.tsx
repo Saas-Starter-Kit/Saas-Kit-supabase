@@ -5,9 +5,13 @@ import { UserNav } from './UserNav';
 import TeamSwitcher from './TeamSwitcher';
 import { usePathname } from 'next/navigation';
 
-//props type
+interface HeaderProps {
+  display_name: string;
+  email: string;
+  avatar_url: string;
+}
 
-const Header = ({ display_name, email, avatar_url }) => {
+const Header = ({ display_name, email, avatar_url }: HeaderProps) => {
   const [headerText, setHeaderText] = useState('');
   const pathname = usePathname().split('/');
 

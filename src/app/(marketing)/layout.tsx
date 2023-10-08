@@ -17,8 +17,13 @@ import NavBar from './_PageSections/NavBar';
 import config from '@/lib/config/marketing';
 import { MainLogoText } from '@/components/ui/MainLogo';
 import { Icons } from '@/components/Icons';
+import React from 'react';
 
-export default async function MarketingLayout({ children }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export default async function MarketingLayout({ children }: LayoutProps) {
   const { routes } = config;
   const { setTheme } = useTheme();
 

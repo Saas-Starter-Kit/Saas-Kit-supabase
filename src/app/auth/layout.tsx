@@ -1,7 +1,11 @@
 import { MainLogoText } from '@/components/ui/MainLogo';
 import { Separator } from '@/components/ui/separator';
 
-export default async function AuthLayout({ children }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export default async function AuthLayout({ children }: LayoutProps) {
   return (
     <div>
       <header className="flex flex-col items-center justify-center p-6">

@@ -14,9 +14,18 @@ import {
 import { Button } from '@/components/ui/Button';
 import configuration from '@/lib/config/dashboard';
 
+interface Plan {
+  name: string;
+  interval: string;
+  price: string;
+  price_id: string;
+  isPopular: boolean;
+}
+
 const SubscriptionExists = ({ price_id, status, period_ends }) => {
   const { products } = configuration;
   // handle types
+  const [errorMessage, setErrorMessage] = useState('');
   const [currentPlan, setPlan] = useState({});
 
   const basic = products[0];
@@ -26,7 +35,7 @@ const SubscriptionExists = ({ price_id, status, period_ends }) => {
     const basicMatch = basic.plans.find((x) => x.price_id === price_id);
     const premiumMatch = premium.plans.find((x) => x.price_id === price_id);
 
-    if (!basicMatch && !premiumMatch) return 'no Subscription Found, Contact Support';
+    if (!basicMatch && !premiumMatch) return 'Subscription Not Found, Please Contact Support';
     setPlan(basicMatch || premiumMatch);
   };
 

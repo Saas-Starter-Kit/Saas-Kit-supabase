@@ -21,6 +21,7 @@ import Link from 'next/link';
 import { Icons } from '@/components/Icons';
 
 import config from '@/lib/config/auth';
+import { SupbaseAuthError, SupabaseAuthErrorProps } from '@/lib/types';
 
 export default function AuthForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -41,7 +42,12 @@ export default function AuthForm() {
     formState: { isSubmitting, errors }
   } = form;
 
-  const handleSupabaseAuthError = (error, data, email) => {
+  //maybe refactor
+  const handleSupabaseAuthError = ({
+    error,
+    data,
+    email
+  }: SupabaseAuthErrorProps): SupbaseAuthError => {
     if (error) {
       setError('root', {
         type: error.name
@@ -66,7 +72,8 @@ export default function AuthForm() {
   const onSubmit = async (values: authFormValues) => {
     const { data, error } = await SupabaseSignIn(values.email, values.password);
 
-    const { isError } = handleSupabaseAuthError(error, data, values.email);
+    const props = { error, data, email: values.email };
+    const { isError } = handleSupabaseAuthError(props);
     if (isError) return;
 
     router.push(config.redirects.callback);

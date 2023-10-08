@@ -21,6 +21,7 @@ import {
 import Link from 'next/link';
 import config from '@/lib/config/auth';
 import { Icons } from '@/components/Icons';
+import { SupbaseAuthError, SupabaseAuthErrorProps } from '@/lib/types';
 
 export default function AuthForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +43,11 @@ export default function AuthForm() {
     formState: { isSubmitting, errors }
   } = form;
 
-  const handleSupabaseAuthError = (error, email) => {
+  const handleSupabaseAuthError = ({
+    error,
+    data,
+    email
+  }: SupabaseAuthErrorProps): SupbaseAuthError => {
     if (error) {
       setError('root', {
         type: error.name
@@ -52,22 +57,23 @@ export default function AuthForm() {
       return { isError: true };
     }
 
-    // if (!data?.session || !data?.user) {
-    //   setError('root', {
-    //     type: 'Supabase Unknown Error'
-    //   });
-    //   setErrorMessage('Something Went Wrong, Please Try Again');
-    //   reset({ email, password: '' });
-    //   return { isError: true };
-    // }
+    if (!data?.session || !data?.user) {
+      setError('root', {
+        type: 'Supabase Unknown Error'
+      });
+      setErrorMessage('Something Went Wrong, Please Try Again');
+      reset({ email, password: '' });
+      return { isError: true };
+    }
 
     return { isError: false };
   };
 
   const onSubmit = async (values: authFormValues) => {
-    const { error } = await SupabaseSignUp(values.email, values.password);
+    const { error, data } = await SupabaseSignUp(values.email, values.password);
 
-    const { isError } = handleSupabaseAuthError(error, values.email);
+    const props = { error, data, email: values.email };
+    const { isError } = handleSupabaseAuthError(props);
     if (isError) return;
 
     router.push(config.redirects.callback);
