@@ -4,12 +4,13 @@ import { useRouter } from 'next/navigation';
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import config from '@/lib/config/auth';
 
 const SubscriptionRequired = () => {
   const router = useRouter();
 
   const redirectToSubscription = async () => {
-    router.push('/dashboard/settings/subscription');
+    router.push(config.redirects.toSubscription);
   };
 
   return (

@@ -14,21 +14,26 @@ import {
 import { Button } from '@/components/ui/Button';
 import configuration from '@/lib/config/dashboard';
 import { ErrorText } from '@/components/ErrorText';
+import { PlanI, ProductI } from '@/lib/types';
+import config from '@/lib/config/auth';
 
 const SubscriptionExists = ({ price_id, status, period_ends }) => {
   const { products } = configuration;
-  // handle types
   const [errorMessage, setErrorMessage] = useState('');
-  const [currentPlan, setPlan] = useState({ name: '', price: '', interval: '' });
+  const [currentPlan, setPlan] = useState<PlanI>({ name: '' });
 
-  const basic = products[0];
-  const premium = products[1];
+  const basic: ProductI = products[0];
+  const premium: ProductI = products[1];
 
   const matchSubscription = () => {
-    const basicMatch = basic.plans.find((x) => x.price_id === price_id);
-    const premiumMatch = premium.plans.find((x) => x.price_id === price_id);
+    const basicMatch: PlanI = basic.plans.find((x: PlanI) => x.price_id === price_id);
+    const premiumMatch: PlanI = premium.plans.find((x: PlanI) => x.price_id === price_id);
 
-    if (!basicMatch && !premiumMatch) return 'Subscription Not Found, Please Contact Support';
+    if (!basicMatch && !premiumMatch) {
+      setErrorMessage('Subscription Not Found, Please Contact Support');
+      return;
+    }
+
     setPlan(basicMatch || premiumMatch);
   };
 
@@ -39,7 +44,7 @@ const SubscriptionExists = ({ price_id, status, period_ends }) => {
   const router = useRouter();
 
   const goToPortal = async () => {
-    router.push('/dashboard/settings/billing');
+    router.push(config.redirects.toBilling);
   };
 
   return (
@@ -54,7 +59,7 @@ const SubscriptionExists = ({ price_id, status, period_ends }) => {
         </CardHeader>
         <CardContent className="space-y-4">
           <h2 className="text-xl">
-            Current Plan: <span className="font-bold">{currentPlan.name}</span>
+            Current Plan: <span className="font-bold">{currentPlan?.name}</span>
           </h2>
           <div>
             Status: <span className="font-bold">{status}</span>
@@ -62,7 +67,7 @@ const SubscriptionExists = ({ price_id, status, period_ends }) => {
           <div>
             Billing:{' '}
             <span className="font-bold">
-              ${currentPlan.price}/{currentPlan.interval}
+              ${currentPlan?.price}/{currentPlan?.interval}
             </span>
           </div>
           <div>

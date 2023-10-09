@@ -1,4 +1,5 @@
 import { LucideIcon } from 'lucide-react';
+import { IntervalE } from './enums';
 
 export type NavItem = {
   title: string;
@@ -13,4 +14,19 @@ export type NavItemSidebar = {
 
 export interface LayoutProps {
   children: React.ReactNode;
+}
+
+export interface PlanI {
+  name: string;
+  interval?: IntervalE;
+  price?: string;
+  price_id?: string;
+  isPopular?: boolean;
+}
+
+export interface ProductI {
+  name: string;
+  description: string;
+  features: string[];
+  plans: PlanI[];
 }

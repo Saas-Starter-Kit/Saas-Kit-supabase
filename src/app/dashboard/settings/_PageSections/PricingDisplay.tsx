@@ -15,16 +15,33 @@ import { Button } from '@/components/ui/Button';
 import { Icons } from '@/components/Icons';
 import { Switch } from '@/components/ui/Switch';
 import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
+import { User } from '@supabase/supabase-js';
+import { ProductI } from '@/lib/types';
+import { IntervalE } from '@/lib/types/enums';
 
-const PriceCard = ({ product, handleSubscription, timeInterval }) => {
-  const [plan, setPlan] = useState({ price: '', price_id: '' });
-  const { name, description, features, plans, isPopular } = product;
+interface PriceCardProps {
+  product: ProductI;
+  handleSubscription: (price: string) => Promise<void>;
+  timeInterval: IntervalE;
+}
+
+const PriceCard = ({ product, handleSubscription, timeInterval }: PriceCardProps) => {
+  const [plan, setPlan] = useState({ price: '', price_id: '', isPopular: false });
+  const { name, description, features, plans } = product;
 
   const setProductPlan = () => {
-    if (timeInterval === 'Monthly') {
-      setPlan({ price: plans[0].price, price_id: plans[0].price_id });
+    if (timeInterval === IntervalE.MONTHLY) {
+      setPlan({
+        price: plans[0].price,
+        price_id: plans[0].price_id,
+        isPopular: plans[0].isPopular
+      });
     } else {
-      setPlan({ price: plans[1].price, price_id: plans[1].price_id });
+      setPlan({
+        price: plans[1].price,
+        price_id: plans[1].price_id,
+        isPopular: plans[0].isPopular
+      });
     }
   };
 
@@ -35,10 +52,10 @@ const PriceCard = ({ product, handleSubscription, timeInterval }) => {
   return (
     <Card
       className={`flex flex-col items-center justify-center w-72 border ${
-        isPopular && 'border-blue-500 relative'
+        plan.isPopular && 'border-blue-500 relative'
       }`}
     >
-      {isPopular && (
+      {plan.isPopular && (
         <div className="px-3 py-1 text-sm text-white bg-gradient-to-r from-blue-400 to-blue-700 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           Popular
         </div>
@@ -69,25 +86,29 @@ const PriceCard = ({ product, handleSubscription, timeInterval }) => {
   );
 };
 
-const PricingDisplay = ({ user }) => {
-  const [timeInterval, setTimeInterval] = useState('Monthly');
+interface PricingDisplayProps {
+  user: User;
+}
+
+const PricingDisplay = ({ user }: PricingDisplayProps) => {
+  const [timeInterval, setTimeInterval] = useState(IntervalE.MONTHLY);
 
   const { products } = configuration;
 
-  const basic = products[0];
-  const premium = products[1];
+  const basic: ProductI = products[0];
+  const premium: ProductI = products[1];
 
   const router = useRouter();
   const { id, email } = user;
 
-  const handleSubscription = async (price) => {
+  const handleSubscription = async (price: string) => {
     const res = await CreateStripeCheckoutSession(price, id, email);
 
     router.push(res.data.url);
   };
 
   const changeTimeInterval = () => {
-    let intervalSwitch = timeInterval === 'Monthly' ? 'Yearly' : 'Monthly';
+    let intervalSwitch = timeInterval === IntervalE.MONTHLY ? IntervalE.YEARLY : IntervalE.MONTHLY;
     setTimeInterval(intervalSwitch);
   };
 

@@ -14,6 +14,7 @@ const ManageSubscription = ({ customer }: ManageSubProps) => {
   const router = useRouter();
 
   const handleSubscription = async () => {
+    // extract out
     const res = await axios.post<PortalSessionT>('/api/stripe/create-portal-session', {
       customer
     } as PortalSessionReqPropsT);
