@@ -1,14 +1,17 @@
 'use client';
 import Link from 'next/link';
-
-import { cn } from '@/lib/utils/helpers';
+import { NavItem } from '@/lib/types';
 import { usePathname } from 'next/navigation';
 
-export function TodosNav({ items, ...props }) {
+interface TodosNavProps {
+  items: NavItem[];
+}
+
+export function TodosNav({ items }: TodosNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className={cn('flex items-center space-x-4 lg:space-x-6 mb-6')} {...props}>
+    <nav className="flex items-center space-x-4 lg:space-x-6 mb-6">
       {items.map((item) => (
         <Link
           key={item.title}

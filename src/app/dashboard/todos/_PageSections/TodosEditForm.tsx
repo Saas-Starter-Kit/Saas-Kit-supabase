@@ -15,7 +15,13 @@ import { Icons } from '@/components/Icons';
 import { UpdateTodo } from '@/lib/API/Database/todos/Browser/mutations';
 import { toast } from 'react-toastify';
 
-export default function TodosEditForm({ id, title, description }) {
+interface TodosEditFormProps {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export default function TodosEditForm({ id, title, description }: TodosEditFormProps) {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState('');
 

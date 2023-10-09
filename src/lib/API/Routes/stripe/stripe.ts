@@ -1,15 +1,17 @@
-import axios from 'axios';
+'client only';
 
-export const CreateStripeCheckoutSession = async (price, id, email) => {
-  const res: any = await axios
-    .post('/api/stripe/create-checkout-session', {
-      price,
-      user_id: id,
-      customer_email: email
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+/* Funtions used on the client to make api request to route handlers*/
+
+import axios from 'axios';
+import Stripe from 'stripe';
+import { CheckoutSessionReqPropsT } from '@/lib/types/stripe';
+
+export const CreateStripeCheckoutSession = async (price: string, id: string, email: string) => {
+  const res = await axios.post<Stripe.Checkout.Session>('/api/stripe/create-checkout-session', {
+    price,
+    user_id: id,
+    customer_email: email
+  } as CheckoutSessionReqPropsT);
 
   return res;
 };

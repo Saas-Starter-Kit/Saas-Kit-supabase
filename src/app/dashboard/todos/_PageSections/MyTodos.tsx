@@ -7,14 +7,9 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils/helpers';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { TodoT, TodosListT } from '@/lib/types/todos';
 
-interface TodoCard {
-  id: string;
-  title: string;
-  description: string;
-}
-
-const TodoCard = ({ id, title, description }) => {
+const TodoCard = ({ id, title, description }: TodoT) => {
   const router = useRouter();
 
   const Delete = async () => {
@@ -49,7 +44,7 @@ const TodoCard = ({ id, title, description }) => {
   );
 };
 
-const MyTodos = ({ todos }) => {
+const MyTodos = ({ todos }: TodosListT) => {
   return (
     <div>
       {todos.map((todo) => (

@@ -3,21 +3,7 @@ import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { WebhookEventHandler } from '@/lib/API/Services/stripe/webhook';
 import type { NextRequest } from 'next/server';
-
-type StripeEvent = {
-  type: string;
-  data: {
-    object: {
-      id: string;
-      metadata: {
-        user_id: string;
-      };
-      subscription: string;
-      status: string;
-    };
-    previous_attributes: object | null;
-  };
-};
+import { StripeEvent } from '@/lib/types/stripe';
 
 export async function POST(req: NextRequest) {
   const body = await req.text();

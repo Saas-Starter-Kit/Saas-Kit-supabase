@@ -1,5 +1,6 @@
 import stripe from '@/lib/API/Services/init/stripe';
 import Stripe from 'stripe';
+import { CustomerPropsT } from '@/lib/types/stripe';
 
 export const RetrieveSubscription = async (
   subscription_id: string
@@ -10,9 +11,12 @@ export const RetrieveSubscription = async (
   return subscription;
 };
 
-export const UpdateStripeCustomerEmail = async (customer, email) => {
-  const { error } = await stripe.customers.update(customer, {
+export const UpdateStripeCustomerEmail = async ({
+  customer,
+  email
+}: CustomerPropsT): Promise<Stripe.Customer> => {
+  const res: Stripe.Customer = await stripe.customers.update(customer, {
     email
   });
-  return { error };
+  return res;
 };

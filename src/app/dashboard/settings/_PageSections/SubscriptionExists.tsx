@@ -13,20 +13,13 @@ import {
 } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import configuration from '@/lib/config/dashboard';
-
-interface Plan {
-  name: string;
-  interval: string;
-  price: string;
-  price_id: string;
-  isPopular: boolean;
-}
+import { ErrorText } from '@/components/ErrorText';
 
 const SubscriptionExists = ({ price_id, status, period_ends }) => {
   const { products } = configuration;
   // handle types
   const [errorMessage, setErrorMessage] = useState('');
-  const [currentPlan, setPlan] = useState({});
+  const [currentPlan, setPlan] = useState({ name: '', price: '', interval: '' });
 
   const basic = products[0];
   const premium = products[1];
@@ -57,10 +50,11 @@ const SubscriptionExists = ({ price_id, status, period_ends }) => {
           <CardDescription>
             Click button below to go to the billing page to manage your Subscription and Billing
           </CardDescription>
+          <ErrorText errorMessage={errorMessage} />
         </CardHeader>
         <CardContent className="space-y-4">
           <h2 className="text-xl">
-            Current Plan: <span className="font-bold">{currentPlan?.name}</span>
+            Current Plan: <span className="font-bold">{currentPlan.name}</span>
           </h2>
           <div>
             Status: <span className="font-bold">{status}</span>

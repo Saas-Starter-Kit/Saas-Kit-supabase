@@ -14,19 +14,17 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Icons } from '@/components/Icons';
 import { Switch } from '@/components/ui/Switch';
-import Stripe from 'stripe';
-import axios from 'axios';
-import { CheckoutSessionReqPropsT } from '@/lib/types/stripe';
+import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
 
 const PriceCard = ({ product, handleSubscription, timeInterval }) => {
-  const [plan, setPlan] = useState({});
+  const [plan, setPlan] = useState({ price: '', price_id: '' });
   const { name, description, features, plans, isPopular } = product;
 
   const setProductPlan = () => {
     if (timeInterval === 'Monthly') {
-      setPlan(plans[0]);
+      setPlan({ price: plans[0].price, price_id: plans[0].price_id });
     } else {
-      setPlan(plans[1]);
+      setPlan({ price: plans[1].price, price_id: plans[1].price_id });
     }
   };
 
@@ -83,11 +81,7 @@ const PricingDisplay = ({ user }) => {
   const { id, email } = user;
 
   const handleSubscription = async (price) => {
-    const res = await axios.post<Stripe.Checkout.Session>('/api/stripe/create-checkout-session', {
-      price,
-      user_id: id,
-      customer_email: email
-    } as CheckoutSessionReqPropsT);
+    const res = await CreateStripeCheckoutSession(price, id, email);
 
     router.push(res.data.url);
   };

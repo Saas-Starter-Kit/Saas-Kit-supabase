@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { TodosListT, TodoT } from '@/lib/types/todos';
 
-const TodoCard = ({ title, description, author }) => {
+const TodoCard = ({ title, description, author }: TodoT) => {
   return (
     <Card className="my-4">
       <CardHeader>
@@ -14,7 +15,7 @@ const TodoCard = ({ title, description, author }) => {
   );
 };
 
-const TodosList = ({ todos }) => {
+const TodosList = ({ todos }: TodosListT) => {
   return (
     <div>
       {todos.map((todo) => (

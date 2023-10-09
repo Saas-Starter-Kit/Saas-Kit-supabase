@@ -12,8 +12,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Icons } from '@/components/Icons';
 import { CreateTodo } from '@/lib/API/Database/todos/Browser/mutations';
 import { toast } from 'react-toastify';
+import { User } from '@supabase/supabase-js';
 
-export default function TodosCreateForm({ user, author }) {
+interface TodosCreateFormProps {
+  user: User;
+  author: string;
+}
+
+export default function TodosCreateForm({ user, author }: TodosCreateFormProps) {
   const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<todoFormValues>({

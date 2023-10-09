@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Card, CardHeader, CardDescription, CardContent, CardTitle } from '@/components/ui/Card';
 
-import UpdateForm from './UpdateForm';
+import UpdateForm from './UpdateForms';
 import axios from 'axios';
 import { SupabaseProfileUpdate } from '@/lib/API/Database/profile/Browser/mutations';
 import { SupabaseUpdateEmail, SupabaseUpdatePassword } from '@/lib/API/Services/supabase/auth';

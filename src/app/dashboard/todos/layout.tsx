@@ -2,12 +2,9 @@ import { Separator } from '@/components/ui/Separator';
 import { TodosNav } from './_PageSections/TodosNav';
 import TodosHeader from './_PageSections/TodosHeader';
 import configuration from '@/lib/config/dashboard';
+import { LayoutProps } from '@/lib/types';
 
-//interface SettingsLayoutProps {
-//  children: React.ReactNode;
-//}
-
-export default function SettingsLayout({ children }) {
+export default function Layout({ children }: LayoutProps) {
   const {
     subroutes: { todos }
   } = configuration;

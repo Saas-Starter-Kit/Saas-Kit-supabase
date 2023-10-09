@@ -36,3 +36,28 @@ export type CheckoutSessionReqPropsT = {
   price: string;
   customer_email: string;
 };
+
+export type StripeEvent = {
+  type: string;
+  data: {
+    object: {
+      id: string;
+      metadata: {
+        user_id: string;
+      };
+      subscription: string;
+      status: string;
+    };
+    previous_attributes: object | null;
+  };
+};
+
+export type CustomerPropsT = {
+  customer: string;
+  email: string;
+};
+
+export type CustomerReqPropsT = {
+  customer: string;
+  email: string;
+};
