@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { NavItem } from '@/lib/types';
+import { NavItem } from '@/lib/types/types';
 import { usePathname } from 'next/navigation';
 
 interface TodosNavProps {

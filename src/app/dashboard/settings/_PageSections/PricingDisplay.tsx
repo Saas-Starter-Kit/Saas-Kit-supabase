@@ -16,7 +16,7 @@ import { Icons } from '@/components/Icons';
 import { Switch } from '@/components/ui/Switch';
 import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
 import { User } from '@supabase/supabase-js';
-import { ProductI } from '@/lib/types';
+import { ProductI } from '@/lib/types/types';
 import { IntervalE } from '@/lib/types/enums';
 
 interface PriceCardProps {

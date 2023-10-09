@@ -2,7 +2,7 @@ import { Separator } from '@/components/ui/Separator';
 import { SettingsNav } from './_PageSections/SettingsNav';
 import SettingsHeader from './_PageSections/SettingsHeader';
 import configuration from '@/lib/config/dashboard';
-import { LayoutProps } from '@/lib/types';
+import { LayoutProps } from '@/lib/types/types';
 
 export default function SettingsLayout({ children }: LayoutProps) {
   const {

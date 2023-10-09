@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils/helpers';
 import { usePathname } from 'next/navigation';
-import { NavItem } from '@/lib/types';
+import { NavItem } from '@/lib/types/types';
 
 interface SettingsNavProps {
   items: NavItem[];

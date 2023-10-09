@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { MainLogoText, MainLogoIcon } from '@/components/ui/MainLogo';
 import { usePathname } from 'next/navigation';
-import { NavItemSidebar } from '@/lib/types';
+import { NavItemSidebar } from '@/lib/types/types';
 
 interface SideBarNavProps {
   isOpen: boolean;

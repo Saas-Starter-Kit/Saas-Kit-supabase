@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import config from '@/lib/config/auth';
 import { ProfileT } from '@/lib/types/supabase';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
-import { LayoutProps } from '@/lib/types';
+import { LayoutProps } from '@/lib/types/types';
 
 export default async function DashboardLayout({ children }: LayoutProps) {
   const { data, error } = await SupabaseSession();

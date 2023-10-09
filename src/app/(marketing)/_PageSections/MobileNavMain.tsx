@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Link from 'next/link';
 
-import { NavItem } from '@/lib/types';
+import { NavItem } from '@/lib/types/types';
 import { cn } from '@/lib/utils/helpers';
-import { useLockBody } from '@/lib/hooks/useLockBody';
+import { useLockBody } from '@/lib/utils/hooks';
 import { Icons } from '../../../components/Icons';
 import siteConfig from '@/lib/config/site';
 

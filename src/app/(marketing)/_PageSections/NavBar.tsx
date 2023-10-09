@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { NavItem } from '@/lib/types';
+import { NavItem } from '@/lib/types/types';
 import { cn } from '@/lib/utils/helpers';
 import { Icons } from '@/components/Icons';
 import MobileNav from './MobileNavMain';

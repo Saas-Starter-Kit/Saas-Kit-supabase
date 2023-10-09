@@ -14,7 +14,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import configuration from '@/lib/config/dashboard';
 import { ErrorText } from '@/components/ErrorText';
-import { PlanI, ProductI } from '@/lib/types';
+import { PlanI, ProductI } from '@/lib/types/types';
 import config from '@/lib/config/auth';
 
 const SubscriptionExists = ({ price_id, status, period_ends }) => {
