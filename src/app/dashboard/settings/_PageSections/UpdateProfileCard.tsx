@@ -18,6 +18,8 @@ import {
   UpdatePasswordFormValues
 } from '@/lib/types/validations';
 
+import { UpdateStripeCustomer } from '@/lib/API/Routes/stripe/stripe';
+
 const UpdateProfileCard = ({ user, display_name, email, customer }) => {
   const formDisplayName = useForm<DisplayNameFormValues>({
     resolver: zodResolver(DisplayNameFormSchema),
@@ -53,11 +55,7 @@ const UpdateProfileCard = ({ user, display_name, email, customer }) => {
     const { error } = await SupabaseUpdateEmail(email);
     if (error) return error;
 
-    try {
-      await axios.post('/api/stripe/customer', { customer, email });
-    } catch (err) {
-      return { type: 'Stripe Error', message: 'Stripe Update Failed' };
-    }
+    await UpdateStripeCustomer(customer, email);
   };
 
   const onSubmitPassword = async (data) => {

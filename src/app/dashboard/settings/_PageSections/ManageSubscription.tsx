@@ -1,11 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { PortalSessionT, PortalSessionReqPropsT } from '@/lib/types/stripe';
+
+import { CreateStripePortalSession } from '@/lib/API/Routes/stripe/stripe';
+
 interface ManageSubProps {
   customer: string;
 }
@@ -14,10 +15,7 @@ const ManageSubscription = ({ customer }: ManageSubProps) => {
   const router = useRouter();
 
   const handleSubscription = async () => {
-    // extract out
-    const res = await axios.post<PortalSessionT>('/api/stripe/create-portal-session', {
-      customer
-    } as PortalSessionReqPropsT);
+    const res = await CreateStripePortalSession(customer);
 
     router.push(res.data.url);
   };
