@@ -1,5 +1,7 @@
+'use client';
+
 import Link from 'next/link';
-import { MainLogoText, MainLogoIcon } from '@/components/ui/MainLogo';
+import { MainLogoIcon } from '@/components/ui/MainLogo';
 import { usePathname } from 'next/navigation';
 import { NavItemSidebar } from '@/lib/types/types';
 

@@ -14,14 +14,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Icons } from '@/components/Icons';
 import { UpdateTodo } from '@/lib/API/Database/todos/Browser/mutations';
 import { toast } from 'react-toastify';
+import { TodoT } from '@/lib/types/todos';
 
-interface TodosEditFormProps {
-  id: string;
-  title: string;
-  description: string;
-}
-
-export default function TodosEditForm({ id, title, description }: TodosEditFormProps) {
+export default function TodosEditForm({ id, title, description }: TodoT) {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState('');
 

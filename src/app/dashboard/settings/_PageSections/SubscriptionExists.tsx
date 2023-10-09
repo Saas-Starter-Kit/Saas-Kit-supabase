@@ -17,7 +17,13 @@ import { ErrorText } from '@/components/ErrorText';
 import { PlanI, ProductI } from '@/lib/types/types';
 import config from '@/lib/config/auth';
 
-const SubscriptionExists = ({ price_id, status, period_ends }) => {
+interface SubscriptionExistsProps {
+  price_id: string;
+  status: string;
+  period_ends: string;
+}
+
+const SubscriptionExists = ({ price_id, status, period_ends }: SubscriptionExistsProps) => {
   const { products } = configuration;
   const [errorMessage, setErrorMessage] = useState('');
   const [currentPlan, setPlan] = useState<PlanI>({ name: '' });
