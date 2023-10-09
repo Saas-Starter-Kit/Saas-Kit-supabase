@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react';
 import configuration from '@/lib/config/dashboard';
 import { useRouter } from 'next/navigation';
-import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
-
 import {
   Card,
   CardHeader,
@@ -17,6 +15,8 @@ import { Button } from '@/components/ui/Button';
 import { Icons } from '@/components/Icons';
 import { Switch } from '@/components/ui/Switch';
 import Stripe from 'stripe';
+import axios from 'axios';
+import { CheckoutSessionReqPropsT } from '@/lib/types/stripe';
 
 const PriceCard = ({ product, handleSubscription, timeInterval }) => {
   const [plan, setPlan] = useState({});
@@ -83,9 +83,13 @@ const PricingDisplay = ({ user }) => {
   const { id, email } = user;
 
   const handleSubscription = async (price) => {
-    // handle types
-    const res = await CreateStripeCheckoutSession(price, id, email);
-    router.push(res.data.session.url);
+    const res = await axios.post<Stripe.Checkout.Session>('/api/stripe/create-checkout-session', {
+      price,
+      user_id: id,
+      customer_email: email
+    } as CheckoutSessionReqPropsT);
+
+    router.push(res.data.url);
   };
 
   const changeTimeInterval = () => {

@@ -2,8 +2,14 @@ import 'server-only';
 import stripe from '@/lib/API/Services/init/stripe';
 import config from '@/lib/config/auth';
 import Stripe from 'stripe';
+import { CreateCheckoutSessionPropsT } from '@/lib/types/stripe';
 
-const createCheckoutSession = async (price, customer_email, user_id, origin) => {
+const createCheckoutSession = async ({
+  price,
+  customer_email,
+  user_id,
+  origin
+}: CreateCheckoutSessionPropsT) => {
   const { redirects } = config;
   const { toBilling, toSubscription } = redirects;
 
