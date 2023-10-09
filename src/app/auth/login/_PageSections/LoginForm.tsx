@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { Icons } from '@/components/Icons';
 
 import config from '@/lib/config/auth';
-import { SupbaseAuthError, SupabaseAuthErrorProps } from '@/lib/types';
+import { SupbaseAuthError, SupabaseAuthErrorProps } from '@/lib/types/supabase';
 
 export default function AuthForm() {
   const [showPassword, setShowPassword] = useState(false);

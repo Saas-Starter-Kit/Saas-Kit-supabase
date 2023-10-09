@@ -2,7 +2,7 @@
 //convert to server comp
 
 import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/Button';
+import { Button, buttonVariants } from '@/components/ui/Button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,18 +12,17 @@ import {
 import Link from 'next/link';
 
 import { cn } from '@/lib/utils/helpers';
-import { buttonVariants } from '@/components/ui/Button';
 import NavBar from './_PageSections/NavBar';
 import config from '@/lib/config/marketing';
 import { MainLogoText } from '@/components/ui/MainLogo';
 import { Icons } from '@/components/Icons';
 import React from 'react';
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
+//interface LayoutProps {
+//  children: React.ReactNode;
+//}
 
-export default async function MarketingLayout({ children }: LayoutProps) {
+export default async function MarketingLayout({ children }) {
   const { routes } = config;
   const { setTheme } = useTheme();
 

@@ -1,9 +1,6 @@
 import { MainLogoText } from '@/components/ui/MainLogo';
 import { Separator } from '@/components/ui/separator';
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
+import { LayoutProps } from '@/lib/types';
 
 export default async function AuthLayout({ children }: LayoutProps) {
   return (

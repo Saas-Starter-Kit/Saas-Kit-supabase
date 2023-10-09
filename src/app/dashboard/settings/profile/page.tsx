@@ -5,7 +5,8 @@ import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
 export default async function ProfileForm() {
   const user = await SupabaseUser();
 
-  const { data } = await GetProfileByUserId(user.id);
+  //error handling
+  const { data, error } = await GetProfileByUserId(user.id);
   const display_name = data[0]?.display_name || '';
   const customer = data[0]?.stripe_customer_id;
 

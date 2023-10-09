@@ -5,17 +5,20 @@ import axios from 'axios';
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { StripePortalSessionT } from '@/lib/types/stripe';
+interface ManageSubProps {
+  customer: string;
+}
 
-const ManageSubscription = ({ customer }) => {
+const ManageSubscription = ({ customer }: ManageSubProps) => {
   const router = useRouter();
 
   const handleSubscription = async () => {
-    //handle types
-    const res = await axios.post('/api/stripe/create-portal-session', {
+    const res = await axios.post<StripePortalSessionT>('/api/stripe/create-portal-session', {
       customer
     });
 
-    router.push(res.data.portalSession.url);
+    router.push(res.data.url);
   };
 
   return (

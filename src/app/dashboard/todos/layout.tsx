@@ -3,11 +3,11 @@ import { TodosNav } from './_PageSections/TodosNav';
 import TodosHeader from './_PageSections/TodosHeader';
 import configuration from '@/lib/config/dashboard';
 
-interface SettingsLayoutProps {
-  children: React.ReactNode;
-}
+//interface SettingsLayoutProps {
+//  children: React.ReactNode;
+//}
 
-export default function SettingsLayout({ children }: SettingsLayoutProps) {
+export default function SettingsLayout({ children }) {
   const {
     subroutes: { todos }
   } = configuration;

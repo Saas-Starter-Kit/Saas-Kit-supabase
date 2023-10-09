@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Icons } from '@/components/Icons';
 import { Switch } from '@/components/ui/Switch';
+import Stripe from 'stripe';
 
 const PriceCard = ({ product, handleSubscription, timeInterval }) => {
   const [plan, setPlan] = useState({});
@@ -70,7 +71,7 @@ const PriceCard = ({ product, handleSubscription, timeInterval }) => {
   );
 };
 
-const PricingDisplay = ({ user, customer }) => {
+const PricingDisplay = ({ user }) => {
   const [timeInterval, setTimeInterval] = useState('Monthly');
 
   const { products } = configuration;

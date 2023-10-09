@@ -2,12 +2,9 @@ import { Separator } from '@/components/ui/Separator';
 import { SettingsNav } from './_PageSections/SettingsNav';
 import SettingsHeader from './_PageSections/SettingsHeader';
 import configuration from '@/lib/config/dashboard';
+import { LayoutProps } from '@/lib/types';
 
-interface SettingsLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function SettingsLayout({ children }: SettingsLayoutProps) {
+export default function SettingsLayout({ children }: LayoutProps) {
   const {
     subroutes: { settings }
   } = configuration;

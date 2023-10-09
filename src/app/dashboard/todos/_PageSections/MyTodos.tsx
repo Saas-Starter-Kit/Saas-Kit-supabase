@@ -8,6 +8,12 @@ import { cn } from '@/lib/utils/helpers';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
+interface TodoCard {
+  id: string;
+  title: string;
+  description: string;
+}
+
 const TodoCard = ({ id, title, description }) => {
   const router = useRouter();
 

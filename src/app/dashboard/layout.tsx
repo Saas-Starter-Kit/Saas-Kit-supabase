@@ -4,8 +4,11 @@ import { SupabaseSession } from '@/lib/API/Services/supabase/user';
 import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
 import { redirect } from 'next/navigation';
 import config from '@/lib/config/auth';
+import { ProfileT } from '@/lib/types/supabase';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
+import { LayoutProps } from '@/lib/types';
 
-export default async function DashboardLayout({ children }) {
+export default async function DashboardLayout({ children }: LayoutProps) {
   const { data, error } = await SupabaseSession();
 
   // Auth Guard
@@ -13,7 +16,7 @@ export default async function DashboardLayout({ children }) {
     redirect(config.redirects.requireAuth);
   }
 
-  let profile;
+  let profile: PostgrestSingleResponse<ProfileT[]>;
   if (data?.session?.user) {
     profile = await GetProfileByUserId(data.session.user.id);
   }

@@ -8,5 +8,5 @@ export async function POST(request: NextRequest) {
 
   const portalSession = await createPortalSession(customer, origin);
 
-  return NextResponse.json({ portalSession });
+  return NextResponse.json(portalSession);
 }
