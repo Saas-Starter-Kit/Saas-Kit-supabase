@@ -13,10 +13,9 @@ import {
 } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import configuration from '@/lib/config/dashboard';
-import { ErrorText } from '@/components/ErrorText';
 import { PlanI, ProductI } from '@/lib/types/types';
 import config from '@/lib/config/auth';
-
+import { ErrorText } from '@/components/ErrorText';
 interface SubscriptionExistsProps {
   price_id: string;
   status: string;
@@ -28,19 +27,17 @@ const SubscriptionExists = ({ price_id, status, period_ends }: SubscriptionExist
   const [errorMessage, setErrorMessage] = useState('');
   const [currentPlan, setPlan] = useState<PlanI>({ name: '' });
 
-  const basic: ProductI = products[0];
-  const premium: ProductI = products[1];
-
   const matchSubscription = () => {
-    const basicMatch: PlanI = basic.plans.find((x: PlanI) => x.price_id === price_id);
-    const premiumMatch: PlanI = premium.plans.find((x: PlanI) => x.price_id === price_id);
+    const match: PlanI = products
+      .map((product) => product.plans.find((x: PlanI) => x.price_id === price_id))
+      .find((item) => !!item);
 
-    if (!basicMatch && !premiumMatch) {
-      setErrorMessage('Subscription Not Found, Please Contact Support');
+    if (!match) {
+      setErrorMessage('Subscription Type Not Valid, Please Contact Support');
       return;
     }
 
-    setPlan(basicMatch || premiumMatch);
+    setPlan(match);
   };
 
   useEffect(() => {

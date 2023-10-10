@@ -40,7 +40,7 @@ const PriceCard = ({ product, handleSubscription, timeInterval }: PriceCardProps
       setPlan({
         price: plans[1].price,
         price_id: plans[1].price_id,
-        isPopular: plans[0].isPopular
+        isPopular: plans[1].isPopular
       });
     }
   };
