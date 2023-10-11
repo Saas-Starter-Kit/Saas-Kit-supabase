@@ -4,7 +4,16 @@ import { Card, CardHeader, CardDescription, CardContent, CardTitle } from '@/com
 
 import { UpdateDisplayName, UpdateEmail, UpdatePassword } from './UpdateForms';
 
-const UpdateProfileCard = ({ user, display_name, email, customer }) => {
+import { User } from '@supabase/supabase-js';
+
+interface UpdateProfileCardProps {
+  user: User;
+  display_name: string;
+  email: string;
+  customer: string;
+}
+
+const UpdateProfileCard = ({ user, display_name, email, customer }: UpdateProfileCardProps) => {
   return (
     <div>
       <Card>

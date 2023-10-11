@@ -1,3 +1,5 @@
-// api routes
+const config = {
+  errorMessageGeneral: 'Something Went Wrong'
+};
 
-// extract out from webhooks
+export default config;

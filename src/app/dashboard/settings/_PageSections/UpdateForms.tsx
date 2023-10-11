@@ -32,7 +32,6 @@ import {
 
 import { UpdateStripeCustomer } from '@/lib/API/Routes/stripe/stripe';
 import { User } from '@supabase/supabase-js';
-import { ErrorText } from '@/components/ErrorText';
 
 interface UpdateDisplayNamePropsI {
   display_name: string;
@@ -40,8 +39,6 @@ interface UpdateDisplayNamePropsI {
 }
 
 export const UpdateDisplayName = ({ display_name, user }: UpdateDisplayNamePropsI) => {
-  const [errorMessage, setErrorMessage] = useState('');
-
   const form = useForm<DisplayNameFormValues>({
     resolver: zodResolver(DisplayNameFormSchema),
     defaultValues: {
@@ -51,27 +48,28 @@ export const UpdateDisplayName = ({ display_name, user }: UpdateDisplayNameProps
 
   const {
     setError,
+    register,
     formState: { isSubmitting }
   } = form;
 
   const handleSubmit = async (data: DisplayNameFormValues) => {
     const id = user.id;
     const display_name = data.display_name;
-    const { error } = await SupabaseProfileUpdate(id, display_name);
+    const error = await SupabaseProfileUpdate(id, display_name);
 
     if (error) {
-      setError('root', {
-        type: 'Postgres Error'
+      setError('display_name', {
+        type: '"root.serverError',
+        message: error.message
       });
-      setErrorMessage(error.message);
       return;
     }
+
     toast.success('Update Completed');
   };
 
   return (
     <div className="mt-4 mb-10">
-      <ErrorText errorMessage={errorMessage} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <FormField
@@ -79,12 +77,12 @@ export const UpdateDisplayName = ({ display_name, user }: UpdateDisplayNameProps
             name="display_name"
             render={({ field }) => (
               <FormItem>
+                <FormMessage className="py-2" />
                 <FormLabel>Display Name</FormLabel>
                 <FormControl>
-                  <Input type="text" {...field} />
+                  <Input {...register('display_name')} type="text" {...field} />
                 </FormControl>
                 <FormDescription>This is your public display name.</FormDescription>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -104,8 +102,6 @@ interface UpdateEmailPropsI {
 }
 
 export const UpdateEmail = ({ email, customer }: UpdateEmailPropsI) => {
-  const [errorMessage, setErrorMessage] = useState('');
-
   const form = useForm<EmailFormValues>({
     resolver: zodResolver(EmailFormSchema),
     defaultValues: {
@@ -115,6 +111,7 @@ export const UpdateEmail = ({ email, customer }: UpdateEmailPropsI) => {
 
   const {
     setError,
+    register,
     formState: { isSubmitting }
   } = form;
 
@@ -122,21 +119,26 @@ export const UpdateEmail = ({ email, customer }: UpdateEmailPropsI) => {
     const email = data.email;
     const { error } = await SupabaseUpdateEmail(email);
 
-    await UpdateStripeCustomer(customer, email);
-
     if (error) {
-      setError('root', {
-        type: 'Postgres Error'
+      setError('email', {
+        type: '"root.serverError',
+        message: error.message
       });
-      setErrorMessage(error.message);
       return;
     }
-    toast.success('Update Completed');
+
+    try {
+      await UpdateStripeCustomer(customer, email);
+    } catch (e) {
+      toast.error('Stripe Update Failed, please contact support');
+      throw e;
+    }
+
+    toast.success('Update Email Sent, confirm email to complete Update');
   };
 
   return (
     <div className="mt-4 mb-10">
-      <ErrorText errorMessage={errorMessage} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <FormField
@@ -146,7 +148,7 @@ export const UpdateEmail = ({ email, customer }: UpdateEmailPropsI) => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="text" {...field} />
+                  <Input {...register('email')} type="text" {...field} />
                 </FormControl>
                 <FormDescription>This is the email associated with your account</FormDescription>
                 <FormMessage />
@@ -164,8 +166,6 @@ export const UpdateEmail = ({ email, customer }: UpdateEmailPropsI) => {
 };
 
 export const UpdatePassword = () => {
-  const [errorMessage, setErrorMessage] = useState('');
-
   const form = useForm<UpdatePasswordFormValues>({
     resolver: zodResolver(UpdatePasswordFormSchema),
     defaultValues: {
@@ -174,6 +174,7 @@ export const UpdatePassword = () => {
   });
 
   const {
+    register,
     setError,
     formState: { isSubmitting }
   } = form;
@@ -182,18 +183,18 @@ export const UpdatePassword = () => {
     const { error } = await SupabaseUpdatePassword(data.password);
 
     if (error) {
-      setError('root', {
-        type: 'Postgres Error'
+      setError('password', {
+        type: '"root.serverError',
+        message: error.message
       });
-      setErrorMessage(error.message);
       return;
     }
+
     toast.success('Update Completed');
   };
 
   return (
     <div className="mt-4 mb-10">
-      <ErrorText errorMessage={errorMessage} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <FormField
@@ -203,7 +204,7 @@ export const UpdatePassword = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="text" {...field} />
+                  <Input {...register('password')} type="text" {...field} />
                 </FormControl>
                 <FormDescription>Update Account Password</FormDescription>
                 <FormMessage />

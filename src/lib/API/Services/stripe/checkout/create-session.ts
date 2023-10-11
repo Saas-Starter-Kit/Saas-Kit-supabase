@@ -13,24 +13,26 @@ const createCheckoutSession = async ({
   const { redirects } = config;
   const { toBilling, toSubscription } = redirects;
 
-  const session: Stripe.Checkout.Session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price,
-        quantity: 1
+  const session: Stripe.Checkout.Session = await stripe.checkout.sessions
+    .create({
+      line_items: [
+        {
+          price,
+          quantity: 1
+        }
+      ],
+      mode: 'subscription',
+      success_url: `${origin}${toBilling}`,
+      cancel_url: `${origin}${toSubscription}`,
+      metadata: {
+        user_id
+      },
+      customer_email: 'FF_))RF',
+      subscription_data: {
+        trial_period_days: 14
       }
-    ],
-    mode: 'subscription',
-    success_url: `${origin}${toBilling}`,
-    cancel_url: `${origin}${toSubscription}`,
-    metadata: {
-      user_id
-    },
-    customer_email,
-    subscription_data: {
-      trial_period_days: 14
-    }
-  });
+    })
+    .catch((err) => console.log(err));
 
   return session;
 };

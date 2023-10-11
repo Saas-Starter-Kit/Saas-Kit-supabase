@@ -1,12 +1,12 @@
 'client-only';
 import { SupabaseBrowser as supabase } from '@/lib/API/Services/init/supabase/SupabaseBrowser';
-import { PostgrestSingleResponse } from '@supabase/supabase-js';
-import { ProfileT } from '@/lib/types/supabase';
+import { PostgrestError } from '@supabase/supabase-js';
 
 export const SupabaseProfileUpdate = async (
   id: string,
   display_name: string
-): Promise<PostgrestSingleResponse<null>> => {
-  const res = await supabase.from('profiles').upsert({ id, display_name });
-  return res;
+): Promise<PostgrestError> => {
+  const { error } = await supabase.from('profiles').upsert({ id, display_name });
+
+  return error;
 };

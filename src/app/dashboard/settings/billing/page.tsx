@@ -1,24 +1,21 @@
 import ManageSubscription from '../_PageSections/ManageSubscription';
-import { SupabaseUser } from '@/lib/API/Services/supabase/user';
+import { SupabaseSession } from '@/lib/API/Services/supabase/user';
 import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
-import { RetrieveSubscription } from '@/lib/API/Services/stripe';
 import SubscriptionRequired from '../_PageSections/SubscriptionRequired';
-import Stripe from 'stripe';
 
 export default async function Billing() {
-  const user = await SupabaseUser();
+  const session = await SupabaseSession();
 
-  // handle error toast
-  const { data, error } = await GetProfileByUserId(user.id);
+  const user = session?.data?.session?.user;
 
-  let subscription: Stripe.Subscription;
-  if (data[0]?.subscription_id) {
-    subscription = await RetrieveSubscription(data[0].subscription_id);
-  }
+  const profile = await GetProfileByUserId(user.id);
+
+  const subscription = profile?.data?.[0]?.subscription_id;
+  const customer = profile?.data?.[0]?.stripe_customer_id;
 
   return (
     <div>
-      {subscription && <ManageSubscription customer={data[0].stripe_customer_id} />}
+      {subscription && <ManageSubscription customer={customer} />}
       {!subscription && <SubscriptionRequired />}
     </div>
   );

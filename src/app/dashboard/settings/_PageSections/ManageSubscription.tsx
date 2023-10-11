@@ -15,6 +15,7 @@ const ManageSubscription = ({ customer }: ManageSubProps) => {
   const router = useRouter();
 
   const handleSubscription = async () => {
+    // just throw err in a try catch in inside the function
     const res = await CreateStripePortalSession(customer);
 
     router.push(res.data.url);

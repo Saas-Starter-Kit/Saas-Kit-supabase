@@ -2,7 +2,7 @@
 import { SupabaseBrowser as supabase } from '@/lib/API/Services/init/supabase/SupabaseBrowser';
 import config from '@/lib/config/auth';
 
-export const SupabaseSignUp = async (email, password) => {
+export const SupabaseSignUp = async (email: string, password: string) => {
   const res = await supabase.auth.signUp({
     email,
     password
@@ -10,7 +10,7 @@ export const SupabaseSignUp = async (email, password) => {
   return res;
 };
 
-export const SupabaseSignIn = async (email, password) => {
+export const SupabaseSignIn = async (email: string, password: string) => {
   const res = await supabase.auth.signInWithPassword({
     email,
     password
@@ -30,29 +30,28 @@ export const SupabaseSignInWithGoogle = async () => {
   return res;
 };
 
-export const SupabaseSignInWithMagicLink = async (email) => {
+export const SupabaseSignInWithMagicLink = async (email: string) => {
   const res = await supabase.auth.signInWithOtp({
     email: `${email}`,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/${config.redirects.callback}`
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}${config.redirects.callback}`
     }
   });
   return res;
 };
 
-export const SupabaseUpdateEmail = async (email) => {
-  console.log(email);
+export const SupabaseUpdateEmail = async (email: string) => {
   const res = await supabase.auth.updateUser({ email });
   return res;
 };
 
-export const SupabaseUpdatePassword = async (password) => {
+export const SupabaseUpdatePassword = async (password: string) => {
   const res = await supabase.auth.updateUser({ password });
   return res;
 };
 
-export const SupabaseResetPasswordEmail = async (email) => {
-  const redirectTo = `${process.env.NEXT_PUBLIC_DOMAIN}/dashboard/settings/profile`;
+export const SupabaseResetPasswordEmail = async (email: string) => {
+  const redirectTo = `${process.env.NEXT_PUBLIC_DOMAIN}${config.redirects.toProfile}`;
   const res = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo
   });

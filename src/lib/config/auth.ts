@@ -19,7 +19,8 @@ const config = {
     toBilling: '/dashboard/settings/billing',
     requireAuth: '/auth/auth-required',
     authConfirm: '/auth/auth-confirm',
-    callback: '/api/auth-callback'
+    callback: '/api/auth-callback',
+    toProfile: '/dashboard/settings/profile'
   }
 };
 

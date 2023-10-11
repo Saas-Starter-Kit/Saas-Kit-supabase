@@ -8,6 +8,7 @@ export const RetrieveSubscription = async (
   const subscription: Stripe.Subscription = await stripe.subscriptions.retrieve(
     subscription_id as string
   );
+
   return subscription;
 };
 
