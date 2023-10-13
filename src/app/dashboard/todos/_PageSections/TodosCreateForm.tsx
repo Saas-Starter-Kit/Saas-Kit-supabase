@@ -20,8 +20,6 @@ interface TodosCreateFormProps {
 }
 
 export default function TodosCreateForm({ user, author }: TodosCreateFormProps) {
-  const [errorMessage, setErrorMessage] = useState('');
-
   const form = useForm<todoFormValues>({
     resolver: zodResolver(todoFormSchema),
     defaultValues: {
@@ -32,8 +30,9 @@ export default function TodosCreateForm({ user, author }: TodosCreateFormProps) 
 
   const {
     reset,
+    register,
     setError,
-    formState: { isSubmitting, errors }
+    formState: { isSubmitting }
   } = form;
 
   const onSubmit = async (values: todoFormValues) => {
@@ -45,12 +44,10 @@ export default function TodosCreateForm({ user, author }: TodosCreateFormProps) 
     const { error } = await CreateTodo(title, description, user_id, author);
 
     if (error) {
-      const type = 'Todo create failed';
-      const errorMessage = 'Todo Creation failed, please try again';
-      setError('root', {
-        type
+      setError('title', {
+        type: '"root.serverError',
+        message: error.message
       });
-      setErrorMessage(errorMessage);
       return;
     }
 
@@ -64,7 +61,6 @@ export default function TodosCreateForm({ user, author }: TodosCreateFormProps) 
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">New Todo</CardTitle>
           <CardDescription>Create a Todo with Title and Description</CardDescription>
-          {errors && <div className="text-sm text-red-500 pt-2">{errorMessage}</div>}
         </CardHeader>
 
         <CardContent>
@@ -75,11 +71,10 @@ export default function TodosCreateForm({ user, author }: TodosCreateFormProps) 
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormMessage /> <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...register('title')} type="text" {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />

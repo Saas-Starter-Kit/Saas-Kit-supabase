@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardDescription, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { UpdateTodo, DeleteTodo } from '@/lib/API/Database/todos/Browser/mutations';
+import { DeleteTodo } from '@/lib/API/Database/todos/Browser/mutations';
 import { Button, buttonVariants } from '@/components/ui/Button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils/helpers';

@@ -71,12 +71,7 @@ export default function MagicLink() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Email"
-                        {...register('email', { required: true })}
-                        {...field}
-                      />
+                      <Input type="text" placeholder="Email" {...register('email')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

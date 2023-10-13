@@ -16,9 +16,14 @@ import { UpdateTodo } from '@/lib/API/Database/todos/Browser/mutations';
 import { toast } from 'react-toastify';
 import { TodoT } from '@/lib/types/todos';
 
-export default function TodosEditForm({ id, title, description }: TodoT) {
+interface EditFormProps {
+  todo: TodoT;
+}
+
+export default function TodosEditForm({ todo }: EditFormProps) {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const { title, description, id } = todo;
 
   const form = useForm<todoFormValues>({
     resolver: zodResolver(todoFormSchema),
@@ -29,9 +34,10 @@ export default function TodosEditForm({ id, title, description }: TodoT) {
   });
 
   const {
+    register,
     reset,
     setError,
-    formState: { isSubmitting, isSubmitted, errors }
+    formState: { isSubmitting, isSubmitted }
   } = form;
 
   const onSubmit = async (values: todoFormValues) => {
@@ -41,12 +47,10 @@ export default function TodosEditForm({ id, title, description }: TodoT) {
     const { error } = await UpdateTodo(id, title, description);
 
     if (error) {
-      const type = 'Todo Update failed';
-      const errorMessage = 'Todo Update failed, please try again';
-      setError('root', {
-        type
+      setError('title', {
+        type: '"root.serverError',
+        message: error.message
       });
-      setErrorMessage(errorMessage);
       return;
     }
 
@@ -62,7 +66,6 @@ export default function TodosEditForm({ id, title, description }: TodoT) {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Update Todo</CardTitle>
           <CardDescription>Update Todo with a new Title or Description</CardDescription>
-          {errors && <div className="text-sm text-red-500 pt-2">{errorMessage}</div>}
         </CardHeader>
 
         <CardContent>
@@ -73,11 +76,11 @@ export default function TodosEditForm({ id, title, description }: TodoT) {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
+                    <FormMessage />
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...register('title')} {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />

@@ -22,7 +22,9 @@ export const StripeError = (err: Stripe.errors.StripeError) => {
   //        break;
 };
 
-export const SupabaseAuthError = (err: AuthError) => {};
+export const SupabaseAuthError = (err: AuthError) => {
+  if (err) throw new Error(err.message);
+};
 
 export const SupabaseDBError = (err: PostgrestError) => {
   if (err) throw new Error(err.message);

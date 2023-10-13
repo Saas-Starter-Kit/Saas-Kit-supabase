@@ -1,5 +1,5 @@
 import { MainLogoText } from '@/components/ui/MainLogo';
-import { Separator } from '@/components/ui/separator';
+import { Separator } from '@/components/ui/Separator';
 import { LayoutProps } from '@/lib/types/types';
 
 export default async function AuthLayout({ children }: LayoutProps) {

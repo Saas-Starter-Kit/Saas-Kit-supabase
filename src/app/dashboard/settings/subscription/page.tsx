@@ -11,7 +11,7 @@ export default async function Subscription() {
   const session = await SupabaseSession();
   const user = session?.data?.session?.user;
 
-  const profile = await GetProfileByUserId(user.id);
+  const profile = await GetProfileByUserId(user?.id);
 
   let subscription: PostgrestSingleResponse<SubscriptionT[]>;
   if (profile?.data?.[0]?.subscription_id) {

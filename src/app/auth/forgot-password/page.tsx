@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/Input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useRouter } from 'next/navigation';
 import config from '@/lib/config/auth';
+import { Icons } from '@/components/Icons';
 
 export default function ForgotPassword() {
   const router = useRouter();
@@ -17,8 +18,23 @@ export default function ForgotPassword() {
     resolver: zodResolver(EmailFormSchema)
   });
 
+  const {
+    setError,
+    register,
+    formState: { isSubmitting }
+  } = form;
+
   const onSubmit = async (values: EmailFormValues) => {
-    await SupabaseResetPasswordEmail(values.email);
+    const { error } = await SupabaseResetPasswordEmail(values.email);
+
+    if (error) {
+      setError('email', {
+        type: '"root.serverError',
+        message: error.message
+      });
+      return;
+    }
+
     router.push(config.redirects.authConfirm);
   };
 
@@ -42,13 +58,16 @@ export default function ForgotPassword() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...register('email')} type="text" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button className="w-full">Submit</Button>
+              <Button disabled={isSubmitting} className="w-full">
+                {isSubmitting && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
+                Submit
+              </Button>
             </form>
           </Form>
         </CardContent>

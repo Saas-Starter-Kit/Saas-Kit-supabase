@@ -7,10 +7,10 @@ export default async function ProfileForm() {
 
   const user = session?.data?.session?.user;
 
-  const profile = await GetProfileByUserId(user.id);
+  const profile = await GetProfileByUserId(user?.id);
 
-  const display_name = profile.data?.[0]?.display_name || '';
-  const customer = profile.data?.[0]?.stripe_customer_id || '';
+  const display_name = profile?.data?.[0]?.display_name || '';
+  const customer = profile?.data?.[0]?.stripe_customer_id || '';
 
   return (
     <div>

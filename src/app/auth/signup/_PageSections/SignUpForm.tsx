@@ -21,11 +21,9 @@ import {
 import Link from 'next/link';
 import config from '@/lib/config/auth';
 import { Icons } from '@/components/Icons';
-import { SupbaseAuthError, SupabaseAuthErrorProps } from '@/lib/types/supabase';
 
 export default function AuthForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
 
@@ -38,44 +36,25 @@ export default function AuthForm() {
   });
 
   const {
+    register,
     reset,
     setError,
     formState: { isSubmitting, errors }
   } = form;
 
-  const handleSupabaseAuthError = ({
-    error,
-    data,
-    email
-  }: SupabaseAuthErrorProps): SupbaseAuthError => {
-    if (error) {
-      setError('root', {
-        type: error.name
-      });
-      setErrorMessage(error.message);
-      reset({ email, password: '' });
-      return { isError: true };
-    }
-
-    if (!data?.session || !data?.user) {
-      setError('root', {
-        type: 'Supabase Unknown Error'
-      });
-      setErrorMessage('Something Went Wrong, Please Try Again');
-      reset({ email, password: '' });
-      return { isError: true };
-    }
-
-    return { isError: false };
-  };
-
   const onSubmit = async (values: authFormValues) => {
-    const { error, data } = await SupabaseSignUp(values.email, values.password);
+    const { error } = await SupabaseSignUp(values.email, values.password);
 
-    const props = { error, data, email: values.email };
-    const { isError } = handleSupabaseAuthError(props);
-    if (isError) return;
+    if (error) {
+      reset({ email: values.email, password: '' });
+      setError('email', {
+        type: '"root.serverError',
+        message: error.message
+      });
+      setError('password', { type: 'root.serverError', message: '' });
 
+      return;
+    }
     router.push(config.redirects.callback);
   };
 
@@ -83,10 +62,13 @@ export default function AuthForm() {
     const { error } = await SupabaseSignInWithGoogle();
 
     if (error) {
-      setErrorMessage(error.message);
+      setError('email', {
+        type: '"root.serverError',
+        message: error.message
+      });
+      setError('password', { type: 'root.serverError' });
       return;
     }
-
     router.push(config.redirects.callback);
   };
 
@@ -102,9 +84,7 @@ export default function AuthForm() {
           <CardDescription>
             Enter your email and password below to create your account
           </CardDescription>
-          {errors && <div className="text-sm text-red-500 pt-2">{errorMessage}</div>}
         </CardHeader>
-
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -113,11 +93,11 @@ export default function AuthForm() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
+                    <FormMessage />
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email" {...field} />
+                      <Input {...register('email')} placeholder="Email" {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -130,6 +110,7 @@ export default function AuthForm() {
                     <FormControl>
                       <div className="relative">
                         <Input
+                          {...register('password')}
                           type={showPassword ? 'text' : 'password'}
                           placeholder="Password"
                           {...field}
