@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import createCheckoutSession from '@/lib/API/Services/stripe/checkout/create-session';
+import { createCheckoutSession } from '@/lib/API/Services/stripe/session';
 import type { NextRequest } from 'next/server';
 import { CreateCheckoutSessionPropsT, CheckoutSessionReqPropsT } from '@/lib/types/stripe';
 
@@ -9,8 +9,12 @@ export async function POST(request: NextRequest) {
 
   const origin = request.nextUrl.origin;
 
-  const props: CreateCheckoutSessionPropsT = { price, customer_email, user_id, origin };
-  const session = await createCheckoutSession(props);
+  try {
+    const props: CreateCheckoutSessionPropsT = { price, customer_email, user_id, origin };
+    const session = await createCheckoutSession(props);
 
-  return NextResponse.json(session);
+    return NextResponse.json(session);
+  } catch (err) {
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }

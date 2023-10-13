@@ -1,8 +1,9 @@
 import 'server-only';
 import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supabase/SupabaseRouteHandler';
-import stripe from '@/lib/API/Services/init/stripe';
 import Stripe from 'stripe';
-import { RetrieveSubscription } from '..';
+import { RetrieveSubscription } from './customer';
+import { SubscriptionT } from '@/lib/types/supabase';
+import { StripeEvent } from '@/lib/types/stripe';
 
 const subscriptionStatusActive = { trailing: 'trailing', active: 'active' };
 const subscriptionStatusVoid = {
@@ -17,22 +18,6 @@ const WebhookEvents = {
   checkout_session_completed: 'checkout.session.completed'
 };
 
-// Imported Stripe Event object has incorrect types, set here instead
-type StripeEvent = {
-  type: string;
-  data: {
-    object: {
-      id: string;
-      metadata: {
-        user_id: string;
-      };
-      subscription: string;
-      status: string;
-    };
-    previous_attributes: object | null;
-  };
-};
-
 export const WebhookEventHandler = async (event: StripeEvent) => {
   // Handle the event
   switch (event.type) {
@@ -41,12 +26,11 @@ export const WebhookEventHandler = async (event: StripeEvent) => {
 
       const user_db_id = session.metadata.user_id;
 
-      //import and replace
       const subscription: Stripe.Subscription = await RetrieveSubscription(session.subscription);
 
       const stripe_customer_id = subscription.customer;
 
-      const dataSub = {
+      const dataSub: SubscriptionT = {
         id: subscription.id,
         price_id: subscription.items.data[0].price.id,
         status: subscription.status,
@@ -55,15 +39,18 @@ export const WebhookEventHandler = async (event: StripeEvent) => {
         period_ends_at: new Date(subscription.current_period_end * 1000)
       };
 
-      await supabase().from('subscriptions').insert(dataSub);
+      const subscriptionRes = await supabase().from('subscriptions').insert(dataSub);
+      if (subscriptionRes?.error) throw subscriptionRes.error;
 
       const dataUser = {
         stripe_customer_id,
         subscription_id: subscription.id
       };
 
-      await supabase().from('profiles').update(dataUser).eq('id', user_db_id);
+      const profileRes = await supabase().from('profiles').update(dataUser).eq('id', user_db_id);
+      if (profileRes?.error) throw profileRes.error;
 
+      console.log('Stripe Customer Successfully Created');
       break;
     case WebhookEvents.subscription_updated:
       // refator for simplicity
@@ -102,7 +89,12 @@ export const WebhookEventHandler = async (event: StripeEvent) => {
       if (status) dataUpdate['status'] = status;
 
       if (Object.keys(dataUpdate).length !== 0) {
-        await supabase().from('subscriptions').update(dataUpdate).eq('id', subscriptionUpdate.id);
+        const { error } = await supabase()
+          .from('subscriptions')
+          .update(dataUpdate)
+          .eq('id', subscriptionUpdate.id);
+
+        if (error) throw error;
       }
 
       break;
@@ -111,3 +103,16 @@ export const WebhookEventHandler = async (event: StripeEvent) => {
       console.log(`Unhandled event type ${event.type}.`);
   }
 };
+
+/* 
+
+Webhook triggers can be triggered by stripe CLI to similate webhook events. Copy and paste into terminal.
+
+stripe.exe trigger checkout.session.completed --add checkout_session:metadata.user_id={REPLACE WITH A SUPABASE USER ID}
+
+stripe.exe trigger customer.subscription.updated
+
+stripe.exe trigger invoice.paid
+
+ngrok setup can also be used to directly trigger events from the app. See ngrok stripe webhook guide.
+*/

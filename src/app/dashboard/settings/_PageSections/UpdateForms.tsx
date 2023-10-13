@@ -30,7 +30,7 @@ import {
   UpdatePasswordFormValues
 } from '@/lib/types/validations';
 
-import { UpdateStripeCustomer } from '@/lib/API/Routes/stripe/stripe';
+import { UpdateStripeCustomer } from '@/lib/API/Routes/stripe';
 import { User } from '@supabase/supabase-js';
 
 interface UpdateDisplayNamePropsI {

@@ -14,7 +14,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Icons } from '@/components/Icons';
 import { Switch } from '@/components/ui/Switch';
-import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe/stripe';
+import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe';
 import { User } from '@supabase/supabase-js';
 import { ProductI } from '@/lib/types/types';
 import { IntervalE } from '@/lib/types/enums';
@@ -104,7 +104,9 @@ const PricingDisplay = ({ user }: PricingDisplayProps) => {
   const handleSubscription = async (price: string) => {
     const res = await CreateStripeCheckoutSession(price, id, email);
 
-    router.push(res.data.url);
+    //console.log(res);
+
+    //router.push(res.data.url);
   };
 
   const changeTimeInterval = () => {

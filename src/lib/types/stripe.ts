@@ -37,6 +37,7 @@ export type CheckoutSessionReqPropsT = {
   customer_email: string;
 };
 
+// imported Stripe Event from 'stripe' type has outdated keys/values
 export type StripeEvent = {
   type: string;
   data: {

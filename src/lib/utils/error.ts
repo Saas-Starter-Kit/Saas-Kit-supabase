@@ -1,4 +1,5 @@
 import { AuthError, PostgrestError } from '@supabase/supabase-js';
+import { AxiosError } from 'axios';
 import Stripe from 'stripe';
 
 export const handleError = (error: any) => {
@@ -7,27 +8,29 @@ export const handleError = (error: any) => {
 };
 
 export const StripeError = (err: Stripe.errors.StripeError) => {
-  if (err instanceof Stripe.errors.StripeError) {
+  if (err) {
+    console.log(err);
+    throw err;
   }
-  console.log(err);
-  // switch (e.type) {
-  //      case 'StripeCardError':
-  //        console.log(`A payment error occurred: ${e.message}`);
-  //        break;
-  //      case 'StripeInvalidRequestError':
-  //        console.log('An invalid request occurred.');
-  //        break;
-  //      default:
-  //        console.log('Another problem occurred, maybe unrelated to Stripe.');
-  //        break;
 };
 
 export const SupabaseAuthError = (err: AuthError) => {
-  if (err) throw new Error(err.message);
+  if (err) {
+    console.log(err);
+    throw err;
+  }
 };
 
 export const SupabaseDBError = (err: PostgrestError) => {
-  if (err) throw new Error(err.message);
+  if (err) {
+    console.log(err);
+    throw err;
+  }
 };
 
-export const AxiosError = () => {};
+export const AxiosHandleError = (err: AxiosError) => {
+  if (err) {
+    console.log(err);
+    throw err;
+  }
+};
