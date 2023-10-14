@@ -6,7 +6,6 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { Button } from '@/components/ui/Button';
 
 import { CreateStripePortalSession } from '@/lib/API/Routes/stripe';
-import { toast } from 'react-toastify';
 
 interface ManageSubProps {
   customer: string;
@@ -18,9 +17,7 @@ const ManageSubscription = ({ customer }: ManageSubProps) => {
   const handleSubscription = async () => {
     const res = await CreateStripePortalSession(customer);
 
-    console.log('dddd');
-
-    //router.push(res.data.url);
+    router.push(res.data.url);
   };
 
   return (

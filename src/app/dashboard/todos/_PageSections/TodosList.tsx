@@ -19,7 +19,12 @@ const TodosList = ({ todos }: TodosListT) => {
   return (
     <div>
       {todos.map((todo) => (
-        <TodoCard title={todo.title} author={todo.author} description={todo.description} />
+        <TodoCard
+          key={todo.title}
+          title={todo.title}
+          author={todo.author}
+          description={todo.description}
+        />
       ))}
     </div>
   );

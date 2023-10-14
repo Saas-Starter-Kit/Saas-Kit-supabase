@@ -2,6 +2,7 @@ import 'server-only';
 
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '../../../../../../supabase/types';
 
 //https://github.com/vercel/next.js/issues/45371
 
@@ -9,5 +10,5 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const SupabaseServerClient = () => {
   const cookieStore = cookies();
-  return createServerComponentClient({ cookies: () => cookieStore });
+  return createServerComponentClient<Database>({ cookies: () => cookieStore });
 };

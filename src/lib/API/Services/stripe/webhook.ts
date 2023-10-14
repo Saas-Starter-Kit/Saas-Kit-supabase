@@ -2,7 +2,6 @@ import 'server-only';
 import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supabase/SupabaseRouteHandler';
 import Stripe from 'stripe';
 import { RetrieveSubscription } from './customer';
-import { SubscriptionT } from '@/lib/types/supabase';
 import { StripeEvent } from '@/lib/types/stripe';
 
 const subscriptionStatusActive = { trailing: 'trailing', active: 'active' };
@@ -28,15 +27,16 @@ export const WebhookEventHandler = async (event: StripeEvent) => {
 
       const subscription: Stripe.Subscription = await RetrieveSubscription(session.subscription);
 
-      const stripe_customer_id = subscription.customer;
+      const stripe_customer_id = subscription.customer as string;
+      const statusSub = subscription.status as string;
 
-      const dataSub: SubscriptionT = {
+      const dataSub = {
         id: subscription.id,
         price_id: subscription.items.data[0].price.id,
-        status: subscription.status,
-        created_at: new Date(Date.now()),
-        period_starts_at: new Date(subscription.current_period_start * 1000),
-        period_ends_at: new Date(subscription.current_period_end * 1000)
+        status: statusSub,
+        created_at: new Date(Date.now()).toString(),
+        period_starts_at: new Date(subscription.current_period_start * 1000).toString(),
+        period_ends_at: new Date(subscription.current_period_end * 1000).toString()
       };
 
       const subscriptionRes = await supabase().from('subscriptions').insert(dataSub);

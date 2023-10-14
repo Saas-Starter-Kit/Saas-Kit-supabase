@@ -11,8 +11,8 @@ export type ProfileT = {
 export type SubscriptionT = {
   created_at: string | Date | null;
   id: string;
-  period_ends_at: string | Date | null;
-  period_starts_at: string | Date | null;
+  period_ends_at: string | null;
+  period_starts_at: string | null;
   price_id: string;
   status: string;
 };
