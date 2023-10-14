@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import configuration from '@/lib/config/dashboard';
-import { PlanI, ProductI } from '@/lib/types/types';
+import { PlanI } from '@/lib/types/types';
 import config from '@/lib/config/auth';
 import { ErrorText } from '@/components/ErrorText';
 interface SubscriptionExistsProps {

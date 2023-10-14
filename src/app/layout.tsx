@@ -8,7 +8,7 @@ import config from '@/lib/config/site';
 
 const RootLayout = ({ children }) => {
   return (
-    <html lang="en" className={`${InterFont.variable}`}>
+    <html suppressHydrationWarning lang="en" className={`${InterFont.variable}`}>
       <body>
         <ThemeProvider
           attribute="class"

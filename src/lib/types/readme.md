@@ -1,1 +1,1 @@
-This directory contains types and validations for forms.
+This directory contains types, emums and form validations.

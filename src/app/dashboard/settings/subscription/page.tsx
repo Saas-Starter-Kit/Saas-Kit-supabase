@@ -23,7 +23,7 @@ export default async function Subscription() {
   const period_ends = subscription?.data[0]?.period_ends_at;
 
   return (
-    <div className="">
+    <div>
       {!subscription && <PricingDisplay user={user} />}
       {subscription && (
         <SubscriptionExists price_id={price_id} status={status} period_ends={period_ends} />

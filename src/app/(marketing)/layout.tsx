@@ -1,3 +1,4 @@
+
 import { buttonVariants } from '@/components/ui/Button';
 
 import Link from 'next/link';
@@ -14,7 +15,7 @@ export default async function MarketingLayout({ children }) {
   const { routes } = config;
 
   return (
-    <div className="">
+    <div>
       <header>
         <div className="flex items-center justify-between p-6">
           <MainLogoText />
