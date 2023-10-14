@@ -42,7 +42,7 @@ const SubscriptionExists = ({ price_id, status, period_ends }: SubscriptionExist
 
   useEffect(() => {
     matchSubscription();
-  }, []);
+  }, [matchSubscription]);
 
   const router = useRouter();
 

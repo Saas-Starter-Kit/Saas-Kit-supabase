@@ -47,7 +47,7 @@ const PriceCard = ({ product, handleSubscription, timeInterval }: PriceCardProps
 
   useEffect(() => {
     setProductPlan();
-  }, [timeInterval]);
+  }, [timeInterval, setProductPlan]);
 
   return (
     <Card
@@ -104,9 +104,7 @@ const PricingDisplay = ({ user }: PricingDisplayProps) => {
   const handleSubscription = async (price: string) => {
     const res = await CreateStripeCheckoutSession(price, id, email);
 
-    //console.log(res);
-
-    //router.push(res.data.url);
+    router.push(res.data.url);
   };
 
   const changeTimeInterval = () => {
