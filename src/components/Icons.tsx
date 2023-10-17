@@ -3,12 +3,10 @@ import {
   Laptop,
   Home,
   Settings,
-  LucideIcon,
   AlignLeftIcon,
   Mail,
   Command,
   X,
-  LucideProps,
   Loader2,
   EyeIcon,
   EyeOffIcon,
@@ -19,13 +17,14 @@ import {
   Lock,
   CheckCircle2,
   Sun,
-  Moon
+  Moon,
+  Twitter,
+  Github,
+  Linkedin
 } from 'lucide-react';
 
-export type Icon = LucideIcon;
-
-const Google = ({ ...props }: LucideProps) => (
-  <svg role="img" className="mr-2 h-4 w-4" viewBox="0 0 24 24" {...props}>
+const Google = ({ ...props }) => (
+  <svg role="img" className="h-4 w-4" viewBox="0 0 24 24" {...props}>
     <path
       fill="currentColor"
       d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
@@ -35,23 +34,32 @@ const Google = ({ ...props }: LucideProps) => (
 
 export const Icons = {
   SidebarToggle: AlignLeftIcon,
-  Laptop: Laptop,
-  Settings: Settings,
-  Home: Home,
+  Laptop,
+  Settings,
+  Home,
   User,
-  Mail: Mail,
-  Logo: Command,
+  Mail,
+  Command,
   Close: X,
-  Check: Check,
+  Check,
   Spinner: Loader2,
   CircleDollarSign,
   Users,
   ScreenShare,
-  Eye: EyeIcon,
-  EyeOff: EyeOffIcon,
-  Lock: Lock,
+  EyeIcon,
+  EyeOffIcon,
+  Lock,
   Google,
   CheckCircle2,
-  Sun: Sun,
-  Moon: Moon,
+  Sun,
+  Moon
 };
+
+export const SocialIcons = {
+  Twitter,
+  Google,
+  Linkedin,
+  Github
+};
+
+export const MarketingIcons = {};

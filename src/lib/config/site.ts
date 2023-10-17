@@ -6,8 +6,9 @@ const siteConfig = {
   ogImage: '',
   loading_bar_color: '#00008B',
   links: {
-    twitter: '',
-    github: ''
+    twitter: 'https://twitter.com',
+    github: 'https://github.com',
+    linkedin: 'https://linkedin.com'
   }
 };
 

@@ -10,7 +10,7 @@ const AuthConfirm = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Request Submitted </CardTitle>
+        <CardTitle>Request Submitted</CardTitle>
         <CardDescription>Please check your email</CardDescription>
       </CardHeader>
       <CardContent>

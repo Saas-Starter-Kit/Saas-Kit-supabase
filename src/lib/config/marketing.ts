@@ -3,9 +3,32 @@ import siteConfig from './site';
 
 const config = {
   routes: [
-    { title: 'home', link: '/' },
-    { title: 'pricing', link: '/pricing' }
+    { title: 'pricing', link: '/pricing' },
+    { title: 'faq', link: '/faq' }
   ],
+  footer_nav: {
+    about: {
+      title: 'About',
+      routes: [
+        { title: 'pricing', link: '/pricing' },
+        { title: 'faq', link: '/faq' }
+      ]
+    },
+    resources: {
+      title: 'Resources',
+      routes: [
+        { title: 'blog', link: '/' },
+        { title: 'docs', link: '/' }
+      ]
+    },
+    legal: {
+      title: 'Legal',
+      routes: [
+        { title: 'Privacy Policy', link: '/' },
+        { title: 'Terms and Conditions', link: '/' }
+      ]
+    }
+  },
   metadate: {
     title: {
       default: siteConfig.name,
@@ -44,7 +67,8 @@ const config = {
       apple: '/apple-touch-icon.png'
     },
     manifest: `${siteConfig.url}/site.webmanifest`
-  }
+  },
+  copy: {}
 };
 
 export default config;

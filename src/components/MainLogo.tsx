@@ -5,7 +5,7 @@ import { Icons } from '@/components/Icons';
 export const MainLogoText = () => {
   return (
     <Link href="/" className="hidden items-center space-x-2 md:flex">
-      <Icons.Logo />
+      <Icons.Command />
       <span className="font-bold">{siteConfig.alt_name}</span>
     </Link>
   );
@@ -14,7 +14,7 @@ export const MainLogoText = () => {
 export const MainLogoIcon = () => {
   return (
     <Link href="/" className="w-4 h-4">
-      <Icons.Logo />
+      <Icons.Command />
     </Link>
   );
 };

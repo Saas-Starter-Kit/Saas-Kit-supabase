@@ -1,4 +1,4 @@
-import { MainLogoText } from '@/components/ui/MainLogo';
+import { MainLogoText } from '@/components/MainLogo';
 import { Separator } from '@/components/ui/Separator';
 import { LayoutProps } from '@/lib/types/types';
 

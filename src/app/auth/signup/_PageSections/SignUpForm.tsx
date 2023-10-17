@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SupabaseSignUp, SupabaseSignInWithGoogle } from '@/lib/API/Services/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { authFormSchema, authFormValues } from '@/lib/types/validations';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
@@ -117,9 +116,12 @@ export default function AuthForm() {
                         />
                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 cursor-pointer">
                           {showPassword ? (
-                            <Icons.EyeOff className="h-6 w-6" onClick={togglePasswordVisibility} />
+                            <Icons.EyeOffIcon
+                              className="h-6 w-6"
+                              onClick={togglePasswordVisibility}
+                            />
                           ) : (
-                            <Icons.Eye className="h-6 w-6" onClick={togglePasswordVisibility} />
+                            <Icons.EyeIcon className="h-6 w-6" onClick={togglePasswordVisibility} />
                           )}
                         </div>
                       </div>
