@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils/helpers';
 import { Nav } from './NavBar';
 import config from '@/lib/config/marketing';
 import { MainLogoText } from '@/components/MainLogo';
-import { ThemeDropDownMenu } from './ThemeDropdown';
+import { ThemeDropDownMenu } from '../../../components/ThemeDropdown';
 
 export const Header = () => {
   const { routes } = config;

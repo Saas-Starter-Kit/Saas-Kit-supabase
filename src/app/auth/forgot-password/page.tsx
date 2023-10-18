@@ -58,7 +58,7 @@ export default function ForgotPassword() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input {...register('email')} type="text" {...field} />
+                      <Input {...register('email')} placeholder="Email" type="text" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

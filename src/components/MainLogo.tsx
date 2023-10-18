@@ -4,9 +4,9 @@ import { Icons } from '@/components/Icons';
 
 export const MainLogoText = () => {
   return (
-    <Link href="/" className="hidden items-center space-x-2 md:flex">
+    <Link href="/" className="items-center space-x-2 md:flex">
       <Icons.Command />
-      <span className="font-bold">{siteConfig.alt_name}</span>
+      <span className="font-bold hidden md:inline-block">{siteConfig.alt_name}</span>
     </Link>
   );
 };

@@ -1,15 +1,16 @@
-import { MainLogoText } from '@/components/MainLogo';
+import { MainLogoText, MainLogoIcon } from '@/components/MainLogo';
 import { Separator } from '@/components/ui/Separator';
 import { LayoutProps } from '@/lib/types/types';
+import { ThemeDropDownMenu } from '../../components/ThemeDropdown';
 
 export default async function AuthLayout({ children }: LayoutProps) {
   return (
     <div>
-      <header className="flex flex-col items-center justify-center p-6">
-        <span className="mb-4">
+      <header className="p-6 mb-4">
+        <div className="flex justify-between items-center">
           <MainLogoText />
-        </span>
-
+          <ThemeDropDownMenu />
+        </div>
         <Separator />
       </header>
 

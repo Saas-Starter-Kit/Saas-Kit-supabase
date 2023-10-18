@@ -4,7 +4,7 @@ const siteConfig = {
   description: 'An open source Saas boilerplate with Nextjs and Supabase.',
   url: process.env.NEXT_PUBLIC_DOMAIN,
   ogImage: '',
-  loading_bar_color: '#00008B',
+  loading_bar_color: '#ADD8E6',
   links: {
     twitter: 'https://twitter.com',
     github: 'https://github.com',
