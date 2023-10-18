@@ -23,7 +23,7 @@ const configuration = {
     {
       name: 'Basic',
       description: 'Best for hobby or individual Projects',
-      features: ['Unlimited Posts', '10 Users', 'Email Support'],
+      features: ['Unlimited Posts', '10 Users', '1000 API requests', 'Email Support'],
       plans: [
         {
           name: 'Basic Monthly',
@@ -44,7 +44,12 @@ const configuration = {
     {
       name: 'Pro',
       description: 'Best for Teams or organizations',
-      features: ['Unlimited Posts', 'Unlimited Users', 'Priority Support'],
+      features: [
+        'Unlimited Posts',
+        'Unlimited Users',
+        'Unlimited API Requests',
+        'Priority Support'
+      ],
       plans: [
         {
           name: 'Pro Monthly',

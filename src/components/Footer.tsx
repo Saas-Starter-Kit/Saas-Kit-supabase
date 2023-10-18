@@ -5,14 +5,13 @@ import Link from 'next/link';
 import { SocialIcons } from './Icons';
 import configuration from '@/lib/config/site';
 import { Input } from './ui/Input';
-import { Label } from './ui/Label';
 import { Button } from './ui/Button';
 
 export default function Footer() {
   const { footer_nav } = config;
 
   return (
-    <footer className="bg-gray-900">
+    <footer className="bg-slate-800 mt-8">
       <div className="mx-auto max-w-7xl px-6 pb-6 pt-16 lg:px-8 ">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="grid grid-cols-2 gap-8 xl:col-span-2">
@@ -72,7 +71,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="mt-6 xl:mt-0">
+          <div className="mt-8 xl:mt-0">
             <h3 className="text-sm font-semibold leading-6 text-white">
               Subscribe to our newsletter
             </h3>
@@ -94,20 +93,20 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-16 pt-8 grid grid-cols-2 ">
-          <p className="text-xs leading-5 text-slate-300 py-4">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 ">
+          <p className="text-xs leading-5 text-slate-300 py-4 text-center md:text-left">
             &copy; 2020 Your Company, Inc. All rights reserved.
           </p>
           <div className="text-white py-4 justify-self-center">
             <div className="flex items-end">
               <Link href={configuration.links.twitter} target="_blank" rel="noopener noreferrer">
-                <SocialIcons.Twitter className="mx-6" size={24} />
+                <SocialIcons.Twitter className="mx-8" size={24} />
               </Link>
               <Link href={configuration.links.github} target="_blank" rel="noopener noreferrer">
-                <SocialIcons.Github className="mx-6" size={24} />
+                <SocialIcons.Github className="mx-8" size={24} />
               </Link>
               <Link href={configuration.links.linkedin} target="_blank" rel="noopener noreferrer">
-                <SocialIcons.Linkedin className="mx-6" size={24} />
+                <SocialIcons.Linkedin className="mx-8" size={24} />
               </Link>
             </div>
           </div>

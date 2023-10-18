@@ -1,13 +1,3 @@
-//header
-// sub header
-// seperator
-// list with icons
-// conclusion
-
-// image opposite side
-
-//import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid';
-
 import { Lock, CloudIcon } from 'lucide-react';
 
 const features = [
@@ -31,7 +21,7 @@ interface FeaturePropsI {
 
 const FeatureText = ({ isFlipped }: FeaturePropsI) => {
   return (
-    <div className={`px-6 lg:px-0 lg:pr-4 lg:pt-4 ${isFlipped && 'ml-8 order-2'}`}>
+    <div className={`px-6 lg:px-0 lg:pr-4 lg:pt-4 ${isFlipped && 'lg:ml-8 order-2'}`}>
       <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
         <h2 className="font-semibold leading-7 text-slate-500">Deploy faster</h2>
         <p className="mt-2 text-3xl font-bold tracking-tight  sm:text-4xl">A better workflow</p>
@@ -57,13 +47,12 @@ const FeatureText = ({ isFlipped }: FeaturePropsI) => {
 
 const FeatureImage = () => {
   return (
-    <div className="self-center sm:px-6 lg:px-0">
+    <div className="hidden lg:block self-center">
       <img
         src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
         alt="Product screenshot"
         width=""
         height=""
-        className=""
       />
     </div>
   );
@@ -73,7 +62,7 @@ export default function Feature({ isFlipped }: FeaturePropsI) {
   return (
     <div className="mt-24">
       <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
           <FeatureText isFlipped={isFlipped} />
           <FeatureImage />
         </div>

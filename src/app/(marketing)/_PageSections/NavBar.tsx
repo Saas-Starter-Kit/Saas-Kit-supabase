@@ -1,48 +1,73 @@
 'use client';
+import * as React from 'react';
 
-import { useState } from 'react';
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle
+} from '@/components/ui/Navigation';
+
 import Link from 'next/link';
 
 import { NavItem } from '@/lib/types/types';
-import { cn } from '@/lib/utils/helpers';
-import { Icons } from '@/components/Icons';
-import MobileNav from './MobileNavMain';
 
-interface NavbarMainProps {
+import { Icons } from '@/components/Icons';
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/DropdownMenu';
+
+interface NavProps {
   items?: NavItem[];
-  children?: React.ReactNode;
 }
 
-const NavbarMain = ({ items, children }: NavbarMainProps) => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+const MobileNavItem = ({ title, link }: NavItem) => (
+  <DropdownMenuItem className="flex justify-center">
+    <Link className="p-4 text-xl font-semi-bold text-center" href={link}>
+      {title}
+    </Link>
+  </DropdownMenuItem>
+);
 
+const MobileNav = ({ items }: NavProps) => {
   return (
-    <div className="flex gap-6 md:gap-10">
-      {items?.length ? (
-        <nav className="hidden gap-6 md:flex">
-          {items?.map((item) => (
-            <Link
-              key={item.title}
-              href={item.link}
-              className={cn(
-                'flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm'
-              )}
-            >
-              {item.title}
-            </Link>
+    <div className="md:hidden">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Icons.Menu size={34} />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          {items.map((item) => (
+            <MobileNavItem title={item.title} link={item.link} />
           ))}
-        </nav>
-      ) : null}
-      <button
-        className="flex items-center space-x-2 md:hidden"
-        onClick={() => setShowMobileMenu(!showMobileMenu)}
-      >
-        {showMobileMenu ? <Icons.Close /> : <Icons.Command />}
-        <span className="font-bold">Menu</span>
-      </button>
-      {showMobileMenu && items && <MobileNav items={items}>{children}</MobileNav>}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };
 
-export default NavbarMain;
+export const Nav = ({ items }: NavProps) => {
+  return (
+    <div>
+      <NavigationMenu className="hidden md:inline-block">
+        <NavigationMenuList>
+          {items.map((item) => (
+            <NavigationMenuItem>
+              <Link href={item.link} legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  {item.title}
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
+      <MobileNav items={items} />
+    </div>
+  );
+};

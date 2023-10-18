@@ -3,8 +3,8 @@ import siteConfig from './site';
 
 const config = {
   routes: [
-    { title: 'pricing', link: '/pricing' },
-    { title: 'faq', link: '/faq' }
+    { title: 'Pricing', link: '/pricing' },
+    { title: 'FAQ', link: '/faq' }
   ],
   footer_nav: {
     about: {
