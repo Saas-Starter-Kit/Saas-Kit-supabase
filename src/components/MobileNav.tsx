@@ -32,7 +32,9 @@ export const MobileNav = ({ items }: NavProps) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
           {items.map((item) => (
-            <MobileNavItem title={item.title} link={item.link} />
+            <div key={item.title}>
+              <MobileNavItem title={item.title} link={item.link} />
+            </div>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
