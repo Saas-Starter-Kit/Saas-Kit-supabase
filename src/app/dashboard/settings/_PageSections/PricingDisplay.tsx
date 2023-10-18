@@ -51,7 +51,7 @@ const PriceCard = ({ product, handleSubscription, timeInterval }: PriceCardProps
 
   return (
     <Card
-      className={`flex flex-col items-center justify-center w-72 border ${
+      className={`flex flex-col items-center justify-center border mt-4 ${
         plan.isPopular && 'border-blue-500 relative'
       }`}
     >
@@ -125,7 +125,7 @@ const PricingDisplay = ({ user }: PricingDisplayProps) => {
         <div className="text-sm font-bold ml-3">Yearly</div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="grid grid-cols-1 space-x-0 lg:space-x-4 lg:grid-cols-2 ">
         <PriceCard
           product={basic}
           handleSubscription={handleSubscription}

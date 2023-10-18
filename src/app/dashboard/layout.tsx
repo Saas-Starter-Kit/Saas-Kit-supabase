@@ -26,11 +26,11 @@ export default async function DashboardLayout({ children }: LayoutProps) {
   const avatar_url = data?.session?.user?.user_metadata?.avatar_url;
 
   return (
-    <main className="grid grid-cols-[auto_1fr]">
+    <main className="grid md:grid-cols-[auto_1fr]">
       <SideBar />
-      <div className=" bg-slate-100">
+      <div>
         <Header email={email} display_name={display_name} avatar_url={avatar_url} />
-        <div className="m-6 w-11/12">{children}</div>
+        <div className="m-6">{children}</div>
       </div>
     </main>
   );

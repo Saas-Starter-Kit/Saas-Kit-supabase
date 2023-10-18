@@ -8,7 +8,7 @@ import { DocShare } from '../../_PageSections/DocShare';
 
 const Dashboard = () => {
   return (
-    <div className="space-y-6">
+    <div className="w-11/12 space-y-6">
       <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
         <SummaryCard
           card_title={'Revenue'}
@@ -32,15 +32,15 @@ const Dashboard = () => {
       <div>
         <ComposeChart />
       </div>
-      <div className="grid gap-4 grid-cols-4">
-        <div className="col-span-3">
+      <div className="grid gap-4 grid-cols-1  xl:grid-cols-4">
+        <div className="md:col-span-3">
           <BarChart />
         </div>
-        <div className="col-span-1">
+        <div className="md:col-span-1">
           <PieChart />
         </div>
       </div>
-      <div className="grid gap-6 grid-cols-2">
+      <div className="grid gap-6 grid-cols-1 xl:grid-cols-2">
         <RecentSales />
         <DocShare />
       </div>

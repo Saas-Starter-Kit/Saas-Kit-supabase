@@ -11,7 +11,7 @@ export function TodosNav({ items }: TodosNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center space-x-4 lg:space-x-6 mb-6">
+    <nav className="flex items-center space-x-6 mb-6">
       {items.map((item) => (
         <Link
           key={item.title}

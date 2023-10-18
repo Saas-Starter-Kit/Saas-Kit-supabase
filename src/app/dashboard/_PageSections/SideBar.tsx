@@ -13,7 +13,7 @@ const Sidebar = () => {
     <div
       className={`${
         !isOpen ? 'w-20' : 'w-48'
-      } flex flex-col items-center transition-all duration-300 border-r h-screen sticky top-0 p-2`}
+      } hidden  md:flex flex-col items-center transition-all duration-300 border-r h-screen sticky top-0 p-2 `}
     >
       <SideBarNav routes={routes} isOpen={isOpen} />
       <div className="mt-auto">

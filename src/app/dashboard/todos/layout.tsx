@@ -10,14 +10,13 @@ export default function Layout({ children }: LayoutProps) {
   } = configuration;
 
   return (
-    <div>
-      <div className="">
+    <div className="lg:max-w-lg">
+      <div>
         <TodosHeader />
         <Separator className="my-6" />
         <TodosNav items={todos} />
-        <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-          <div className="flex-1 lg:max-w-2xl">{children}</div>
-        </div>
+
+        <div>{children}</div>
       </div>
     </div>
   );

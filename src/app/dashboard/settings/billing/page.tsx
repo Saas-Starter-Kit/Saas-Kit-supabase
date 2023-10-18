@@ -10,8 +10,10 @@ export default async function Billing() {
 
   const profile = await GetProfileByUserId(user.id);
 
-  const subscription = profile?.data?.[0]?.subscription_id;
-  const customer = profile?.data?.[0]?.stripe_customer_id;
+  //const subscription = profile?.data?.[0]?.subscription_id;
+  //const customer = profile?.data?.[0]?.stripe_customer_id;
+  const subscription = '';
+  const customer = '';
 
   return (
     <div>

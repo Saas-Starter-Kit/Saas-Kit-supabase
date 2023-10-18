@@ -13,7 +13,7 @@ export function SettingsNav({ items }: SettingsNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center lg:space-x-6 mb-8">
+    <nav className="flex items-center space-x-6 mb-8">
       {items.map((item) => (
         <Link
           key={item.title}

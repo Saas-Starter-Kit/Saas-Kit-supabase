@@ -15,7 +15,7 @@ export default async function Subscription() {
 
   let subscription: PostgrestSingleResponse<SubscriptionT[]>;
   if (profile?.data?.[0]?.subscription_id) {
-    subscription = await GetSubscriptionById(profile?.data?.[0]?.subscription_id);
+    //subscription = await GetSubscriptionById(profile?.data?.[0]?.subscription_id);
   }
 
   const price_id = subscription?.data[0]?.price_id;
