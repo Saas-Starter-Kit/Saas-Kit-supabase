@@ -24,7 +24,7 @@ export default function FAQs() {
   return (
     <div>
       {faqs.map((faq) => (
-        <div>
+        <div key={faq.question}>
           <Faq answer={faq.answer} question={faq.question} />
         </div>
       ))}
