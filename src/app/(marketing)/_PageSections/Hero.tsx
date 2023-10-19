@@ -10,6 +10,8 @@ const HeroScreenshot = () => {
         src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
         alt="App screenshot"
         className="mx-auto h-[90%] lg:max-lg:w-[90%]  2xl:max-w-[72rem]"
+        width={3840}
+        height={75}
       />
     </div>
   );
