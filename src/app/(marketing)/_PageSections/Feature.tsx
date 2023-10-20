@@ -52,6 +52,8 @@ const FeatureImage = () => {
       <Image
         src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
         alt="Product screenshot"
+        width={3840}
+        height={75}
       />
     </div>
   );
