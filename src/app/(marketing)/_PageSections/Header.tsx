@@ -5,9 +5,11 @@ import { Nav } from './NavBar';
 import config from '@/lib/config/marketing';
 import { MainLogoText } from '@/components/MainLogo';
 import { ThemeDropDownMenu } from '../../../components/ThemeDropdown';
+import { SupabaseSession } from '@/lib/API/Services/supabase/user';
 
-export const Header = () => {
+export const Header = async () => {
   const { routes } = config;
+  const { data } = await SupabaseSession();
 
   return (
     <header>
@@ -17,12 +19,21 @@ export const Header = () => {
         <div className="flex justify-center items-center">
           <ThemeDropDownMenu />
           <nav>
-            <Link
+            {data?.session && (
+              <Link
+              href="/dashboard/main"
+              className={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'px-6')}
+              >
+              Dashboard
+              </Link>)}
+            
+            {!data?.session && (
+              <Link
               href="/auth/login"
               className={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'px-6')}
-            >
+              >
               Login
-            </Link>
+              </Link>)}
           </nav>
         </div>
       </div>
