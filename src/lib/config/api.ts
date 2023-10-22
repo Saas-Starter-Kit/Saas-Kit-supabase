@@ -1,5 +1,6 @@
 const config = {
-  errorMessageGeneral: 'Something Went Wrong'
+  errorMessageGeneral: 'Something Went Wrong',
+  swrKeys: {}
 };
 
 export default config;

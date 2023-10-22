@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { TodoT } from '@/lib/types/todos';
 import { GetTodosByUserId } from '@/lib/API/Database/todos/queries';
+import useSWR, { useSWRConfig } from 'swr';
 
 interface TodoCardProps extends TodoT {
   deleteTodo: (id: string) => Promise<void>;
@@ -38,12 +39,8 @@ const TodoCard = ({ id, title, description, deleteTodo }: TodoCardProps) => {
 };
 
 export default function MyTodos() {
-  const [todos, setTodos] = useState<TodoT[]>([]);
-
-  const fetchTodos = async () => {
-    const res = await GetTodosByUserId();
-    setTodos(res?.data);
-  };
+  const { data, error } = useSWR('GetTodos', GetTodosByUserId);
+  const { mutate } = useSWRConfig();
 
   const deleteTodo = async (id: string) => {
     const { error } = await DeleteTodo(id);
@@ -54,16 +51,12 @@ export default function MyTodos() {
     }
     toast.success('Todo Deleted');
 
-    await fetchTodos();
+    mutate('GetTodos');
   };
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
 
   return (
     <div>
-      {todos.map((todo) => (
+      {data?.data?.map((todo) => (
         <TodoCard
           key={todo.id}
           id={todo.id}
