@@ -1,6 +1,6 @@
 'use server';
 
-import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase/SupabaseServer';
+import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase';
 import { SupabaseAuthError } from '@/lib/utils/error';
 
 export const SupabaseSession = async () => {
