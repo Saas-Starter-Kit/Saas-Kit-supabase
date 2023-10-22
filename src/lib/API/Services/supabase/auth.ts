@@ -1,5 +1,5 @@
-'server only';
-import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase/supabase';
+'use server';
+import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase';
 import config from '@/lib/config/auth';
 import { SupabaseAuthError } from '@/lib/utils/error';
 

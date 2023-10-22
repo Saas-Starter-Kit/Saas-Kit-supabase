@@ -1,5 +1,5 @@
 'use server';
-import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase/SupabaseServer';
+import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase';
 import { SubscriptionT } from '@/lib/types/supabase';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { SupabaseDBError } from '@/lib/utils/error';

@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supabase/SupabaseRouteHandler';
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { Database } from '../../../../supabase/types';
 
 import type { NextRequest } from 'next/server';
 import config from '@/lib/config/auth';
@@ -10,7 +12,11 @@ export async function GET(request: NextRequest) {
   const origin: string = request.nextUrl.origin;
 
   if (code) {
-    await supabase().auth.exchangeCodeForSession(code);
+    const cookieStore = cookies();
+    const supabase = createRouteHandlerClient<Database>({ cookies: () => cookieStore });
+
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) throw error;
   }
 
   const reDirectUrl = `${origin}${config.redirects.toDashboard}`;
