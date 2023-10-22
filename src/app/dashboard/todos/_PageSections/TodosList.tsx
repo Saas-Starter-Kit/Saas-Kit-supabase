@@ -1,9 +1,5 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { TodoT } from '@/lib/types/todos';
-import { GetAllTodos } from '@/lib/API/Database/todos/queries';
+import { TodosListT, TodoT } from '@/lib/types/todos';
 
 const TodoCard = ({ title, description, author }: TodoT) => {
   return (
@@ -19,18 +15,7 @@ const TodoCard = ({ title, description, author }: TodoT) => {
   );
 };
 
-const TodosList = () => {
-  const [todos, setTodos] = useState<TodoT[]>([]);
-
-  const GetTodos = async () => {
-    const res = await GetAllTodos();
-    setTodos(res?.data);
-  };
-
-  useEffect(() => {
-    GetTodos();
-  }, []);
-
+const TodosList = ({ todos }: TodosListT) => {
   return (
     <div>
       {todos.map((todo) => (

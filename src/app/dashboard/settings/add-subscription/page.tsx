@@ -50,7 +50,7 @@ const PriceCard = ({ product, handleSubscription, timeInterval }: PriceCardProps
 
   return (
     <Card
-      className={`flex flex-col items-center justify-center border mt-4 ${
+      className={`flex flex-col items-center justify-center border mt-4 bg-background-light dark:bg-background-dark ${
         plan.isPopular && 'border-blue-500 relative'
       }`}
     >
@@ -65,7 +65,7 @@ const PriceCard = ({ product, handleSubscription, timeInterval }: PriceCardProps
       </CardHeader>
       <CardContent className="flex flex-col items-center">
         <div className="flex flex-col items-center mt-2 mb-6">
-          <h4 className="text-5xl text-black font-bold">${plan?.price}</h4>
+          <h4 className="text-5xl font-bold">${plan?.price}</h4>
           <div className="text-sm font-medium text-muted-foreground">Billed {timeInterval}</div>
         </div>
         <ul className="flex flex-col space-y-4">
@@ -108,7 +108,7 @@ const PricingDisplay = () => {
 
   return (
     <div className=" flex flex-col">
-      <h4 className="text-xl text-black font-bold">Add Subscription</h4>
+      <h4 className="text-xl font-bold">Add Subscription</h4>
       <p className="text-sm font-medium text-muted-foreground mt-2 mb-4">
         Add a Subscription by choosing a plan below
       </p>

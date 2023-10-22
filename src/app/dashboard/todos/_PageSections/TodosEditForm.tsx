@@ -1,6 +1,9 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { todoFormSchema, todoFormValues } from '@/lib/types/validations';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
@@ -9,31 +12,39 @@ import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Icons } from '@/components/Icons';
-import { CreateTodo } from '@/lib/API/Database/todos/mutations';
+import { UpdateTodo } from '@/lib/API/Database/todos/Browser/mutations';
 import { toast } from 'react-toastify';
+import { TodoT } from '@/lib/types/todos';
 
-export default function TodosCreateForm() {
+interface EditFormProps {
+  todo: TodoT;
+}
+
+export default function TodosEditForm({ todo }: EditFormProps) {
+  const router = useRouter();
+
+  const { title, description, id } = todo;
+
   const form = useForm<todoFormValues>({
     resolver: zodResolver(todoFormSchema),
     defaultValues: {
-      title: '',
-      description: ''
+      title,
+      description
     }
   });
 
   const {
-    reset,
     register,
+    reset,
     setError,
-    formState: { isSubmitting }
+    formState: { isSubmitting, isSubmitted }
   } = form;
 
   const onSubmit = async (values: todoFormValues) => {
     const title = values.title;
     const description = values.description;
 
-    const props = { title, description };
-    const { error } = await CreateTodo(props);
+    const { error } = await UpdateTodo(id, title, description);
 
     if (error) {
       setError('title', {
@@ -44,15 +55,17 @@ export default function TodosCreateForm() {
     }
 
     reset({ title: '', description: '' });
-    toast.success('Todo Submitted');
+    toast.success('Todo Updated');
+    router.refresh();
+    router.push('/dashboard/todos/my-todos');
   };
 
   return (
     <div>
       <Card className="bg-background-light dark:bg-background-dark">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">New Todo</CardTitle>
-          <CardDescription>Create a Todo with Title and Description</CardDescription>
+          <CardTitle className="text-2xl">Update Todo</CardTitle>
+          <CardDescription>Update Todo with a new Title or Description</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -63,9 +76,10 @@ export default function TodosCreateForm() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormMessage /> <FormLabel>Title</FormLabel>
+                    <FormMessage />
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input {...register('title')} type="text" className="bg-background-light dark:bg-background-dark" {...field} />
+                      <Input {...register('title')} className="bg-background-light dark:bg-background-dark" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -77,13 +91,13 @@ export default function TodosCreateForm() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea className="bg-background-light dark:bg-background-dark" {...field} />
+                      <Textarea {...field} className="bg-background-light dark:bg-background-dark"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button disabled={isSubmitting} className="w-full">
+              <Button disabled={isSubmitting || isSubmitted} className="w-full">
                 {isSubmitting && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}Submit
               </Button>
             </form>

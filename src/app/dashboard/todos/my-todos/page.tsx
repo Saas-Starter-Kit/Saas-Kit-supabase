@@ -18,7 +18,7 @@ interface TodoCardProps extends TodoT {
 
 const TodoCard = ({ id, title, description, deleteTodo }: TodoCardProps) => {
   return (
-    <Card>
+    <Card className="bg-background-light dark:bg-background-dark">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

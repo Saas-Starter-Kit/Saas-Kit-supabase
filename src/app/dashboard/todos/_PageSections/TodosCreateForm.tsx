@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { todoFormSchema, todoFormValues } from '@/lib/types/validations';
 import { useForm } from 'react-hook-form';
@@ -9,10 +10,16 @@ import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Icons } from '@/components/Icons';
-import { CreateTodo } from '@/lib/API/Database/todos/mutations';
+import { CreateTodo } from '@/lib/API/Database/todos/Browser/mutations';
 import { toast } from 'react-toastify';
+import { User } from '@supabase/supabase-js';
 
-export default function TodosCreateForm() {
+interface TodosCreateFormProps {
+  user: User;
+  author: string;
+}
+
+export default function TodosCreateForm({ user, author }: TodosCreateFormProps) {
   const form = useForm<todoFormValues>({
     resolver: zodResolver(todoFormSchema),
     defaultValues: {
@@ -32,8 +39,9 @@ export default function TodosCreateForm() {
     const title = values.title;
     const description = values.description;
 
-    const props = { title, description };
-    const { error } = await CreateTodo(props);
+    const user_id = user?.id;
+
+    const { error } = await CreateTodo(title, description, user_id, author);
 
     if (error) {
       setError('title', {
@@ -49,7 +57,7 @@ export default function TodosCreateForm() {
 
   return (
     <div>
-      <Card className="bg-background-light dark:bg-background-dark">
+      <Card className='bg-background-light dark:bg-background-dark'>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">New Todo</CardTitle>
           <CardDescription>Create a Todo with Title and Description</CardDescription>
@@ -63,9 +71,10 @@ export default function TodosCreateForm() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormMessage /> <FormLabel>Title</FormLabel>
+                    <FormMessage /> 
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input {...register('title')} type="text" className="bg-background-light dark:bg-background-dark" {...field} />
+                      <Input {...register('title')} type="text" className='bg-background-light dark:bg-background-dark' {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -77,7 +86,7 @@ export default function TodosCreateForm() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea className="bg-background-light dark:bg-background-dark" {...field} />
+                      <Textarea className='bg-background-light dark:bg-background-dark' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -14,7 +14,7 @@ export default async function ProfileForm() {
 
   return (
     <div>
-      <Card>
+      <Card className="bg-background-light dark:bg-background-dark">
         <CardHeader>
           <CardTitle>Update Account</CardTitle>
           <CardDescription>Update Account display name, email and password</CardDescription>
