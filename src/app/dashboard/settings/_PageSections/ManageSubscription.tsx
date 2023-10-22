@@ -22,7 +22,7 @@ const ManageSubscription = ({ customer }: ManageSubProps) => {
 
   return (
     <div className="mt-6">
-      <Card>
+      <Card className="bg-background-light dark:bg-background-dark">
         <CardHeader>
           <CardTitle>Manage Subscription & Billing</CardTitle>
           <CardDescription>

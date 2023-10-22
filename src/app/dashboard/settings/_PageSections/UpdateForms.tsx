@@ -80,7 +80,7 @@ export const UpdateDisplayName = ({ display_name, user }: UpdateDisplayNameProps
                 <FormMessage className="py-2" />
                 <FormLabel>Display Name</FormLabel>
                 <FormControl>
-                  <Input {...register('display_name')} type="text" {...field} />
+                  <Input {...register('display_name')} className="bg-background-light dark:bg-background-dark" type="text" {...field} />
                 </FormControl>
                 <FormDescription>This is your public display name.</FormDescription>
               </FormItem>
@@ -148,7 +148,7 @@ export const UpdateEmail = ({ email, customer }: UpdateEmailPropsI) => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...register('email')} type="text" {...field} />
+                  <Input {...register('email')} className="bg-background-light dark:bg-background-dark" type="text" {...field} />
                 </FormControl>
                 <FormDescription>This is the email associated with your account</FormDescription>
                 <FormMessage />
@@ -204,7 +204,7 @@ export const UpdatePassword = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...register('password')} type="text" {...field} />
+                  <Input {...register('password')} className="bg-background-light dark:bg-background-dark" type="text" {...field} />
                 </FormControl>
                 <FormDescription>Update Account Password</FormDescription>
                 <FormMessage />
