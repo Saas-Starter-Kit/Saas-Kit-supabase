@@ -1,7 +1,7 @@
 'use server';
 
 import { SupabaseUser } from '@/lib/API/Services/supabase/user';
-import { GetProfileByUserId } from '@/lib/API/Database/profile/Server/queries';
+import { GetProfileByUserId } from '@/lib/API/Database/profile/queries';
 import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase/supabase';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';

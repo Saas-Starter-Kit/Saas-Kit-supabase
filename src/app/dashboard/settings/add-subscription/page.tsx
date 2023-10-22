@@ -14,8 +14,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Icons } from '@/components/Icons';
 import { Switch } from '@/components/ui/Switch';
-import { CreateStripeCheckoutSession } from '@/lib/API/Routes/stripe';
-import { User } from '@supabase/supabase-js';
+import { createCheckoutSession } from '@/lib/API/Services/stripe/session';
 import { ProductI } from '@/lib/types/types';
 import { IntervalE } from '@/lib/types/enums';
 
@@ -47,7 +46,7 @@ const PriceCard = ({ product, handleSubscription, timeInterval }: PriceCardProps
 
   useEffect(() => {
     setProductPlan();
-  }, [timeInterval, setProductPlan]);
+  }, [timeInterval]);
 
   return (
     <Card
@@ -86,11 +85,7 @@ const PriceCard = ({ product, handleSubscription, timeInterval }: PriceCardProps
   );
 };
 
-interface PricingDisplayProps {
-  user: User;
-}
-
-const PricingDisplay = ({ user }: PricingDisplayProps) => {
+const PricingDisplay = () => {
   const [timeInterval, setTimeInterval] = useState(IntervalE.MONTHLY);
 
   const { products } = configuration;
@@ -99,12 +94,11 @@ const PricingDisplay = ({ user }: PricingDisplayProps) => {
   const premium: ProductI = products[1];
 
   const router = useRouter();
-  const { id, email } = user;
 
   const handleSubscription = async (price: string) => {
-    const res = await CreateStripeCheckoutSession(price, id, email);
+    const res = await createCheckoutSession({ price });
 
-    router.push(res.data.url);
+    router.push(res.url);
   };
 
   const changeTimeInterval = () => {

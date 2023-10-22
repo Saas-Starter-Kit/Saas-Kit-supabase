@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { TodoT } from '@/lib/types/todos';
 import { GetTodoById } from '@/lib/API/Database/todos/queries';
 
-export default function TodosEditFormWrapper() {
+export default function TodosEditForm() {
   const router = useRouter();
   const params = useParams();
   const todo_id = params.id as string;

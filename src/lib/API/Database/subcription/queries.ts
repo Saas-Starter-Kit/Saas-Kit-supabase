@@ -1,3 +1,4 @@
+'use server';
 import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase/SupabaseServer';
 import { SubscriptionT } from '@/lib/types/supabase';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';

@@ -1,4 +1,4 @@
-'server only';
+'use server';
 
 import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase/SupabaseServer';
 import { SupabaseAuthError } from '@/lib/utils/error';

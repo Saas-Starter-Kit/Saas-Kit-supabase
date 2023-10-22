@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import {
   Form,
   FormControl,
@@ -18,7 +17,7 @@ import { toast } from 'react-toastify';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { SupabaseProfileUpdate } from '@/lib/API/Database/profile/Browser/mutations';
+import { SupabaseProfileUpdate } from '@/lib/API/Database/profile/mutations';
 import { SupabaseUpdateEmail, SupabaseUpdatePassword } from '@/lib/API/Services/supabase/auth';
 
 import {
@@ -30,7 +29,7 @@ import {
   UpdatePasswordFormValues
 } from '@/lib/types/validations';
 
-import { UpdateStripeCustomer } from '@/lib/API/Routes/stripe';
+import { UpdateStripeCustomerEmail } from '@/lib/API/Services/stripe/customer';
 import { User } from '@supabase/supabase-js';
 
 interface UpdateDisplayNamePropsI {
@@ -55,7 +54,9 @@ export const UpdateDisplayName = ({ display_name, user }: UpdateDisplayNameProps
   const handleSubmit = async (data: DisplayNameFormValues) => {
     const id = user.id;
     const display_name = data.display_name;
-    const error = await SupabaseProfileUpdate(id, display_name);
+
+    const props = { id, display_name };
+    const { error } = await SupabaseProfileUpdate(props);
 
     if (error) {
       setError('display_name', {
@@ -128,7 +129,8 @@ export const UpdateEmail = ({ email, customer }: UpdateEmailPropsI) => {
     }
 
     try {
-      await UpdateStripeCustomer(customer, email);
+      const props = { customer, email };
+      await UpdateStripeCustomerEmail(props);
     } catch (e) {
       toast.error('Stripe Update Failed, please contact support');
       throw e;
