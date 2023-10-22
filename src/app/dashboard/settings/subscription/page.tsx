@@ -12,8 +12,8 @@ export default async function Subscription() {
   const user = await SupabaseUser();
 
   const profile = await GetProfileByUserId(user?.id);
-  //const subscription_id = profile?.data?.[0]?.subscription_id;
-  const subscription_id = null;
+  const subscription_id = profile?.data?.[0]?.subscription_id;
+
   if (!subscription_id) redirect(config.redirects.toAddSub);
 
   let subscription: PostgrestSingleResponse<SubscriptionT[]>;

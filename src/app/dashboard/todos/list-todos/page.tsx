@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { TodoT } from '@/lib/types/todos';
 import { GetAllTodos } from '@/lib/API/Database/todos/queries';
+import useSWR from 'swr';
+import { toast } from 'react-toastify';
+import config from '@/lib/config/api';
 
 const TodoCard = ({ title, description, author }: TodoT) => {
   return (
@@ -20,20 +22,12 @@ const TodoCard = ({ title, description, author }: TodoT) => {
 };
 
 const TodosList = () => {
-  const [todos, setTodos] = useState<TodoT[]>([]);
-
-  const GetTodos = async () => {
-    const res = await GetAllTodos();
-    setTodos(res?.data);
-  };
-
-  useEffect(() => {
-    GetTodos();
-  }, []);
+  const { data, error } = useSWR(config.swrKeys.getAllTodos, GetAllTodos);
+  if (error) toast.error('Something Went Wrong, please try again');
 
   return (
     <div>
-      {todos.map((todo) => (
+      {data?.data?.map((todo) => (
         <TodoCard
           key={todo.title}
           title={todo.title}

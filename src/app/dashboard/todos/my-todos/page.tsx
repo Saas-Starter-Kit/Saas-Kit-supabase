@@ -1,16 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Card, CardDescription, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { DeleteTodo } from '@/lib/API/Database/todos/mutations';
 import { Button, buttonVariants } from '@/components/ui/Button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils/helpers';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
 import { TodoT } from '@/lib/types/todos';
 import { GetTodosByUserId } from '@/lib/API/Database/todos/queries';
 import useSWR, { useSWRConfig } from 'swr';
+import config from '@/lib/config/api';
 
 interface TodoCardProps extends TodoT {
   deleteTodo: (id: string) => Promise<void>;
@@ -39,8 +38,10 @@ const TodoCard = ({ id, title, description, deleteTodo }: TodoCardProps) => {
 };
 
 export default function MyTodos() {
-  const { data, error } = useSWR('GetTodos', GetTodosByUserId);
+  const { data, error } = useSWR(config.swrKeys.getMyTodos, GetTodosByUserId);
   const { mutate } = useSWRConfig();
+
+  if (error) toast.error('Something Went Wrong, please try again');
 
   const deleteTodo = async (id: string) => {
     const { error } = await DeleteTodo(id);
