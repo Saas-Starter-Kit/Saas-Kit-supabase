@@ -45,7 +45,7 @@ const PriceCard = ({ product, timeInterval }: PriceCardProps) => {
 
   useEffect(() => {
     setProductPlan();
-  }, [timeInterval, setProductPlan]);
+  }, [timeInterval]);
 
   return (
     <Card
