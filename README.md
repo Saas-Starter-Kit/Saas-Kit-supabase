@@ -1,22 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) SaaS boilerplate project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First, install the npm package and run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the front page by modifying `app/(marketing).tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+For the Supabase setup, please go to to supabase/migrations/20230927195226_remote_schema.sql. Copy the migration code and paste it in your supabase new project -> SQL Editor -> New Query -> Paste the code -> Run. 
+
+Remember to run the below code in your Supabase -> SQL Editor -> New Query in case authentication doesn't auto create a new user in your Profiles table database.
+
+```
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+```
 
 ## Learn More
 
