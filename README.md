@@ -24,6 +24,9 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
 ```
+## Authentication
+
+To setup your Google Login, you need to enable it in your Authentication -> Providers -> Google. Need to setup in Google Cloud Console
 
 ## Learn More
 
