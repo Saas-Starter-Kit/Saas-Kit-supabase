@@ -14,7 +14,7 @@ Reactjs, Nextjs, Typescript, Tailwind, Shadcn, Stripe, Supabase
 
 ## 🧿 Saas Starterkit Pro
 
-<h3>**Note: Saas Starterkit Pro uses Prisma</h3>
+<h3>**Note: Saas Starterkit Pro uses Prisma instead of Supabase</h3>
 
 Saas Starterkit also comes in a Pro version. Get premium marketing pages, multi-tenancy, roles and permissions, team invites, enhanced subscriptions with Lemon Squeezy, and more check it out here:
 <br />
