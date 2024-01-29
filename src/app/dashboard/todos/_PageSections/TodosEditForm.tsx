@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -12,7 +11,7 @@ import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Icons } from '@/components/Icons';
-import { UpdateTodo } from '@/lib/API/Database/todos/Browser/mutations';
+import { UpdateTodo } from '@/lib/API/Database/todos/mutations';
 import { toast } from 'react-toastify';
 import { TodoT } from '@/lib/types/todos';
 
@@ -43,8 +42,9 @@ export default function TodosEditForm({ todo }: EditFormProps) {
   const onSubmit = async (values: todoFormValues) => {
     const title = values.title;
     const description = values.description;
+    const props = { id, title, description };
 
-    const { error } = await UpdateTodo(id, title, description);
+    const { error } = await UpdateTodo(props);
 
     if (error) {
       setError('title', {
@@ -79,7 +79,11 @@ export default function TodosEditForm({ todo }: EditFormProps) {
                     <FormMessage />
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input {...register('title')} className="bg-background-light dark:bg-background-dark" {...field} />
+                      <Input
+                        {...register('title')}
+                        className="bg-background-light dark:bg-background-dark"
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -91,7 +95,10 @@ export default function TodosEditForm({ todo }: EditFormProps) {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea {...field} className="bg-background-light dark:bg-background-dark"/>
+                      <Textarea
+                        {...field}
+                        className="bg-background-light dark:bg-background-dark"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

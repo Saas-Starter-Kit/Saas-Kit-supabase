@@ -1,16 +1,8 @@
 import 'server-only';
-import { SupabaseRouteHandler as supabase } from '@/lib/API/Services/init/supabase/SupabaseRouteHandler';
+import { SupabaseServerClient as supabase } from '@/lib/API/Services/init/supabase';
 import Stripe from 'stripe';
 import { RetrieveSubscription } from './customer';
 import { StripeEvent } from '@/lib/types/stripe';
-
-const subscriptionStatusActive = { trailing: 'trailing', active: 'active' };
-const subscriptionStatusVoid = {
-  past_due: 'past_due',
-  canceled: 'canceled',
-  unpaid: 'unpaid',
-  incomplete_expired: 'incomplete_expired'
-};
 
 const WebhookEvents = {
   subscription_updated: 'customer.subscription.updated',
@@ -20,7 +12,7 @@ const WebhookEvents = {
 export const WebhookEventHandler = async (event: StripeEvent) => {
   // Handle the event
   switch (event.type) {
-    case WebhookEvents.checkout_session_completed:
+    case WebhookEvents.checkout_session_completed: {
       const session = event.data.object;
 
       const user_db_id = session.metadata.user_id;
@@ -52,52 +44,29 @@ export const WebhookEventHandler = async (event: StripeEvent) => {
 
       console.log('Stripe Customer Successfully Created');
       break;
-    case WebhookEvents.subscription_updated:
-      // refator for simplicity
-      // wat does previous_attributes look like for price update
+    }
+    case WebhookEvents.subscription_updated: {
+      // Incorrect infered type, need to override.
+      const subscription = event.data.object as unknown as Stripe.Subscription;
 
-      const subscriptionUpdate = event.data.object;
-      const UpdatedCols = Object.keys(event.data.previous_attributes);
+      const dataSub = {
+        id: subscription.id,
+        price_id: subscription.items.data[0].price.id,
+        status: subscription.status,
+        created_at: new Date(Date.now()).toString(),
+        period_starts_at: new Date(subscription.current_period_start * 1000).toString(),
+        period_ends_at: new Date(subscription.current_period_end * 1000).toString()
+      };
 
-      const validColumns = [
-        'price_id',
-        'status',
-        'created_at',
-        'period_starts_at',
-        'period_ends_at'
-      ];
+      const { error } = await supabase()
+        .from('subscriptions')
+        .update(dataSub)
+        .eq('id', subscription.id);
 
-      const validUpdatedCols = UpdatedCols.filter((element) => validColumns.includes(element));
-
-      let dataUpdate = {};
-      validUpdatedCols.map((item) => {
-        dataUpdate[item] = subscriptionUpdate[item];
-      });
-
-      let status;
-      if (UpdatedCols.includes('status')) {
-        const validStatus = [
-          ...Object.keys(subscriptionStatusActive),
-          ...Object.keys(subscriptionStatusVoid)
-        ];
-
-        if (validStatus.includes(subscriptionUpdate.status)) {
-          status = subscriptionUpdate.status;
-        }
-      }
-
-      if (status) dataUpdate['status'] = status;
-
-      if (Object.keys(dataUpdate).length !== 0) {
-        const { error } = await supabase()
-          .from('subscriptions')
-          .update(dataUpdate)
-          .eq('id', subscriptionUpdate.id);
-
-        if (error) throw error;
-      }
+      if (error) throw error;
 
       break;
+    }
     default:
       // Unexpected event type
       console.log(`Unhandled event type ${event.type}.`);

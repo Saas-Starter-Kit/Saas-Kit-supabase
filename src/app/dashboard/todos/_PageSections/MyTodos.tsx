@@ -1,13 +1,13 @@
 'use client';
 
 import { Card, CardDescription, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { DeleteTodo } from '@/lib/API/Database/todos/Browser/mutations';
+import { DeleteTodo } from '@/lib/API/Database/todos/mutations';
 import { Button, buttonVariants } from '@/components/ui/Button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils/helpers';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { TodoT, TodosListT } from '@/lib/types/todos';
+import { TodoT } from '@/lib/types/todos';
 
 const TodoCard = ({ id, title, description }: TodoT) => {
   const router = useRouter();
@@ -44,7 +44,7 @@ const TodoCard = ({ id, title, description }: TodoT) => {
   );
 };
 
-const MyTodos = ({ todos }: TodosListT) => {
+const MyTodos = ({ todos }) => {
   return (
     <div>
       {todos.map((todo) => (

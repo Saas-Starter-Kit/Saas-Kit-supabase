@@ -39,8 +39,9 @@ export default function TodosCreateForm({ user, author }: TodosCreateFormProps) 
     const description = values.description;
 
     const user_id = user?.id;
+    const props = { title, description, user_id, author };
 
-    const { error } = await CreateTodo(title, description, user_id, author);
+    const { error } = await CreateTodo(props);
 
     if (error) {
       setError('title', {
