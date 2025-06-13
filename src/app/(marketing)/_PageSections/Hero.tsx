@@ -23,11 +23,10 @@ export default function Hero() {
       <section className="py-8 px-4">
         <div className="flex flex-col items-center gap-4 text-center">
           <h1 className=" text-3xl md:text-7xl md:max-w-[54rem] ">
-            An example app built using Next.js 13 server components.
+            Build Your Dream Store with Ambition
           </h1>
           <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-            I&apos;m building a web app with Next.js 13 and open sourcing everything. Follow along
-            as we figure this out together.
+            Launch and grow your e-commerce business with Ambition.
           </p>
           <div className="space-x-4">
             <Link href="/login" className={cn(buttonVariants({ size: 'lg' }))}>
