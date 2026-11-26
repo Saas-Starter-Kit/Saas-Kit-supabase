@@ -60,4 +60,6 @@ Certain Features have to be disabled or cant be included in the demo.
 
 Pull requests are welcome.
 
+Pull requests that change the Supabase migrations run [RattleCheck](.github/workflows/rattlecheck.yml). It compares SQL permissions with the base branch and points to new high or critical findings at the migration line. The check reads committed files and needs no database credentials.
+
 Also If you like this project please ⭐️ the repo to show your support.
